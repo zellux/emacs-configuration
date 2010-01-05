@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002 David Ponce
 
-;; Author:  <wyx@myhost>
-;; Created: 2009-08-28 22:41:30+0800
+;; Author: Eric M. Ludlam <zappo@projectile>
+;; Created: 2009-02-28 15:19:34-0500
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
