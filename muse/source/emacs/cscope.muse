@@ -1,0 +1,51 @@
+#title cscope
+
+本文转载自[[http://pluskid.lifegoo.com/wiki/Emacs.html]]
+
+<contents>
+
+* 简介
+对于浏览源代码来说，在 Emacs 里面也有很多工具可用，比如自带的 etags 就不错，不过功能不如 Cscope 强大。 Cscope 并不像 etags 那样属于 Emacs ，它是一个独立的程序。它是一个具有完全 Unix 血统的程序，用于帮助开发人员浏览源代码。它最初(那还是 PDP-11 的时代)是由 Bell 实验室开发，并且多年以来一直是 AT&T Unix 商业发行版的一部分。它已经被用于管理超过两千万行代码的工程。在2000年4月，多亏了 Santa Cruz Operation, Inc. (SCO) ， Cscope 的源代码在 BSD license 下开放了源代码。
+
+Cscope 的发行包里面有个 xcscope.el 能很好地用于 (X)Emacs 。它处于源代码包的 contrib/xcscope 目录下。该目录下面还有一个名为 cscope-indexer 的脚本文件，用于处理源代码并不是在一个文件夹下面的情况。
+
+* 安装和配置
+首先到 Cscope 的主页 上去下载最新的源代码包，编译安装。要在 Emacs 里面使用，首先必须把 xcscope.el 拷贝到 load-path 里面包含的目录里面。并在 ~/.emacs 里面加上 (require 'xcscope) 就可以了，或者，如果你希望在打开 c 或者 c++ 文件的时候才加载 xcsope ，可以写：
+
+<src lang="lisp">
+(add-hook 'c-mode-common-hook
+	  '(lambda ()
+	    (require 'xcscope)))
+</src>
+
+如果源代码全部处于同一个目录下面，现在就可以使用了。否则，如果源代码有多层目录，或者其他地方还有附加的源代码，则需要 cscope-indexer 脚本。把那个脚本拷贝到系统 PATH 里面去(如 /usr/bin/)。如果所有的源代码以及子目录都是在同一个目录下面的，只要执行 C-c s I(cscope-index-files) 就可以生成 Cscope 的数据库，接下来就可以使用了。
+
+* 使用简介
+默认是的快捷键都是绑定到 C-c s 的前缀上面，如果嫌麻烦的话可以自己更改快捷键绑定。这是默认的用于查找的键绑定：
+
+<example>
+C-c s s         Find symbol.
+C-c s d         Find global definition.
+C-c s g         Find global definition (alternate binding).
+C-c s G         Find global definition without prompting.
+C-c s c         Find functions calling a function.
+C-c s C         Find called functions (list functions called from a function).
+C-c s t         Find text string.
+C-c s e         Find egrep pattern.
+C-c s f         Find a file.p
+C-c s i         Find files #including a file.
+</example>
+
+下面是在搜索到的结果之间切换用的快捷键：
+
+<example>
+C-c s b         Display *cscope* buffer.
+C-c s B         Auto display *cscope* buffer toggle.
+C-c s n         Next symbol.
+C-c s N         Next file.
+C-c s p         Previous symbol.
+C-c s P         Previous file.
+C-c s u         Pop mark.
+</example>
+
+更详细的使用说明请参见 xcscope.el 文件头部的注释。

@@ -1,0 +1,33 @@
+#title 为什么Python中的self必须保留？
+
+Bruce Eckel的一篇日志建议把self从方法的参数列表中移除，并把它作为一个关键字使用。
+http://www.artima.com/weblogs/viewpost.jsp?thread=239003
+
+Guido的这篇日志说明了self作为参数是必不可少的。
+http://neopythonic.blogspot.com/2008/10/why-explicit-self-has-to-stay.html
+
+第一个原因是保证foo.meth(arg)和C.meth(foo, arg)这两种方法调用的等价（foo是C的一个实例)，关于后者可以参见Python Reference Manual 3.4.2.3。这个原因理论上的意义比较大。
+
+第二个原因在于通过self参数我们可以动态修改一个类的行为：
+
+<src lang="python">
+# Define an empty class:
+class  C:
+    pass
+ 
+# Define a global function:
+def meth(myself, arg):
+    myself.val  =  arg
+    return  myself.val
+ 
+# Poke the method into the class:
+C.meth = meth
+</src>
+
+这样类C就新增了一个meth方法，并且所有C的实例都可以通过c.meth(newval)调用这个方法。
+
+前面两个原因或许都可以通过一些workaround使得不使用self参数时实现同样的效果，但是在存在decorator的代码中Bruce的方法存在致命的缺陷。(关于decorator的介绍可以参见http://www.python.org/dev/peps/pep-0318/)
+
+根据修饰对象，decorator分两种，类方法和静态方法。两者在语法上没有什么区别，但前者需要self参数，后者不需要。而Python在实现上也没有对这两种方法加以区分。Bruce日志评论中有一些试图解决decorator问题的方法，但这些方法都需要修改大量底层的实现。
+
+最后提到了另一种语法糖实现，新增一个名为classmethod的decorator，为每个方法加上一个self参数，当然这种实现也没必要把self作为关键字使用了。不过我觉得这么做还不如每次写类方法时手工加个self。

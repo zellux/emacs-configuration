@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>读核笔记</title>
+    <meta name="generator" content="Muse">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="stylesheet" type="text/css"charset="utf-8" media="all" href="../styles/common.css"  />
+  </head>
+
+<body>
+
+  <h1>读核笔记
+   <!-- menu start here -->
+     <div class="menu">
+        <div class="menuitem">
+          <a href="../home/index.html">Home</a>
+        </div>
+        <div class="menuitem">
+          <a href="../emacs/index.html">Emacs</a>
+        </div>
+        <div class="menuitem">
+          <a href="../complang/index.html">CompLang</a>
+        </div>
+        <div class="menuitem">
+          <a href="../study/index.html">Study</a>
+        </div>
+	<div class="menuitem">
+          <a href="../services/index.html">Services</a>
+        </div>
+	<div class="menuitem">
+          <a href="../home/link.html">Links</a>
+        </div>
+      </div>
+    <!-- menu ends here -->
+
+  </h1>
+
+
+  <!-- Page published by Emacs Muse begins here -->
+
+<div class="contents">
+<dl>
+<dt>
+<a href="#sec1">内存管理</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec2">64位体系结构的分页机制</a>
+</dt>
+<dt>
+<a href="#sec3">内核页表初始化</a>
+</dt>
+</dl>
+</dd>
+<dt>
+<a href="#sec4">CPU管理</a>
+</dt>
+<dd>
+<dl>
+<dt>
+<a href="#sec5">CPU Hotplug</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+<p>以Linux Kernel 2.6.11版本的源代码为主，源代码浏览<a href="http://lxr.linux.no/linux+v2.6.11/">http://lxr.linux.no/linux+v2.6.11/</a></p>
+
+<h2><a name="sec1" id="sec1"></a>
+内存管理</h2>
+
+<h3><a name="sec2" id="sec2"></a>
+64位体系结构的分页机制</h3>
+
+<p class="first">贴个不同64位平台下的页表参数，顺便试试muse的表格功能</p>
+
+<table class="muse-table" border="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Platform name</th>
+      <th>Page size</th>
+      <th>Number of address bits used</th>
+      <th>Number of paging levels</th>
+      <th>Linear address splitting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>alpha</td>
+      <td>8KB</td>
+      <td>43</td>
+      <td>3</td>
+      <td>10 + 10 + 10 + 13</td>
+    </tr>
+    <tr>
+      <td>ia64</td>
+      <td>4KB</td>
+      <td>39</td>
+      <td>3</td>
+      <td>9 + 9 + 9 + 12</td>
+    </tr>
+    <tr>
+      <td>ppc64</td>
+      <td>4KB</td>
+      <td>41</td>
+      <td>3</td>
+      <td>10 + 10 + 9 + 12</td>
+    </tr>
+    <tr>
+      <td>sh64</td>
+      <td>4KB</td>
+      <td>41</td>
+      <td>3</td>
+      <td>10 + 10 + 9 + 12</td>
+    </tr>
+    <tr>
+      <td>x86_64</td>
+      <td>4KB</td>
+      <td>48</td>
+      <td>4</td>
+      <td>9 + 9 + 9 + 9 + 12</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3><a name="sec3" id="sec3"></a>
+内核页表初始化</h3>
+
+<p class="first">主要参考了Understanding Linux Kernel和Understanding The Linux Virtual Memory Manager两本书。
+<h4>临时内核页表</h4></p>
+
+<p><a href="http://lxr.linux.no/linux+v2.6.11/arch/i386/kernel/head.S#L81">http://lxr.linux.no/linux+v2.6.11/arch/i386/kernel/head.S#L81</a></p>
+
+<p>阅读这段代码需要了解的几个知识点：</p>
+
+<ul>
+<li>__PAGE_OFFSET的值为0xC0000000，即进入保护模式后内核态空间的起始地址</li>
+<li>swapper_pg_dir是一个编译期初始化的数组，通过linker directives放在0x00101000</li>
+<li>stosl指令每次把eax的值保存到内存[es:edi]中，然后edi加4（df被置0的情况）</li>
+<li>loop指令每次执行时首先把ecx的值减1，如果ecx变成0，则循环结束；反之跳转到相应的地址</li>
+</ul>
+
+<p>从标号10开始的循环节负责新增一个PDE(Page Directory Entry)，把它设置为0和0xC0000000开始的两段地址对应的PDE，从而保证这些地址通过物理寻址和虚存寻址能获得同一个物理地址。之后通过一个stosl/loop循环设置PTE(Page Table Entry)。</p>
+
+<p>页表创建后，设置cr3，置上cr0的PG(paging)位，然后通过一次跳转(ljmp)来检查页表是否设置正确。</p>
+
+
+<h4>内核页表的最后生成</h4>
+
+<p class="first">内存小于896M的话，加上预留的128M空间后，不超过1G，整个物理内存都可以映射到内核空间中，实现起来比较容易。</p>
+
+<p>paging_init()-&gt;pagetable_init()-&gt;kernel_physical_mapping_init()
+最后一个函数把从0xC0000000到max_low_pfn * PAGE_SIZE对应的页表项设置为它们对应的物理地址（从0x0开始）</p>
+
+
+<h4>Fix-Mapped Linear Addresses</h4>
+
+<p class="first">fix-mapped linear address指的是一些固定的地址（如0xfff</p>
+
+
+
+
+<h2><a name="sec4" id="sec4"></a>
+CPU管理</h2>
+
+<h3><a name="sec5" id="sec5"></a>
+CPU Hotplug</h3>
+
+<p class="first">以下是我参考阅读了Documentation/cpu-hotplug.txt和源码后的总结：</p>
+
+<h4>使用CPU Hotplug</h4>
+
+<p class="first">在/sys/devices/system/cpu下有这么几个文件（以我的寝室电脑为例）
+total 0
+drwxr-xr-x 5 root root    0 2009-03-03 09:05 cpu0
+drwxr-xr-x 5 root root    0 2009-03-03 09:51 cpu1
+drwxr-xr-x 2 root root    0 2009-03-03 09:51 cpuidle
+-r&mdash;r&mdash;r&mdash; 1 root root 4096 2009-03-03 09:51 online
+-r&mdash;r&mdash;r&mdash; 1 root root 4096 2009-03-03 09:51 possible
+-r&mdash;r&mdash;r&mdash; 1 root root 4096 2009-03-03 09:51 present
+-rw-r&mdash;r&mdash; 1 root root 4096 2009-03-03 09:51 sched_mc_power_savings</p>
+
+<p>这里每个cpu#目录下都有一个online文件（有些平台下cpu0无法被禁用，因此没有cpu0/online）
+要禁用某个cpu的话，只要运行</p>
+
+<pre class="example">
+# echo 0 &gt; /sys/devices/system/cpu/cpu#/online
+</pre>
+即可。然后在/proc/interrups中就看不到刚才禁用的那个cpu了。
+
+
+<h4>内核实现</h4>
+
+<p class="first">以下部分代码参考的是linux-2.6.18-xen-3.3.0的源码，假设在编译选项中打开了CONFIG_HOTPLUG_CPU
+和CONFIG_ACIP_HOTPLUG_CPU，平台为x86_64。</p>
+
+<p>include/linux/cpumask.h中定义了三个cpumask_t变量记录当前的cpu情况，以及三个用来遍历的宏：</p>
+
+<pre class="src">
+<span style="color: #ff5f00;">/*</span><span style="color: #ff5f00;">
+ *     cpu_possible_map - has bit 'cpu' set iff cpu is populatable
+ *     cpu_present_map  - has bit 'cpu' set iff cpu is populated
+ *     cpu_online_map   - has bit 'cpu' set iff cpu available to scheduler
+ </span><span style="color: #ff5f00;">*/</span>
+
+<span style="color: #00cdcd;">extern</span> <span style="color: #87ff87;">cpumask_t</span> <span style="color: #ffd787;">cpu_possible_map</span>;
+<span style="color: #00cdcd;">extern</span> <span style="color: #87ff87;">cpumask_t</span> <span style="color: #ffd787;">cpu_online_map</span>;
+<span style="color: #00cdcd;">extern</span> <span style="color: #87ff87;">cpumask_t</span> <span style="color: #ffd787;">cpu_present_map</span>;
+
+<span style="color: #afd7d7;">#define</span> <span style="color: #87d7ff;">for_each_possible_cpu</span>(<span style="color: #ffd787;">cpu</span>)  for_each_cpu_mask((cpu), cpu_possible_map)
+<span style="color: #afd7d7;">#define</span> <span style="color: #87d7ff;">for_each_online_cpu</span>(<span style="color: #ffd787;">cpu</span>)  for_each_cpu_mask((cpu), cpu_online_map)
+<span style="color: #afd7d7;">#define</span> <span style="color: #87d7ff;">for_each_present_cpu</span>(<span style="color: #ffd787;">cpu</span>) for_each_cpu_mask((cpu), cpu_present_map)
+</pre>
+
+<p>接下来kernel/cpu.c中的cpu_down完成了禁用的主要工作，主要分下面几步：</p>
+
+<ol>
+<li>加锁，并判断是否允许禁用这个cpu（比如检查当前可用cpu是否只有一个等）</li>
+<li>调用blocking_notifier_call_chain()发送CPU_DOWN_PREPARE消息给所有的cpu</li>
+<li>调用set_cpus_allowed()，把待移除cpu上正在运行的进程转移到其他的可用cpu上。</li>
+<li>调用__stop_machine_run()-&gt;take_cpu_down()，__stop_machine_run会暂停当前所有cpu的运行，并在指定的cpu上运行指定的函数。</li>
+<li>调用__cpu_disable()完成以下任务
+
+<ol>
+<li>清除本地APIC</li>
+<li>先启用本地irq，等待1毫秒后禁用本地irq。通过这种tricky的方式使得队列中的timer interrupt得以运行</li>
+<li>remove_siblinginfo()</li>
+<li>从cpu_online_map中移除这个cpu</li>
+</ol></li>
+</ol>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<p>
+<center>
+最后更新：
+2009-04-05 16:11:12
+</center>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2241833-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+

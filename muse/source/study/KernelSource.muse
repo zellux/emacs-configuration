@@ -1,0 +1,92 @@
+#title 读核笔记
+
+<contents> 
+
+以Linux Kernel 2.6.11版本的源代码为主，源代码浏览[[http://lxr.linux.no/linux+v2.6.11/]]
+
+* 内存管理
+** 64位体系结构的分页机制
+贴个不同64位平台下的页表参数，顺便试试muse的表格功能
+Platform name || Page size || Number of address bits used || Number of paging levels || Linear address splitting
+
+alpha | 8KB | 43 | 3 | 10 + 10 + 10 + 13
+ia64 | 4KB | 39 | 3 | 9 + 9 + 9 + 12
+ppc64 | 4KB | 41 | 3 | 10 + 10 + 9 + 12
+sh64 | 4KB | 41 | 3 | 10 + 10 + 9 + 12
+x86_64 | 4KB | 48 | 4 | 9 + 9 + 9 + 9 + 12
+
+** 内核页表初始化
+主要参考了Understanding Linux Kernel和Understanding The Linux Virtual Memory Manager两本书。
+*** 临时内核页表
+[[http://lxr.linux.no/linux+v2.6.11/arch/i386/kernel/head.S#L81]]
+
+阅读这段代码需要了解的几个知识点：
+ - __PAGE_OFFSET的值为0xC0000000，即进入保护模式后内核态空间的起始地址
+ - swapper_pg_dir是一个编译期初始化的数组，通过linker directives放在0x00101000
+ - stosl指令每次把eax的值保存到内存[es:edi]中，然后edi加4（df被置0的情况）
+ - loop指令每次执行时首先把ecx的值减1，如果ecx变成0，则循环结束；反之跳转到相应的地址
+
+从标号10开始的循环节负责新增一个PDE(Page Directory Entry)，把它设置为0和0xC0000000开始的两段地址对应的PDE，从而保证这些地址通过物理寻址和虚存寻址能获得同一个物理地址。之后通过一个stosl/loop循环设置PTE(Page Table Entry)。
+
+页表创建后，设置cr3，置上cr0的PG(paging)位，然后通过一次跳转(ljmp)来检查页表是否设置正确。
+
+*** 内核页表的最后生成
+内存小于896M的话，加上预留的128M空间后，不超过1G，整个物理内存都可以映射到内核空间中，实现起来比较容易。
+
+paging_init()->pagetable_init()->kernel_physical_mapping_init() 
+最后一个函数把从0xC0000000到max_low_pfn * PAGE_SIZE对应的页表项设置为它们对应的物理地址（从0x0开始）
+
+*** Fix-Mapped Linear Addresses
+fix-mapped linear address指的是一些固定的地址（如0xfff
+
+* CPU管理
+** CPU Hotplug
+以下是我参考阅读了Documentation/cpu-hotplug.txt和源码后的总结：
+
+*** 使用CPU Hotplug
+在/sys/devices/system/cpu下有这么几个文件（以我的寝室电脑为例）
+total 0
+drwxr-xr-x 5 root root    0 2009-03-03 09:05 cpu0
+drwxr-xr-x 5 root root    0 2009-03-03 09:51 cpu1
+drwxr-xr-x 2 root root    0 2009-03-03 09:51 cpuidle
+-r--r--r-- 1 root root 4096 2009-03-03 09:51 online
+-r--r--r-- 1 root root 4096 2009-03-03 09:51 possible
+-r--r--r-- 1 root root 4096 2009-03-03 09:51 present
+-rw-r--r-- 1 root root 4096 2009-03-03 09:51 sched_mc_power_savings
+
+这里每个cpu#目录下都有一个online文件（有些平台下cpu0无法被禁用，因此没有cpu0/online）
+要禁用某个cpu的话，只要运行
+<example># echo 0 > /sys/devices/system/cpu/cpu#/online</example>
+即可。然后在/proc/interrups中就看不到刚才禁用的那个cpu了。
+
+*** 内核实现
+以下部分代码参考的是linux-2.6.18-xen-3.3.0的源码，假设在编译选项中打开了CONFIG_HOTPLUG_CPU
+和CONFIG_ACIP_HOTPLUG_CPU，平台为x86_64。
+
+include/linux/cpumask.h中定义了三个cpumask_t变量记录当前的cpu情况，以及三个用来遍历的宏：
+<src lang="c">
+/*
+ *     cpu_possible_map - has bit 'cpu' set iff cpu is populatable
+ *     cpu_present_map  - has bit 'cpu' set iff cpu is populated
+ *     cpu_online_map   - has bit 'cpu' set iff cpu available to scheduler
+ */
+
+extern cpumask_t cpu_possible_map;
+extern cpumask_t cpu_online_map;
+extern cpumask_t cpu_present_map;
+
+#define for_each_possible_cpu(cpu)  for_each_cpu_mask((cpu), cpu_possible_map)
+#define for_each_online_cpu(cpu)  for_each_cpu_mask((cpu), cpu_online_map)
+#define for_each_present_cpu(cpu) for_each_cpu_mask((cpu), cpu_present_map)
+</src>
+
+接下来kernel/cpu.c中的cpu_down完成了禁用的主要工作，主要分下面几步：
+ 1. 加锁，并判断是否允许禁用这个cpu（比如检查当前可用cpu是否只有一个等）
+ 2. 调用blocking_notifier_call_chain()发送CPU_DOWN_PREPARE消息给所有的cpu
+ 3. 调用set_cpus_allowed()，把待移除cpu上正在运行的进程转移到其他的可用cpu上。
+ 4. 调用__stop_machine_run()->take_cpu_down()，__stop_machine_run会暂停当前所有cpu的运行，并在指定的cpu上运行指定的函数。
+ 5. 调用__cpu_disable()完成以下任务
+   1. 清除本地APIC
+   2. 先启用本地irq，等待1毫秒后禁用本地irq。通过这种tricky的方式使得队列中的timer interrupt得以运行
+   3. remove_siblinginfo()
+   4. 从cpu_online_map中移除这个cpu

@@ -1,0 +1,5 @@
+#title 阅读笔记 - EuroSys
+
+* EuroSys '08
+** Solitude: Application-level isolation and recovery with solitude
+引入一个新的文件系统层(Isolation File System)将安全可信的基础文件系统和不可信的环境（如网上下载的文件等）隔离开来，并对不可信的环境中做出的改动加以记录，一旦发现问题就能通过日志即时恢复。

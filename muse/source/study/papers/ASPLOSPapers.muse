@@ -1,0 +1,36 @@
+#title 阅读笔记 - ASPLOS
+
+* ASPLOS '09
+** Recovery Domains: An Organizing Principle for Recoverable Operating Systems
+UIUC的paper。
+
+kernel里包含不少潜在的安全漏洞，如DOS攻击利用的MCAST MSFILTER integer overflow bug，
+这篇paper提出了一个Akeso系统，其目的在于侦测到此类漏洞时能回滚当前所做的修改，
+即把一个函数或是一段代码看成一个transaction，出错时就rollback。 
+Akeso实现在Linux Kernel上，借助了LLVM的intrumentation。
+
+2008.2
+
+** CTrigger: Exposing Atomicity Violation Bugs from Their Hiding Places
+UIUC, Yuanyuan Zhou.
+
+提到了[[StudyNotes::OSDIPaper#chess-08][CHESS]]这个同样是用于检测并发编程时隐匿的bug的工具，然后指出它的不足在于interleaving的
+搜索空间太大，关于程序的规模成指数级别增长。这个CTrigger关注的主要是那些平时不容易被发现的
+interleaving，称之为unserializable interleaving，即不等价于任何连续的相关指令的情形。paper
+通过对几个程序的测试得出常见的并发bug都是在这种情况下发生的，而这种情况出现的概率很低。于是
+强制延迟当前访存的，先等待一个较远的访存指令的执行，就能使这些低概率的interleaving暴露出来。
+
+大致应该是这个思想。
+
+2008.2
+
+* ASPLOS '08
+** Streamware: programming general-purpose multicore processors using streams
+提出了一个通用的多核平台，支持Cell CUDA Brook等多种体系结构，用户只需使用这个平台统一提供的API。
+
+另外还加入了cache hierarchy的管理，能很好的安排各级cache保存的内容，
+以至于某个测试结果中单核的情况下用了Streamware的程序比不用的程序跑得还快 
+
+http://docs.google.com/Presentation?id=dcjk4xx7_413dz3q29d4
+
+2008.4

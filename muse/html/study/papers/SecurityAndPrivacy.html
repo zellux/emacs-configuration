@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>阅读笔记 - S&P</title>
+    <meta name="generator" content="Muse">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="stylesheet" type="text/css"charset="utf-8" media="all" href="../../styles/common.css"  />
+  </head>
+
+<body>
+
+  <h1>阅读笔记 - S&P
+   <!-- menu start here -->
+     <div class="menu">
+        <div class="menuitem">
+          <a href="../../home/index.html">Home</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../emacs/index.html">Emacs</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../complang/index.html">CompLang</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../study/index.html">Study</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../services/index.html">Services</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../home/link.html">Links</a>
+        </div>
+      </div>
+    <!-- menu ends here -->
+
+  </h1>
+
+
+  <!-- Page published by Emacs Muse begins here -->
+
+<h2>S&amp;P '06</h2>
+
+<h3>SubVirt: implementing malware with virtual machines</h3>
+
+<p class="first">作者来自密西根大学和微软研究院。</p>
+
+<p>一个利用虚拟机进行攻击的rootkit，这篇和<a href="HotOSPapers.html#vmmdetection">Compatibility is Not Transparency: VMM Detection Myths and Realities</a>联系起来看会比较有意思。</p>
+
+<h4>1. Introduction</h4>
+
+<p class="first">传统的攻击程序通常和安全工具（杀毒软件等）在同一个级别上（kernel mode），两者间没有绝对优势可言，因此有很大的限制，比如强大的功能和良好的隐蔽性不能兼得。而虚拟机的出现则可以解决这个问题，通过把恶意程序放在虚拟机上，可以做到对目标机(guest os)的完全监控，同时目标机完全不会知情。这种程序称为VMBR(virtual-machine based rootkit)。</p>
+
+
+<h4>2. Virtual machines</h4>
+
+<p class="first">VMM(virtual-machine monitor)这里就不多介绍了。VMM上跑着一些其他服务进程，主要用于操作系统的debug，运行中的虚拟机的迁移等功能。这些服务的主要面临的一个问题是理解对应的guest os状态和事件。因为在VMM和虚拟机处在不同的抽象级别，前者只能看到磁盘块(disk blocks)，网络包(network packets)，以及内存；而后者则把这些东西抽象为例如文件、TCP连接、变量等概念，这种差异称为语义差异(semantic gap)。</p>
+
+<p>于是有了Virutal-machine introspection(VMI)，它包含了一系列让VMM上的服务了解并修改guest os的技术。</p>
+
+
+<h4>3. Virtual-machine based rootkit design and implementation</h4>
+
+<h5>3.1 Installation</h5>
+
+<p>VMBR的安装和一般病毒程序类似，通过欺骗有管理员权限的用户执行安装程序实现。</p>
+
+<p>当目标机是WinXP时，VMBR被安装在第一个活动分区的开始部分；目标机是Linux时，安装程序会禁止swap分区，把VMBR放在swap分区上（够狠的。。。）</p>
+
+<p>修改系统引导信息的时候还有一个细节，直接修改容易被安全检查程序发现。WinXP上的一种解决方案就是尽可能的在所有程序退出之后再修改（通过注册一个 LastChanceShutdownNotification事件处理器），并且使用底层的磁盘驱动进行VMBR启动代码的复制，这样可以绕过文件系统层，而大多数反病毒软件都跑在文件系统层上。Linux上，通过修改关机脚本来保证安装程序在其他程序退出后执行。</p>
+
+<p>安装完成后，目标系统的内容就被保存到了一个虚拟磁盘上。重启后就由VMM控制最底层，它把目标机的对虚拟磁盘的访问转换为对应的物理磁盘的访问。</p>
+
+
+<h5>3.2 Malicious services</h5>
+
+<p>VMBR使用一个独立的系统执行各种攻击程序，这样目标机就无法察觉到了。对目标系统的攻击主要分三种：</p>
+
+<p>一种是不需要和目标系统进行交互的恶意服务，例如垃圾电子邮件的发送(spam relays)，DDoS攻击，网络钓鱼(phishing web servers)。</p>
+
+<p>第二种恶意服务需要监视目标系统的数据和事件。通过修改VMM的设备模拟软件就能记录下所有硬件级的数据（比如按键信息、网络包等），而这个过程不需要修改guest os，所以目标系统完全不知情。</p>
+
+<p>VMBR 还可以用VMI帮助理解目标系统软件级的抽象信息，VMI可以中断目标系统的任意指令，并重新组织数据。例如一个目标应用程序将要使用一个加密的 socket发送信息，攻击者可以截获所有的SSL write函数调用并且在明文被加密前得到它。同样这个过程对目标系统完全透明，因为攻击程序跑在它的外层，或者说是“上帝”层 ;-)</p>
+
+<p>第三种攻击是恶意修改目标系统的执行。例如篡改网络通讯，删除email，改变目标应用程序的行为。</p>
+
+
+<h5>3.3 Example malicious services</h5>
+
+<p>下面介绍这篇paper提到的4个恶意程序</p>
+
+<p>最简单的，开了个thttpd web服务器进行网络钓鱼，任何发送到8080端口的TCP请求都会被这个服务器截获。</p>
+
+<p>然后是一个按键记录程序，号称只用了60行代码就搞定了这个模块，然后写了一个254行的带图形界面的程序来分析日志并显示。</p>
+
+<p>一个扫描目标机文件系统的程序，这是一个24小时运行的perl脚本，会把诸如/etc/shadow, user_home/.ssh/id_dsa之类的机密信息保存下来。</p>
+
+<p>最后是防止VMM被目标机侦测到的一个服务。paper中提到了一种叫做redpill的虚拟机侦测手段，通过使用sidt指令。这个指令会读出处理器的中断列表(interrupt descritor table)，在VMM上跑的系统和普通的操作系统读出来的结果不一样，当这个指令在内核态被执行时，VMM会模拟这个指令的执行；但是用户态却不会被截获（考虑到性能因素）。所以redpill通过用户态执行sidt来判断当前系统是否运行在虚拟机上。这篇paper提到的针对redpill的解决方案是在每个可执行文件的sidt指令前设置一个断点，截获这个指令后就模拟这个指令，以此绕过redpill检测。但是这种方法不适合于在程序运行期动态生成二进制的sidt指令的程序（想到我的lab4了，呵呵）。道高一丈魔高一尺（原文是Continuing the arms race，军备战争），通过二进制转换(binary translation)，动态生成的sidt同样可以被截获，但是这种方法的overhead会很大。</p>
+
+
+<h5>3.4 Maintaining Control</h5>
+
+<p>这块主要讲了对系统重启、关闭的处理。</p>
+
+<p>系统要求重启时，VMBR总是尽可能的通过重启guest os来完成，这样就能最大化的掌握控制权。</p>
+
+<p>另外通过ACPI模拟系统关闭也可以欺骗使用者。这种模式下硬盘、风扇停止，RAM仍然上电，下一次开机后可以恢复到上一次关机的状态，于是VMBR继续在第一时间掌握控制权。</p>
+
+
+
+<h4>4. Evaluation</h4>
+
+<p class="first">测试下来开机、重启的速度都慢了不少。不过很正常，因为用的是Virtual PC和VMWare。</p>
+
+<p>不过随着虚拟技术的发展，对系统性能的影响肯定越来越小的（比如Xen），这篇paper关键在于占了个坑，至少现在看来实用性还很差。</p>
+
+
+<h4>5. Defending against virtual-machine based rootkits</h4>
+
+<h5>5.1 Security software below the VMBR</h5>
+
+<p>比 VMBR更低的层次就很容易检测到VMBR了。比如硬件级别的安全支持(Intel LaGrande)，或者CDROM启动（注意这里首先要冷重启，否则说不准虚拟机给你模拟CDROM启动了），还可以先装个安全的VMM，即使收到 VMBR攻击，VMBR也只能在安全的VMM和操作系统之间那层运行。</p>
+
+
+
+<h5>5.2 Security software above the VMBR</h5>
+
+<p>在VMBR上层要检测就有一定技术难度了。</p>
+
+<p>一种基本的方法是利用CPU时间、内存上限、硬盘上限、网络带快来测定。</p>
+
+<p>VMBR的存在必定会影响到CPU的表观性能，通过这种时间上的差异就能发现问题。不过VMBR可以通过放慢系统时钟返回的时间来欺骗目标机，对于这种欺骗，测试人员可以使用其他的不可控的计时工具（比如手表 -_-b）</p>
+
+<p>另外硬盘、内存上限都会因为VMBR的存在而变小。后者很难侦查到，因为有一层虚拟内存。而针对前者的检测，VMBR可以截获对它占用的地址的访问，然后返回一些随机的信息，让guest os以为那是坏扇区从而躲过检查。所以这招不怎么好用。</p>
+
+<p>另外由于性能考虑，并不是所有的硬件都是被迷你的，通常只有需要保护的设备（比如启动盘）和需要攻击的设备（比如网卡）被虚拟化，其他的硬件都是guest os直连的，这样就只需要在这些未被虚拟化的硬件上做一个DMA，把物理内存中的部分信息读过来就能分析了（通过这个貌似可以对同一个物理机上的其他虚拟机进行攻击啊）</p>
+
+<p>另外一种方法就是前面的提到的通过sidt指令了。</p>
+
+
+
+<h4>6. Trends toward virtualization</h4>
+
+<p class="first">略</p>
+
+
+<h4>7. Related work</h4>
+
+<p class="first">略</p>
+
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<p>
+<center>
+最后更新：
+2009-03-18 15:01:24
+</center>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2241833-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+

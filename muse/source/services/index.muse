@@ -1,0 +1,40 @@
+#title 校内公共服务
+
+服务器刚重装，服务恢复中…………
+
+* Public Services
+** AA DotA ID 关联度查询 [[http://10.132.140.73/dota/ih.html]]
+通过AA平台的HTML战报绘制的AA DotA ID关联图
+ 
+** FTP 搜索引擎 [[http://10.132.140.73/sf]]
+专用于Forever联盟影视搜索。关于Forever联盟的具体情况，请访问日月光华BBS的NR_Movies版。
+
+** PvPGN [[http://10.132.140.73/bn]]
+校内星际和魔兽3的联网平台
+
+** FTP [[ftp://10.132.140.73]]
+公共FTP
+
+* Programming
+** Linux Cross Reference [[http://10.132.140.73/lxr/http/source]]
+使用Glimpse+lxr搭建的源码阅读工具。源码版本为 Linux Kernel 2.6.22.7。
+
+** Subversion [[http://10.132.140.73/svn]]
+项目版本管理
+
+** trac [[http://10.132.140.73/trac]]
+项目管理平台
+
+* Blog
+** Snowdream [[http://10.132.140.73/wordpress]]
+我的校内博客，基于wordpress。
+
+* Wiki
+** MediaWiki [[http://10.132.140.73/wiki]]
+
+
+本页最后更新： <lisp>
+                (format-time-string "%4Y-%2m-%2d")
+              </lisp>
+
+由[[http://mwolson.org/projects/EmacsMuse.html][Emacs Muse]]创建

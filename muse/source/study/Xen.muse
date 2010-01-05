@@ -1,0 +1,45 @@
+#title Xen - the Art of Virtualization
+
+* 学习笔记
+** Xen 3.3.1在ArchLinux上的编译和安装
+ 1. 安装几个必需的包：
+<example>
+pacman bridge-utils e2fsprogs iproute python sdl zlib 
+pacman mercurial patch
+</example>
+
+ 2. 运行make world进行一次完整的编译，它会清理上次编译残留的中间文件并开始一次全新的编译。
+
+以下除特殊说明部分，都是指Xen的para-virtualization部分。
+ - 几个名词
+   - domain: 它和guest os的关系相当于进程(process和程序(program)的关系
+
+** 内存管理
+由于x86没有software-managed TLB支持，也没有TLB tag，地址空间的切换会清空整个TLB。所以为了性能考虑，Xen里面guest os直接负责管理硬件的page table，Xen仅负责对它的安全性检查；同时Xen驻留在所有地址空间的最高的64M区域里，这样就防止了进入/退出hypervisor时的TLB flush。
+
+Xen为每个machine page frame关联了一个类型，包括PD, PT, LDT, GDT或者是RW(read/write)，每个frame只能有一种类型，从而保证了可写的页必定不是PT或是其他特殊的页面。当guest os指定某个页面用作page table时，Xen对这个页面做一次全面的检查，通过后就把它的类型设置为PD/PT，从而以后再使用这个页面时就不需要做多余的检查了。另外还有一个优化，因为guest os修改页表后通常会刷新TLB，因此先让它一次性本地修改完成，然后在执行刷新TLB的指令时再进行处理即可。
+
+** CPU管理
+x86上，Xen跑在ring 0，guest os在ring 1，application在ring 3
+
+** IO设备
+
+* 源码阅读
+** include/asm-x86/Config.h
+x86中保留的64M内存的使用情况
+<src lang="c">
+/*
+ * Memory layout (high to low):                          SIZE   PAE-SIZE
+ *                                                       ------ ------
+ *  I/O remapping area                                   ( 4MB)
+ *  Direct-map (1:1) area [Xen code/data/heap]           (12MB)
+ *  Per-domain mappings (inc. 4MB map_domain_page cache) ( 8MB)
+ *  Shadow linear pagetable                              ( 4MB) ( 8MB)
+ *  Guest linear pagetable                               ( 4MB) ( 8MB)
+ *  Machine-to-physical translation table [writable]     ( 4MB) (16MB)
+ *  Frame-info table                                     (24MB) (96MB)
+ *   * Start of guest inaccessible area
+ *  Machine-to-physical translation table [read-only]    ( 4MB) (16MB)
+ *   * Start of guest unmodifiable area
+ */
+</src>

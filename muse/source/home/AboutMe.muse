@@ -1,0 +1,24 @@
+#title About Me
+
+; * Research interests
+; - Virtualization
+; - Operating Systems
+; - Compilers
+
+; * Interests
+; - Computer Games: StarCraft, DotA, etc.
+; - Movies: especially those directed by Christopher Nolan and Quentin Tarantino
+
+* Awards
+ - 2nd Place (Starcraft 1v1) - 2006 Fudan Esports Games
+ - 1st Place (Dota Allstars) - 2008 Zhangjiang Campus Esports Games
+   
+* Links
+ - My tech blog:
+  - [[http://www.blogjava.net/zellux]] (deprecated)
+  - [[http://techblog.zellux.czm.cn/]]
+
+* Contact Me
+ - Wang Yuanxuan, Parallel Processing Institute, Fudan University
+ - E-mail: zellux at gmail(hotmail)
+

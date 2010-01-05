@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Python中inner function的binding处理</title>
+    <meta name="generator" content="Muse">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="stylesheet" type="text/css"charset="utf-8" media="all" href="../../styles/common.css"  />
+  </head>
+
+<body>
+
+  <h1>Python中inner function的binding处理
+   <!-- menu start here -->
+     <div class="menu">
+        <div class="menuitem">
+          <a href="../../home/index.html">Home</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../emacs/index.html">Emacs</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../complang/index.html">CompLang</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../study/index.html">Study</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../services/index.html">Services</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../home/link.html">Links</a>
+        </div>
+      </div>
+    <!-- menu ends here -->
+
+  </h1>
+
+
+  <!-- Page published by Emacs Muse begins here -->
+
+<p>BBS上的一个帖子，问题是</p>
+
+<pre class="src">
+<span style="color: #00cdcd;">def</span> <span style="color: #87d7ff;">a</span>():
+    <span style="color: #00cdcd;">def</span> <span style="color: #87d7ff;">b</span>():
+        x += 1
+
+    x = 1
+    <span style="color: #00cdcd;">print</span> <span style="color: #ffaf87;">"a: "</span>, x
+    b()
+    <span style="color: #00cdcd;">print</span> <span style="color: #ffaf87;">"b: "</span>, x
+
+<span style="color: #00cdcd;">def</span> <span style="color: #87d7ff;">c</span>():
+    <span style="color: #00cdcd;">def</span> <span style="color: #87d7ff;">d</span>():
+        x[0] = [4]
+    x = [3]
+    <span style="color: #00cdcd;">print</span> <span style="color: #ffaf87;">"c: "</span>, x[0]
+    d()
+    <span style="color: #00cdcd;">print</span> <span style="color: #ffaf87;">"d: "</span>, x[0]
+</pre>
+
+<p>运行a()会报UnboundLocalError: local variable ‘x’ referenced before assignment
+但是运行c()会正确地显示3和4。</p>
+
+<p>原因在于原因在于CPython实现closure的方式和常见的functional language不同，采用了flat closures实现。</p>
+
+<p>“If a name is bound anywhere within a code block, all uses of the name within the block are treated as references to the current block.”</p>
+
+<p>在第一个例子中，b函数x += 1对x进行赋值，rebind了这个对象，于是Python查找x的时候只会在local environment中搜索，于是就有了UnboundLocalError。</p>
+
+<p>换句话说，如果没有修改这个值，比如b中仅仅简单的输出了x，程序是可以正常运行的，因为此时搜索的范围是nearest enclosing function region。</p>
+
+<p>而d方法并没有rebind x变量，只是修改了x指向的对象的值而已。如果把赋值语句改成x = <sup><a class="footref" name="fnr.4" href="#fn.4">4</a></sup>，那么结果就和原来不一样了，因为此时发生了x的rebind。</p>
+
+<p>所以Python中的closure可以理解为是只读的。</p>
+
+<p>另外第二个例子也是这篇文章中提到的一种workaround：把要通过inner function修改的变量包装到数组里，然后在inner function中访问这个数组。</p>
+
+<p>至于为什么Python中enclosed function不能修改enclosing function的binding，文中提到了主要原因还是在于Guido反对这么做。因为这样会导致本应该作为类的实例保存的对象被声明了本地变量。</p>
+
+<p>参考网站：<a href="http://www.python.org/dev/peps/pep-0227/">http://www.python.org/dev/peps/pep-0227/</a></p>
+<!-- Page published by Emacs Muse ends here -->
+<p>
+<center>
+最后更新：
+2009-03-18 15:01:24
+</center>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2241833-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+

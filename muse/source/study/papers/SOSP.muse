@@ -1,0 +1,143 @@
+#title 阅读笔记 - SOSP
+
+<contents>
+
+* SOSP '03
+#xen03
+** Xen and the Art of Virtualization
+Xen的第一篇paper，简单介绍了下Xen虚拟化的相关技术。Xen是一个高效的VMM，采用了para-virtualization，即修改了guest os的部分代码，但ABI没有做任何的改动。
+
+具体Xen的相关内容参见[[Xen]]。
+
+2009.2
+
+* SOSP '99
+#disco99
+** Cellular Disco: resource management using virtual clusters on shared-memory multiprocessors
+[[#disco97][两年前的paper]]的升级版，这次是利用Disco在一个多核电脑上跑多个操作系统并虚拟成一个cluster。主要解决了两个问题，一是容错性，当硬件错误发生时如何把影响缩小到一个单元里；二是资源的管理，如何高效地在虚拟机间动态的分配物理CPU和内存。
+
+容错和动态资源管理在某种程度上相互矛盾的。因此在分配资源的时候，要尽可能的减少一个虚拟机使用的cell数。这里的cell是指相对独立的容错单元，后面还提到一个node的概念，Origin 2000上每个node含两个CPU。CD还提供了两种快速的进程间通讯的primitive，RPC和message。
+
+关于容错，有这么个问题，Disco在操作系统和硬件之间多弄了这么一层虚拟层，某个虚拟的操作系统出问题时可以不影响到其他操作系统，可是操作系统不也是保证了进程间的互相独立，当一个进程异常时不影响另一个进程吗？多设立一层Disco对容错有什么帮助吗？这个问题的答案在于，VMM的代码量很小，可以看作是一个可信的系统软件层(trusted system software layer)，因为当VMM的代码行数少于五万行时，它的复杂度就和其他可信的层（如cache coherence protocol)差不多了，这个复杂度比现代操作系统的复杂度差不多要低两个等级。
+
+传统操作系统通常使用一个全局的run queue来管理和分配进程在多个CPU上的运行，这种实现不适合CD的容错要求，也带来了更多的contention。所以CD为每个VCPU维护了一个run queue，同时引入了VCPU migration的机制来平衡VCPU的负载，按颗粒度分三级，intra-node intra-cell inter-cell。内存管理方面，CD实现了memory borrowing机制，使得一个cell可以暂时的从其他cell里获得内存，如果这种借用受限于容错性，就只能使用原来的paging机制了。
+
+*** CPU管理
+CD有两个CPU平衡策略，一个在处理器空闲时发生，另一个定期平衡VCPU的负载。空闲调度时要同时考虑gang scheduling的限制以及因转移破坏的cache/node affinity。而定期的调度则是通过一棵全局的load tree的辅助来实现的。此外还需要一个scalable gang scheduler来保证效率，CD的调度器总是选择优先度最高的gang-runnable VCPU（等待时间最多），然后通过低开销的RPC通知那些拥有(和这个VCPU同属于一个虚拟机的VCPU)的处理器，这些处理器在收到消息后，立即停止当前正在运行的VCPU，服从同一调度策略。通过这种方式实现的调度就不需要一个全局的管理器了。
+
+*** 内存管理
+每个cell都维护了自己的freelist，每次接收请求时都优先分配本地node上的资源。内存借用也很直接，需要借用内存的cell向有空闲内存的cell发个RPC即可，RPC的返回结果是一个machine page的list。
+
+*** 测试结果
+测试中CD是作为kernel process跑在IRIX 6.4上的，也就是说VMM的下面还有一层操作系统，主要是为了利用IRIX提供的设备驱动。CD在每个CPU上跑一个线程，完全占有整个CPU，IRIX只在需要设备驱动时才被激活。
+
+测试比较了两个测试环境，跑在真机上的IRIX 6.4（增加了多核支持），和跑在CD上的IRIX 6.2。最后的结果显示大部分情况下（单核、8核、32核）后者和前者的差距在10%以内，最差情况下也只有20%的overhead。接下来的容错机制的overhead同样很小，不高于2%。
+
+2009.1
+
+* SOSP '97
+#disco97
+** Disco: running commodity operating systems on scalable multiprocessors
+很早的一篇paper，发表的第二年Rosenblum就创办了VMWare。这篇paper介绍了一个跑在FLASH机器上的虚拟机Disco，FLASH的架构是实验性质的cache coherent non-uniform memory architechure(ccNUMA)。
+
+*** 传统的VMM在实现上主要有三个问题
+ - overhead，例如特权指令需要由VMM模拟
+ - 资源管理，缺乏对资源配置的细粒度的了解，导致资源分布不均（如调度一个没有价值的计算任务）
+ - 通讯和共享，不同虚拟机是不是应该简单的看成是享有相同硬件资源的完全独立的操作系统？
+
+*** 实现细节
+**** 1. 虚拟CPU
+
+Disco虚拟CPU时是把指令放到物理CPU上直接执行的。当调度到某个虚拟CPU时，Disco就把物理机的寄存器设置为虚拟机的寄存器并跳转到相应的PC。
+
+直接执行的好处在于大多数操作能获得和在真机上跑一样的效率，而难点在于处理不能直接放到真机上运行的指令，如修改tlb，访问物理内存等。
+
+Disco为每个虚拟CPU记录了一个类似于传统操作系统中process table entry的数据结构。为了模拟特权指令，Disco还在这个数据结构中维持了虚拟CPU的特权寄存器和tlb的内容。
+
+在MIPS处理器上，Disco运行在kernel mode掌握着对硬件的完全控制；控制器交给虚拟机的操作系统时，Disco把CPU置为supervisor mode；当进入user mode时取消。Supervisor模式允许操作系统访问受保护的内存区域(supervisor segment)，但仍不能执行特权指令，也不能访问物理内存。诸如page fault的trap发生时，vmm会捕获到这个异常，修改相应的特权寄存器并跳转到虚拟机的trap vector。
+
+**** 2.虚拟内存
+Disco增加了一层物理地址到机器地址的转换。虚拟机使用从0开始的物理地址，大小和为虚拟机的内存相等，Disco把这些物理地址映射到了FLASH的40位机器地址上。这种映射的实现借助于MIPS处理器的software-reloaded TLB，当操作系统尝试在TLB中插入一个virtual-to-physical的映射时，Disco会把这里的physical address改成对应的machine address，这样之后通过这条TLB记录的地址访问就不需要再经过VMM的处理了，没有额外的overhead。
+
+为了方便计算TLB地址，Disco为每个虚拟机记录了一个pmap数据结构，每个pmap结构对应着虚拟机的一个物理页。pmap包含了一个指向机器内存的引用，以及指向虚拟地址的映射（虚拟地址可能有多个，原文中用了复数形式），这主要用于页面被VMM回收时TLB的重置。另外MIPS处理器为每个TLB记录标记了一个地址空间标识符（ASID, address space identifier），用来防止context switch时不必要的TLB刷新。Disco为了简单化处理，就在物理CPU被调度为另一个虚拟CPU时刷新TLB，这样ASID就能直接使用虚拟机提供的了。
+
+这样的处理带来了性能问题，由于TLB在虚拟CPU切换时会被刷新，带来了额外的TLB miss，而TLB miss由于需要被模拟，它的代价很大。为了减少这种性能影响，Disco维持了一个virtual-to-machine的二级软TLB，TLB miss发生的时候首先查看软TLB有没有相关的记录，如果找不到再交给虚拟机上的操作系统去处理。这种处理的影响就是虚拟机所看到的TLB会比实际CPU的TLB大很多。
+
+**** 3. NUMA 内存管理
+不怎么熟悉NUMA，这部分先粗读了，大致思想是通过动态的页面转移和复制维持locality，从而避免remote cache miss。
+
+**** 4. 虚拟IO设备
+增加特殊的设备驱动是最清晰的实现方法，每个Disco设备都定义了一个monitor call，供设备驱动传参调用。对于支持DMA操作的设备，Disco也需要截获这些DMA请求并转换为相应的machine address。对于仅有一个虚拟机访问的设备，Disco只要保证访问的排外性并翻译DMA请求即可，而不需要虚拟IO资源。截获所有DMA操作的一个好处是Disco可以在虚拟机间共享磁盘和内存资源。
+
+**** 5. Copy-on-write disks
+DMA请求被截获时，如果请求的磁盘块已经在内存里了，就不需要再访问磁盘。如果请求的大小正好是虚拟机页面大小的整数倍，直接把对应的物理页映射到虚拟机里就行，另外考虑到以后可能会修改这部分内存，需要将那些页面设为read-only，从而实现copy-on-write，同时这些处理对虚拟机完全透明的。
+
+磁盘被写入时，分两种情况处理：对于持久性的磁盘，如包含用户文件的，同一时间Disco只允许一个虚拟机挂载这个磁盘，其他虚拟机可以通过NFS等分布式文件系统协议访问它；而对于非持久的磁盘，如根磁盘，使用copy-on-write的策略，即在写操作发生时记录下被修改的扇区，而copy-on-write的磁盘自身不会被修改。
+
+**** 6. 虚拟网络接口
+虚拟机间通过NFS共享文件时，不做特殊处理的话，客户端和服务器端会各有一份buffer cache保存共享的数据。因此copy-on-write的策略同样被用在了网络实现上，虚拟机间的信息传送是通过在发送方和接收方上映射同一个只读页来完成的。
+
+*** SPLASHOS: A Specialized Operating System
+SPLASHOS是一个特制的跑在Disco上的library os，包括了线程创建、同步操作、libc函数和一个用于文件IO的NFS客户端栈，应用程序和这个library os链接后就能直接跑在Disco上，配合跑多个这样的操作系统的话就能利用起整个机器的资源。另外这种操作系统也不需要自己处理page fault等异常了，直接交给虚拟机就行。
+
+
+*** 测试结果
+整个测试是跑在SimOS这个模拟器上的，模拟的配置是一个特点类似于FLASH的large-scale multiprocessor。测试的workload是四个比较具有代表性的，并行编译(pmake)，verilog模拟，raytrace和sybase关系数据库。
+
+测试的结果，跑单个workload的时间比不用Disco慢3%到16%
+
+2009.1
+
+* SOSP '1989
+** A logic of authentication
+DEC和剑桥合作的一篇paper，后来又发在1990年的ACM Transactions on Computer Systems上，例会上由hyj大牛讲解。
+
+很喜欢这篇paper，它的主要工作是通过构造一种多种类的模态逻辑(many-sorted model logic)，来检查网络中验证协议的安全性。
+
+基础的逻辑分三部分：
+ - 原语，如验证双方A和B，以及服务器S，下文用P Q R泛指
+ - 密钥，如K_ab代表a和b之间的通讯密钥，K_a代表a的公钥，{K_a}^{-1}代表对应的私钥，下文用K泛指
+ - 公式（或者陈述），用N_a, N_b等表示，下文用X Y泛指
+
+接下来定义以下约定（constructs）
+ - P 信任 X: 原语P完全信任X
+ - P 看到 X: 有人发送了一条包含X的信息给P，P可以阅读它或者重复它（当然通常是在做了解密操作后）
+ - P 说了 X: 原语P发送过一条包含X的信息，同时也可以确定P是相信X的正确性的
+ - P 控制 X: P可以判定X的正确与否。例如生成密钥的服务器通常被默认为拥有对密钥质量的审核权。
+ - X 是新鲜的: 在此之前X没有被发送过。这个事实可以通过绑定一个时间戳或者其他只会使用一次的标记来证明。
+ - P <-K-> Q: P和Q可以通过共享密钥K进行通讯，且这个K是好的，即不会被P Q不信任的原语知道。
+ - K-> P: P拥有K这么一个公钥，且它对应的解密密钥K^{-1}不会被其他不被P信任的原语知道。
+ - P <=X=> Q: X是一个只被P和Q或者P和Q共同信任的原语知道的陈述，只有P和Q可以通过X来相互证明它们各自的身份，X的一个例子就是密码。
+ - {X}_K: X是一个被K加密了的陈述
+ - <X>_Y: 陈述X被Y所绑定，Y可以用来证明发送X的人的身份
+
+好了，总算把这些约定列完了，然后来看看通过这些约定能推出一些什么东东：
+<example>如果 P 相信 (P <-K-> Q), 且 P 看到 {X}_K，那么 P 相信 Q 说了 X。</example>
+这个例子很简单，既然P Q有安全的密钥K，那么P看到通过K加密后的X肯定认为就是Q发出的。
+
+又比如，
+<example>如果 P 相信 Q 控制 X，P 相信 (Q 相信 X)，那么 P 相信 X</example>
+也很容易理解，既然 P 相信 Q 的判断，那么 Q 相信什么 P 自然也就相信了。
+
+再举一个例子
+<example>如果 P 相信 Y 是新鲜的，那么 P 相信 (X, Y) 也是新鲜的。</example>
+这里(X, Y)表示 X 和 Y 的简单拼接，也很容易理解，既然 Y 之前没出现过，那么 X 和 Y 的组合自然也没出现过。
+
+一个协议要被定义为安全，最起码要满足
+<example>A 相信 A <-K->B，B 相信 A <-K->B</example>
+即双方要互相信任密钥是安全的
+
+再健壮一点的协议，还要满足
+<example>A 相信 (B 相信 (A 相信 A <-K->B))，反之一样</example>
+即A B不仅相信密钥，也相信对方相信自己对密钥的信任。
+
+有了这些简单却强大的工具后，接下来这篇paper开始着手分析一些协议，包括Kerberos协议，Andrew Secure RPC 握手协议等，还指出了其中的一些问题和改进措施，例如CCITT X.509 协议中可以通过重复发送一条老的信息来模仿成加密双方中的一员。
+
+具体的推导不写在这里了。
+
+* SOSP '1973
+** The Working Set Model for Program Behavior
+Peter Denning发表。用了大量的数学公式（主要是概率统计方面）推导得出了\tau和traverse time T的关系，这里的\tau是一个参数，某个页面在经过\tau时间没有被访问后即被认为是可以替换的，这样就不需要用LRU之类的算法花时间来寻找一个 victim page了。paper最后通过前面得出的一些结论给出了调度和资源分配的算法。
+
+2009.2
+

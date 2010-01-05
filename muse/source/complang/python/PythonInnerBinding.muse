@@ -1,0 +1,42 @@
+#title Python中inner function的binding处理
+
+BBS上的一个帖子，问题是
+<src lang="python">
+def a():
+    def b():
+        x += 1
+ 
+    x = 1
+    print "a: ", x
+    b()
+    print "b: ", x
+ 
+def c():
+    def d():
+        x[0] = [4]
+    x = [3]
+    print "c: ", x[0]
+    d()
+    print "d: ", x[0]
+</src>
+
+运行a()会报UnboundLocalError: local variable ‘x’ referenced before assignment
+但是运行c()会正确地显示3和4。
+
+原因在于原因在于CPython实现closure的方式和常见的functional language不同，采用了flat closures实现。
+
+“If a name is bound anywhere within a code block, all uses of the name within the block are treated as references to the current block.”
+
+在第一个例子中，b函数x += 1对x进行赋值，rebind了这个对象，于是Python查找x的时候只会在local environment中搜索，于是就有了UnboundLocalError。
+
+换句话说，如果没有修改这个值，比如b中仅仅简单的输出了x，程序是可以正常运行的，因为此时搜索的范围是nearest enclosing function region。
+
+而d方法并没有rebind x变量，只是修改了x指向的对象的值而已。如果把赋值语句改成x = [4]，那么结果就和原来不一样了，因为此时发生了x的rebind。
+
+所以Python中的closure可以理解为是只读的。
+
+另外第二个例子也是这篇文章中提到的一种workaround：把要通过inner function修改的变量包装到数组里，然后在inner function中访问这个数组。
+
+至于为什么Python中enclosed function不能修改enclosing function的binding，文中提到了主要原因还是在于Guido反对这么做。因为这样会导致本应该作为类的实例保存的对象被声明了本地变量。
+
+参考网站：http://www.python.org/dev/peps/pep-0227/

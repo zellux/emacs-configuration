@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>Yet Another Haskell Tutorial 阅读笔记</title>
+    <meta name="generator" content="Muse">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="stylesheet" type="text/css"charset="utf-8" media="all" href="../../styles/common.css"  />
+  </head>
+
+<body>
+
+  <h1>Yet Another Haskell Tutorial 阅读笔记
+   <!-- menu start here -->
+     <div class="menu">
+        <div class="menuitem">
+          <a href="../../home/index.html">Home</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../emacs/index.html">Emacs</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../complang/index.html">CompLang</a>
+        </div>
+        <div class="menuitem">
+          <a href="../../study/index.html">Study</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../services/index.html">Services</a>
+        </div>
+	<div class="menuitem">
+          <a href="../../home/link.html">Links</a>
+        </div>
+      </div>
+    <!-- menu ends here -->
+
+  </h1>
+
+
+  <!-- Page published by Emacs Muse begins here -->
+
+<h2>习题记录</h2>
+
+<h3>Chapter 3</h3>
+
+<pre class="src">
+<span style="color: #00cdcd;">module</span> <span style="color: #87ff87;">Ex3</span>
+    <span style="color: #00cdcd;">where</span>
+
+<span style="color: #00cdcd;">import</span> <span style="color: #87ff87;">IO</span>
+
+<span style="color: #87d7ff;">fib</span> 1 <span style="color: #ffd787;">=</span> 1
+<span style="color: #87d7ff;">fib</span> 2 <span style="color: #ffd787;">=</span> 1
+<span style="color: #87d7ff;">fib</span> n <span style="color: #ffd787;">=</span> fib (n <span style="color: #ffd787;">-</span> 1) <span style="color: #ffd787;">+</span> fib (n <span style="color: #ffd787;">-</span> 2)
+
+<span style="color: #87d7ff;">mult</span> 0 b <span style="color: #ffd787;">=</span> 0
+<span style="color: #87d7ff;">mult</span> a b <span style="color: #ffd787;">=</span> b <span style="color: #ffd787;">+</span> mult (a <span style="color: #ffd787;">-</span> 1) b
+
+<span style="color: #87d7ff;">my_map</span> func <span style="color: #87ff87;">[]</span> <span style="color: #ffd787;">=</span> <span style="color: #87ff87;">[]</span>
+<span style="color: #87d7ff;">my_map</span> func (x<span style="color: #87ff87;">:</span>xs) <span style="color: #ffd787;">=</span> (func x) <span style="color: #87ff87;">:</span> (my_map func xs)
+
+<span style="color: #87d7ff;">ex3_10</span> <span style="color: #ffd787;">=</span> <span style="color: #00cdcd;">do</span>
+  hSetBuffering stdin <span style="color: #87ff87;">LineBuffering</span>
+  numbers <span style="color: #ffd787;">&lt;-</span> getNumber
+  <span style="color: #00cdcd;">let</span> sum <span style="color: #ffd787;">=</span> show (foldr (<span style="color: #ffd787;">+</span>) 0 numbers)
+      product <span style="color: #ffd787;">=</span> foldr (<span style="color: #ffd787;">*</span>) 1 numbers
+  putStrLn <span style="color: #ffaf87;">"The sum is "</span> <span style="color: #ffd787;">++</span> sum
+  putStrLn <span style="color: #ffaf87;">"The product is "</span> <span style="color: #ff5f00;">-- </span><span style="color: #ff5f00;">++ show product
+</span>
+<span style="color: #87d7ff;">getNumber</span> <span style="color: #ffd787;">=</span> <span style="color: #00cdcd;">do</span>
+  putStrLn <span style="color: #ffaf87;">"Give me a number (or 0 to stop):"</span>
+  num <span style="color: #ffd787;">&lt;-</span> getLine
+  <span style="color: #00cdcd;">if</span> read num <span style="color: #ffd787;">==</span> 0
+     <span style="color: #00cdcd;">then</span> return <span style="color: #87ff87;">[]</span>
+     <span style="color: #00cdcd;">else</span> <span style="color: #00cdcd;">do</span>
+       rest <span style="color: #ffd787;">&lt;-</span> getNumber
+       return (read num <span style="color: #87ff87;">:</span> rest)
+</pre>
+
+
+
+<!-- Page published by Emacs Muse ends here -->
+<p>
+<center>
+最后更新：
+2009-03-20 20:01:21
+</center>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2241833-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+

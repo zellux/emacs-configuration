@@ -1,0 +1,15 @@
+#title Emacs
+
+* Emacs 配置心得
+ - [[256-color][终端下256色Emacs的设置]]
+
+* Emacs 扩展
+ - [[muse][Emacs Muse]]
+ - [[cscope][cscope]]
+ - [[org-mode-tutor][Org-Mode简明教程]]
+ - [[Slime]]
+ - [[EmacsVC]]
+
+* 相关链接
+
+

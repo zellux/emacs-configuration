@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <title>EmacsVS</title>
+    <meta name="generator" content="Muse">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="stylesheet" type="text/css"charset="utf-8" media="all" href="../styles/common.css"  />
+  </head>
+
+<body>
+
+  <h1>EmacsVS
+   <!-- menu start here -->
+     <div class="menu">
+        <div class="menuitem">
+          <a href="../home/index.html">Home</a>
+        </div>
+        <div class="menuitem">
+          <a href="../emacs/index.html">Emacs</a>
+        </div>
+        <div class="menuitem">
+          <a href="../complang/index.html">CompLang</a>
+        </div>
+        <div class="menuitem">
+          <a href="../study/index.html">Study</a>
+        </div>
+	<div class="menuitem">
+          <a href="../services/index.html">Services</a>
+        </div>
+	<div class="menuitem">
+          <a href="../home/link.html">Links</a>
+        </div>
+      </div>
+    <!-- menu ends here -->
+
+  </h1>
+
+
+  <!-- Page published by Emacs Muse begins here -->
+
+<p>本文转载自<a href="http://lifegoo.pluskid.org/wiki/EmacsVC.html">http://lifegoo.pluskid.org/wiki/EmacsVC.html</a></p>
+
+<p>Emacs VC 是 Emacs 里面的一个 minor mode 。使用 VC ，你可以很方便地进行版本控制，VC
+为你隐藏了几乎所有的版本控制的细节问题，你只要记住一个 VC 命令，就能完成几乎所有的版本控制操作，
+VC 会替你运行正确的命令。</p>
+
+<h2>Emacs VC 的基本概念</h2>
+
+<p class="first">Emacs VC的接口非常简单，原因在于在某个状态下，只有一件合理的下一步要做的事，规则如下：</p>
+
+<ul>
+<li>如果当前文件不在版本控制之下，下一步要做的合理的事情就是把他注册到仓库，然后为你check out出一个可修改的文件。</li>
+<li>如果他已经注册在版本控制之下，并且没有被其他人check out出去，那么就把他check out出来，好让你可以编辑他。</li>
+<li>如果你改变了当前文件，那么下一步要做的事情就是提交他。</li>
+<li>比较罕见的是，当你工作在比较老的版本控制系统上的时候，如果别人已经 check out出去了那个文件，你也许会想steal the lock。</li>
+</ul>
+
+<p>事实上，VC mode只有一个最基本的命令： C-x v v (vc-next-action) 。
+他的作用就是对当前文件进行下一个合理的VC操作，或者，更确切的说，让当前文件进入下一个正常的版本控制状态。
+他按照图1中传统的版本控制循环来行事。</p>
+
+
+<!-- Page published by Emacs Muse ends here -->
+<p>
+<center>
+最后更新：
+2009-03-31 21:20:12
+</center>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2241833-7");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
