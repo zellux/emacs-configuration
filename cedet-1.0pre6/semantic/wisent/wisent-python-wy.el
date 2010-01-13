@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003, 2004, 2007 Richard Kim
 
-;; Author:  <wyx@chrome-dev>
-;; Created: 2010-01-14 01:23:43+0800
+;; Author:  <wyx@myhost>
+;; Created: 2010-01-13 20:37:34+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

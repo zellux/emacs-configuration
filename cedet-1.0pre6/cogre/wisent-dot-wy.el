@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2003, 2004 Eric M. Ludlam
 
-;; Author:  <wyx@chrome-dev>
-;; Created: 2010-01-14 01:29:43+0800
+;; Author:  <wyx@myhost>
+;; Created: 2010-01-13 20:37:42+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

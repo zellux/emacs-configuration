@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002 David Ponce
 
-;; Author:  <wyx@chrome-dev>
-;; Created: 2010-01-14 01:23:29+0800
+;; Author:  <wyx@myhost>
+;; Created: 2010-01-13 20:37:29+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -10,3 +10,6 @@
 == Install cedet ==
 $ emacs -Q -l cedet-build.el -f cedet-build
 
+== Install jabber ==
+ autoreconf -i
+ ./configure && make

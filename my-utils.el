@@ -34,6 +34,7 @@
 
 ;; (add-to-list 'load-path (expand-file-name "~/emacs/langmode/lisp"))
 ;; (load "quack")
+(add-to-list 'load-path "~/emacs/utils/emacs-jabber")
 
 (require 'jabber)
 
