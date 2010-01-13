@@ -154,11 +154,4 @@
 
 (global-ede-mode t)
 
-(ede-cpp-root-project "OSLab"
-                :name "OSLab"
-                :file "~/oslab/GNUmakefile"
-                :system-include-path '("~/oslab/inc")
-                :spp-table '(("isUnix" . "")
-                             ("BOOST_TEST_DYN_LINK" . "")))
-
 (load-file "~/emacs/google-c-style.el")

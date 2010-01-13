@@ -1,0 +1,12 @@
+= Required packages =
+ * pymacs
+ * auctex
+ * emacs-haskell-mode
+ * slime
+ * emacs-color-theme
+ * emacs-jabber
+
+= Installation =
+== Install cedet ==
+$ emacs -Q -l cedet-build.el -f cedet-build
+

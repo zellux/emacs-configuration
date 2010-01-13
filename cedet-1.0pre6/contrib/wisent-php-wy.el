@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2008 Free Software Foundation
 
-;; Author: Eric M. Ludlam <zappo@projectile>
-;; Created: 2009-02-28 15:20:25-0500
+;; Author:  <wyx@chrome-dev>
+;; Created: 2010-01-14 01:29:52+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (cedet-update-autoloads) "cedet-autogen" "cedet-autogen.el"
-;;;;;;  (18540 13339))
+;;;;;;  (19277 65452))
 ;;; Generated autoloads from cedet-autogen.el
 
 (autoload 'cedet-update-autoloads "cedet-autogen" "\
@@ -20,7 +20,7 @@ exists.
 
 ;;;***
 
-;;;### (autoloads nil "cedet-compat" "cedet-compat.el" (18791 63972))
+;;;### (autoloads nil "cedet-compat" "cedet-compat.el" (19277 65452))
 ;;; Generated autoloads from cedet-compat.el
 
 (if (or (featurep 'xemacs) (inversion-test 'emacs "22.0")) (defalias 'cedet-split-string 'cedet-split-string-1) (defalias 'cedet-split-string 'split-string))
@@ -29,7 +29,7 @@ exists.
 
 ;;;### (autoloads (cedet-cscope-version-check cedet-cscope-expand-filename
 ;;;;;;  cedet-cscope-search cedet-cscope-command) "cedet-cscope"
-;;;;;;  "cedet-cscope.el" (18855 29112))
+;;;;;;  "cedet-cscope.el" (19277 65452))
 ;;; Generated autoloads from cedet-cscope.el
 
 (defvar cedet-cscope-command "cscope" "\
@@ -65,7 +65,7 @@ return nil.
 
 ;;;***
 
-;;;### (autoloads nil "cedet-edebug" "cedet-edebug.el" (18411 2781))
+;;;### (autoloads nil "cedet-edebug" "cedet-edebug.el" (19277 65452))
 ;;; Generated autoloads from cedet-edebug.el
 
 (add-hook 'edebug-setup-hook (lambda nil (require 'cedet-edebug) (defalias 'edebug-prin1-to-string 'cedet-edebug-prin1-to-string) (define-key edebug-mode-map "A" 'data-debug-edebug-expr)))
@@ -75,7 +75,7 @@ return nil.
 ;;;***
 
 ;;;### (autoloads (cedet-files-utest) "cedet-files" "cedet-files.el"
-;;;;;;  (18826 9372))
+;;;;;;  (19277 65452))
 ;;; Generated autoloads from cedet-files.el
 
 (autoload 'cedet-files-utest "cedet-files" "\
@@ -88,7 +88,7 @@ Test out some file name conversions.
 ;;;### (autoloads (cedet-gnu-global-version-check cedet-gnu-global-root
 ;;;;;;  cedet-gnu-global-show-root cedet-gnu-global-expand-filename
 ;;;;;;  cedet-gnu-global-search cedet-global-command) "cedet-global"
-;;;;;;  "cedet-global.el" (18797 12480))
+;;;;;;  "cedet-global.el" (19277 65452))
 ;;; Generated autoloads from cedet-global.el
 
 (defvar cedet-global-command "global" "\
@@ -138,7 +138,7 @@ return nil.
 
 ;;;### (autoloads (cedet-idutils-version-check cedet-idutils-expand-filename
 ;;;;;;  cedet-idutils-token-command cedet-idutils-file-command) "cedet-idutils"
-;;;;;;  "cedet-idutils.el" (18851 8015))
+;;;;;;  "cedet-idutils.el" (19277 65452))
 ;;; Generated autoloads from cedet-idutils.el
 
 (defvar cedet-idutils-file-command "fnid" "\
@@ -168,7 +168,7 @@ return nil.
 ;;;***
 
 ;;;### (autoloads (cedet-utest-batch cedet-utest) "cedet-utests"
-;;;;;;  "cedet-utests.el" (18848 16177))
+;;;;;;  "cedet-utests.el" (19277 65452))
 ;;; Generated autoloads from cedet-utests.el
 
 (autoload 'cedet-utest "cedet-utests" "\
@@ -189,7 +189,7 @@ Run the CEDET unit tests in BATCH mode.
 ;;;;;;  data-debug-new-buffer data-debug-mode data-debug-insert-thing
 ;;;;;;  data-debug-insert-stuff-list data-debug-insert-hash-table
 ;;;;;;  data-debug-insert-property-list) "data-debug" "data-debug.el"
-;;;;;;  (18834 9678))
+;;;;;;  (19277 65452))
 ;;; Generated autoloads from data-debug.el
 
 (autoload 'data-debug-insert-property-list "data-debug" "\
@@ -244,7 +244,7 @@ If the result is a list or vector, then use the data debugger to display it.
 
 ;;;***
 
-;;;### (autoloads (define-fame-channel) "fame" "fame.el" (17213 39681))
+;;;### (autoloads (define-fame-channel) "fame" "fame.el" (19277 65452))
 ;;; Generated autoloads from fame.el
 
 (autoload 'define-fame-channel "fame" "\
@@ -267,7 +267,7 @@ messages to CHANNEL.
 
 ;;;### (autoloads (inversion-upgrade-package inversion-add-to-load-path
 ;;;;;;  inversion-find-version inversion-require-emacs inversion-require)
-;;;;;;  "inversion" "inversion.el" (18844 54499))
+;;;;;;  "inversion" "inversion.el" (19277 65452))
 ;;; Generated autoloads from inversion.el
 
 (autoload 'inversion-require "inversion" "\
@@ -319,7 +319,7 @@ Try to upgrade PACKAGE in DIRECTORY is available.
 ;;;***
 
 ;;;### (autoloads (mode-local-read-function) "mode-local" "mode-local.el"
-;;;;;;  (18791 54934))
+;;;;;;  (19277 65452))
 ;;; Generated autoloads from mode-local.el
 
 (autoload 'mode-local-read-function "mode-local" "\
@@ -331,7 +331,7 @@ PROMPT, INITIAL, HIST, and DEFAULT are the same as for `completing-read'.
 ;;;***
 
 ;;;### (autoloads (pprint-function pprint pprint-to-string) "pprint"
-;;;;;;  "pprint.el" (17213 39693))
+;;;;;;  "pprint.el" (19277 65452))
 ;;; Generated autoloads from pprint.el
 
 (autoload 'pprint-to-string "pprint" "\
@@ -363,7 +363,7 @@ See a pretty-printed representation of FUNCTION-NAME.
 ;;;### (autoloads (pulse-line-hook-function pulse-toggle-integration-advice
 ;;;;;;  pulse-momentary-highlight-region pulse-momentary-highlight-one-line
 ;;;;;;  pulse-momentary-highlight-overlay pulse-test pulse) "pulse"
-;;;;;;  "pulse.el" (18833 41782))
+;;;;;;  "pulse.el" (19277 65452))
 ;;; Generated autoloads from pulse.el
 
 (autoload 'pulse "pulse" "\
@@ -426,7 +426,7 @@ Only pulses the line if `pulse-command-advice-flag' is non-nil.
 ;;;***
 
 ;;;### (autoloads nil nil ("cedet-load.el" "cedet.el" "ezimage.el"
-;;;;;;  "sformat.el" "working.el") (18857 56818 752581))
+;;;;;;  "sformat.el" "working.el") (19278 794 672920))
 
 ;;;***
 

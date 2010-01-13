@@ -2,8 +2,8 @@
 
 ;;; Copyright (C) 2007 Daniel Debertin (debertin@gmail.com)
 
-;; Author: Eric M. Ludlam <zappo@projectile>
-;; Created: 2009-02-28 15:20:24-0500
+;; Author:  <wyx@chrome-dev>
+;; Created: 2010-01-14 01:29:50+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
