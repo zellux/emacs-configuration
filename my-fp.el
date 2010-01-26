@@ -8,11 +8,14 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; slime-mode
-(setq inferior-lisp-program "/usr/bin/mit-scheme"
-      slime-startup-animation t)
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
-(require 'slime)
-(slime-setup)
+;; (setq inferior-lisp-program "/usr/bin/mit-scheme"
+;;       slime-startup-animation t)
+;; (add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
+;; (require 'slime)
+;; (slime-setup)
 
-(add-to-list 'load-path "~/emacs/tuareg/")
-(load "tuareg.el")
+;; (add-to-list 'load-path "~/emacs/tuareg/")
+
+(add-to-list 'load-path "~/emacs/langmode/lisp")
+(require 'quack)
+
