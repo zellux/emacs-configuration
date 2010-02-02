@@ -16,6 +16,9 @@
 
 ;; * This turns on which-func support (Plus all other code helpers)
 (semantic-load-enable-excessive-code-helpers)
+(setq semantic-load-turn-everything-on t)
+(require 'semantic-load)
+
 
 ;; This turns on modes that aid in grammar writing and semantic tool
 ;; development.  It does not enable any other features such as code
@@ -246,3 +249,11 @@
     ;(t (error "Cursor is not on ASSERT nor RETRACT"))
     (t t)
   ))
+
+;; ECB configurations
+(add-to-list 'load-path "~/emacs/ecb-2.40")
+(add-to-list 'load-path "~/emacs/cedet-1.0pre6/speedbar")
+(add-to-list 'load-path "~/emacs/cedet-1.0pre6/eieio")
+
+(require 'ecb-autoloads)
+
