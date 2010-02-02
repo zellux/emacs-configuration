@@ -1,7 +1,7 @@
 ;; color-theme
 ;; (global-font-lock-mode t)
 (require 'color-theme)
-(color-theme-initialize)
+;; (color-theme-initialize)
 (color-theme-ld-dark)
 
 ;; Dired mode
@@ -14,7 +14,6 @@
                                  '(".+" (dired-move-to-filename) nil (0
 								      font-lock-type-face))))))))
 
-(require 'weblogger)
 ;; (require 'git-emacs)
 
 (require 'yaml-mode)
@@ -32,13 +31,5 @@
 (add-to-list 'load-path (expand-file-name "~/emacs/langmode/ocaml"))
 (load "ocaml.emacs")
 
-;; (add-to-list 'load-path (expand-file-name "~/emacs/langmode/lisp"))
 ;; (load "quack")
-(add-to-list 'load-path "~/emacs/utils/emacs-jabber")
-
-(require 'jabber)
-
-(setq jabber-account-list
-      '(("zellux@gmail.com" 
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl))))
+;; (load "misc-chat.el")

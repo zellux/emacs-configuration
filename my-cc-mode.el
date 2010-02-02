@@ -157,8 +157,20 @@
 
 (global-ede-mode t)
 
-(load-file "~/emacs/google-c-style.el")
-
+(ede-cpp-root-project "Danimoth"
+                :name "Danimoth"
+                                ;; Any file at root directory of the project
+                :file "~/danimoth/xen/Makefile"
+                                ;; Relative to the project's root directory
+                :include-path '("/include/asm-x86"
+                                "/include/xen"
+                                "/include/public"
+                                "/include/acpi"
+                                "/arch/x86/cpu/"
+                               )
+                                ;; Pre-definds macro for preprocessing
+                :spp-table '(("isUnix" . "")
+                             ("BOOST_TEST_DYN_LINK" . "")))
 
 ;; Copied from http://scottmcpeak.com/elisp/scott.emacs.el
 ; ---------------- matching word pairs ------------------
