@@ -105,21 +105,6 @@
 ;; (setq exec-path (cons "~/emacs/xref" exec-path))
 ;; (load "xrefactory")
 
-(add-to-list 'semanticdb-project-roots "~/danimoth/xen")
-
-(setq semanticdb-project-roots 
-      (list
-        (expand-file-name "/")))
-
-(defun my-indent-or-complete ()
-   (interactive)
-   (if (looking-at "\\>")
-	     (hippie-expand nil)
-	   (indent-for-tab-command))
- )
-
-(global-set-key [(control tab)] 'my-indent-or-complete)
-
 
 (autoload 'senator-try-expand-semantic "senator")
 (setq semanticdb-default-save-directory "~/tmp")
@@ -154,6 +139,12 @@
 (global-ede-mode t)
 
 ;; Danimoth-specified configurations
+(add-to-list 'semanticdb-project-roots "~/danimoth/xen")
+
+(setq semanticdb-project-roots 
+      (list
+        (expand-file-name "/")))
+
 (setq danimoth-base-dir "/home/wyx/danimoth")
 
 (add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c++-mode))
