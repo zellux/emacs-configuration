@@ -143,7 +143,7 @@
 
 (setq semanticdb-project-roots 
       (list
-        (expand-file-name "/")))
+	   (expand-file-name "/")))
 
 (setq danimoth-base-dir "/home/wyx/danimoth")
 
@@ -154,20 +154,20 @@
 (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/asm-x86/config.h"))
 
 (ede-cpp-root-project "Danimoth"
-                :name "Danimoth"
-                                ;; Any file at root directory of the project
-                :file "~/danimoth/xen/Makefile"
-                                ;; Relative to the project's root directory
-                :include-path '("/"
-								"/include/asm-x86"
-                                "/include/xen"
-                                "/include/public"
-                                "/include/acpi"
-                                "/arch/x86/cpu/"
-                               )
-                                ;; Pre-definds macro for preprocessing
-                :spp-table '(("__XEN__" . "")
-                             ("" . "")))
+					  :name "Danimoth"
+					  ;; Any file at root directory of the project
+					  :file "~/danimoth/xen/Makefile"
+					  ;; Relative to the project's root directory
+					  :include-path '("/"
+									  "/include/asm-x86"
+									  "/include/xen"
+									  "/include/public"
+									  "/include/acpi"
+									  "/arch/x86/cpu/"
+									  )
+					  ;; Pre-definds macro for preprocessing
+					  :spp-table '(("__XEN__" . "")
+								   ))
 
 ;; Copied from http://scottmcpeak.com/elisp/scott.emacs.el
 ; ---------------- matching word pairs ------------------
