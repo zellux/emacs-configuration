@@ -80,18 +80,14 @@
 ;; (company-install-bundled-completions-rules)
 (add-hook 'c++-mode-hook 'company-mode)
 (add-hook 'c-mode-hook 'company-mode)
-;; Emacs的Bug导致在增量显示自动完成列表的时候，M-n和M-p不起作用了, 因此需要重新定义一下
 (define-key company-mode-map "\M-n" 'company-cycle)
 (define-key company-mode-map "\M-p" 'company-cycle-backwards)
-;; 补全菜单自动出现的延时，我嫌自动出现太烦了，所以禁掉了
-;; ;; 用到的时候就用命令来触发
 ;; ;; after these many seconds, completions will showe up automatically
 (setq company-idle-delay nil)
 ;; only when these many chars have been typed, the completions will show up
 ;; and this take higher priority on company-idle-delay which means completions will
 ;; not show up if the chars are too few regardless how many seconds has passed
 (setq company-complete-on-idle-min-chars 100)
-;; 补全菜单出现的延时
 ;; after these many seconds, company tooltip window show up where you can use M-p
 ;; and M-n to navigate between all the completions
 (setq company-tooltip-delay 1)
@@ -105,11 +101,11 @@
 ;; (autoload 'company-mode "company" nil t)
 
 ;; Xrefactory
-(setq load-path (cons "~/emacs/xref/emacs" load-path))
-(setq exec-path (cons "~/emacs/xref" exec-path))
+;; (setq load-path (cons "~/emacs/xref/emacs" load-path))
+;; (setq exec-path (cons "~/emacs/xref" exec-path))
 ;; (load "xrefactory")
 
-(add-to-list 'semanticdb-project-roots "~/oslab")
+(add-to-list 'semanticdb-project-roots "~/danimoth/xen")
 
 (setq semanticdb-project-roots 
       (list
@@ -157,20 +153,30 @@
 
 (global-ede-mode t)
 
+;; Danimoth-specified configurations
+(setq danimoth-base-dir "/home/wyx/danimoth")
+
+(add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c++-mode))
+(add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c-mode))
+
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/config.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/asm-x86/config.h"))
+
 (ede-cpp-root-project "Danimoth"
                 :name "Danimoth"
                                 ;; Any file at root directory of the project
                 :file "~/danimoth/xen/Makefile"
                                 ;; Relative to the project's root directory
-                :include-path '("/include/asm-x86"
+                :include-path '("/"
+								"/include/asm-x86"
                                 "/include/xen"
                                 "/include/public"
                                 "/include/acpi"
                                 "/arch/x86/cpu/"
                                )
                                 ;; Pre-definds macro for preprocessing
-                :spp-table '(("isUnix" . "")
-                             ("BOOST_TEST_DYN_LINK" . "")))
+                :spp-table '(("__XEN__" . "")
+                             ("" . "")))
 
 ;; Copied from http://scottmcpeak.com/elisp/scott.emacs.el
 ; ---------------- matching word pairs ------------------
