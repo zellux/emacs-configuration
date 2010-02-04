@@ -271,13 +271,17 @@
                    (ecb-split-ver 0.5 t)
                    (other-window 1)
                    (ecb-set-history-buffer)
-                   (ecb-split-ver 0.2 t)
+                   (ecb-split-ver 0.25 t)
                    (other-window 1)
                    (ecb-set-cscope-buffer))
 
 (defecb-window-dedicator ecb-set-cscope-buffer " *ECB cscope-buf*"
                          (switch-to-buffer "*cscope*"))
+
 (setq ecb-layout-name "my-cscope-layout")
+
+;; Disable buckets so that history buffer can display more entries
+(setq ecb-history-make-buckets 'never)
 
 ;; Compilation
 (setq compilation-scroll-output t)
