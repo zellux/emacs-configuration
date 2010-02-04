@@ -267,3 +267,6 @@
 (require 'ecb-autoloads)
 
 (setq ecb-layout-name "left11")
+
+;; Compilation
+(setq compilation-scroll-output t)
