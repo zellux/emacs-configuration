@@ -266,3 +266,4 @@
 
 (require 'ecb-autoloads)
 
+(setq ecb-layout-name "left11")
