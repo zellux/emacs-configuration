@@ -1,3 +1,6 @@
+;; Compilation
+(setq compilation-scroll-output t)
+
 ;; cedet
 (load-file "~/emacs/cedet-1.0pre6/common/cedet.el")
 (require 'semantic-ia)
@@ -283,5 +286,3 @@
 ;; Disable buckets so that history buffer can display more entries
 (setq ecb-history-make-buckets 'never)
 
-;; Compilation
-(setq compilation-scroll-output t)
