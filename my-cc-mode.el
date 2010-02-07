@@ -142,125 +142,47 @@
 (global-ede-mode t)
 
 ;; Danimoth-specified configurations
-(add-to-list 'semanticdb-project-roots "~/danimoth/xen")
+;; (add-to-list 'semanticdb-project-roots "~/danimoth/xen")
+;; 
+;; (setq semanticdb-project-roots 
+;;       (list
+;; 	   (expand-file-name "/")))
+;; 
+;; (setq danimoth-base-dir "/home/wyx/danimoth")
+;; 
+;; (add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c++-mode))
+;; (add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c-mode))
+;; 
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/config.h"))
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/asm-x86/config.h"))
+;; 
+;; (ede-cpp-root-project "Danimoth"
+;; 					  :name "Danimoth"
+;; 					  ;; Any file at root directory of the project
+;; 					  :file "~/danimoth/xen/Makefile"
+;; 					  ;; Relative to the project's root directory
+;; 					  :include-path '("/"
+;; 									  "/include/asm-x86"
+;; 									  "/include/xen"
+;; 									  "/include/public"
+;; 									  "/include/acpi"
+;; 									  "/arch/x86/cpu/"
+;; 									  )
+;; 					  ;; Pre-definds macro for preprocessing
+;; 					  :spp-table '(("__XEN__" . "")
+;; 								   ))
 
-(setq semanticdb-project-roots 
-      (list
-	   (expand-file-name "/")))
-
-(setq danimoth-base-dir "/home/wyx/danimoth")
-
-(add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c++-mode))
-(add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c-mode))
-
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/config.h"))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/asm-x86/config.h"))
-
-(ede-cpp-root-project "Danimoth"
-					  :name "Danimoth"
+(ede-cpp-root-project "Nexus"
+					  :name "Nexus"
 					  ;; Any file at root directory of the project
-					  :file "~/danimoth/xen/Makefile"
+					  :file "~/nexus/GNUmakefile"
 					  ;; Relative to the project's root directory
 					  :include-path '("/"
-									  "/include/asm-x86"
-									  "/include/xen"
-									  "/include/public"
-									  "/include/acpi"
-									  "/arch/x86/cpu/"
+									  "/inc"
 									  )
 					  ;; Pre-definds macro for preprocessing
-					  :spp-table '(("__XEN__" . "")
-								   ))
-
-;; Copied from http://scottmcpeak.com/elisp/scott.emacs.el
-; ---------------- matching word pairs ------------------
-; The idea here is that while emacs has built-in support for matching
-; things like parentheses, I work with a variety of syntaxes that use
-; balanced keyword pairs, such as "begin" and "end", or "#if" and
-; "#endif".  So this mechanism searches for the balanced element
-; of such ad-hoc constructions.
-;
-; TODO: Currently, there is no support for skipping things that are
-; in string literals, comments, etc.  I think that would be possible
-; just by having appropriate regexs for them and skipping them when
-; they occur, but I haven't tried yet.
-(defun find-matching-element (search-func offset open-regex close-regex)
-  "Search forwards or backwards (depending on `search-func') to find
-   the matching pair identified by `open-regex' and `close-regex'."
-  (let ((nesting 1)                ; number of pairs we are inside
-        (orig-point (point))       ; original cursor loc
-        (orig-case-fold-search case-fold-search))
-    (setq case-fold-search nil)        ; case-sensitive search
-    (goto-char (+ (point) offset))     ; skip the `open-regex' at cursor
-    (while (and (> nesting 0)
-                (funcall search-func
-                  (concat "\\(" open-regex "\\)\\|\\(" close-regex "\\)") nil t))
-      (if (string-match open-regex (match-string 0))
-        (setq nesting (+ nesting 1))
-        (setq nesting (- nesting 1))
-      ))
-    (setq case-fold-search orig-case-fold-search)
-    (if (eq nesting 0)
-      ; found the matching word, move cursor to the beginning of the match
-      (goto-char (match-beginning 0))
-      ; did not find the matching word, report the nesting depth at EOF
-      (progn
-        (goto-char orig-point)
-        (error (format "Did not find match; nesting at file end is %d" nesting))
-      )
-    )))
-
-; This is what I bind to Alt-[ and Alt-].
-(defun find-matching-keyword ()
-  "Find the matching keyword of a balanced pair."
-  (interactive)
-  (cond
-    ; these first two come from lisp/emulation/vi.el
-    ((looking-at "[[({]") (forward-sexp 1) (backward-char 1))
-    ((looking-at "[])}]") (forward-char 1) (backward-sexp 1))
-
-    ; TODO: Should the set of pairs be sensitive to the mode of
-    ; the current file?
-
-    ; Kettle CVC
-    ((looking-at "ASSERT")
-     (find-matching-element 're-search-forward 6 "ASSERT" "RETRACT"))
-    ((looking-at "RETRACT")
-     (find-matching-element 're-search-backward 0 "RETRACT" "ASSERT"))
-                
-    ; Kettle CVC
-    ;
-    ; "\\b": word boundary assertion, needed because one delimiter is
-    ; a substring of the other
-    ((looking-at "BLOCK")
-     (find-matching-element 're-search-forward 5 "\\bBLOCK\\b" "ENDBLOCK"))
-    ((looking-at "ENDBLOCK")
-     (find-matching-element 're-search-backward 0 "ENDBLOCK" "\\bBLOCK\\b"))
-
-    ; Simplify
-    ((looking-at "BG_PUSH")
-     (find-matching-element 're-search-forward 7 "BG_PUSH" "BG_POP"))
-    ((looking-at "BG_POP")
-     (find-matching-element 're-search-backward 0 "BG_POP" "BG_PUSH"))
-
-    ; C/C++
-    ((looking-at "#if")
-     (find-matching-element 're-search-forward 3 "#if" "#endif"))
-    ((looking-at "#endif")
-     (find-matching-element 're-search-backward 0 "#endif" "#if"))
-
-    ; ML
-    ;
-    ; this does not quite work because e.g. "struct" is also terminated
-    ; with "end" ..
-    ((looking-at "begin")
-     (find-matching-element 're-search-forward 5 "\\bbegin\\b" "\\bend\\b"))
-    ((looking-at "end")
-     (find-matching-element 're-search-backward 0 "\\bend\\b" "\\bbegin\\b"))
-
-    ;(t (error "Cursor is not on ASSERT nor RETRACT"))
-    (t t)
-  ))
+					  ;; :spp-table '(("__XEN__" . "")
+								   )
 
 ;; ECB configurations
 (add-to-list 'load-path "~/emacs/ecb-2.40")

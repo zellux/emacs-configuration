@@ -3,6 +3,8 @@
 (setq load-path (cons "~/emacs/utils" load-path))
 (setq backup-directory-alist '(("" . "~/.emacs.d/.backups")))
 
+;; I'm used to marking regions by C-2
+(global-set-key (kbd "C-2") 'set-mark-command)
 
 (require 'xcscope)
 (require 'linum)
@@ -39,8 +41,8 @@
 (load "psvn.el")
 (load "my-doxygen.el")
 (load "my-org-mode.el")
-(load "my-auctex.el")
-(load "my-fp.el")
+;; (load "my-auctex.el")
+;; (load "my-fp.el")
 (load "my-utils.el")
 (load "my-vcs.el")
 

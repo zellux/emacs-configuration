@@ -1,4 +1,5 @@
 = Required packages =
+ArchLinux
  * pymacs
  * auctex
  * emacs-haskell-mode
@@ -6,6 +7,9 @@
  * emacs-color-theme
  * emacs-jabber
  * mercurial
+
+Ubuntu
+ * emacs-goodies-el
 
 = Installation =
 == Install cedet ==
