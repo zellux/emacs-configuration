@@ -32,4 +32,3 @@
 (load "ocaml.emacs")
 
 ;; (load "quack")
-;; (load "misc-chat.el")

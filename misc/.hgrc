@@ -1,0 +1,12 @@
+[defaults]
+help = -v
+
+[http_proxy]
+host =
+user =
+passwd =
+
+[ui]
+editor = vim
+username = Wang Yuanxuan <zellux@gmail.com>
+

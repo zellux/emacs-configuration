@@ -10,6 +10,8 @@ ArchLinux
 
 Ubuntu
  * emacs-goodies-el
+ * auctex
+ * emacs-jabber
 
 = Installation =
 == Install cedet ==
