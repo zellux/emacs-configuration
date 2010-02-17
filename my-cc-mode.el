@@ -103,12 +103,6 @@
 
 ;; (autoload 'company-mode "company" nil t)
 
-;; Xrefactory
-;; (setq load-path (cons "~/emacs/xref/emacs" load-path))
-;; (setq exec-path (cons "~/emacs/xref" exec-path))
-;; (load "xrefactory")
-
-
 (autoload 'senator-try-expand-semantic "senator")
 (setq semanticdb-default-save-directory "~/tmp")
 (setq semantic-idle-scheduler-idle-time 432000)
