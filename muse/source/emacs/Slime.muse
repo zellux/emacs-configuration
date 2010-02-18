@@ -1,8 +1,0 @@
-#title SLIME: The Superior Lisp Interaction Mode for Emacs
-
-* SLIME 简洁
-[[http://common-lisp.net/project/slime/][SLIME]] is a Emacs mode for Common Lisp development.
-
-
-
-
