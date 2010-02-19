@@ -1,7 +1,6 @@
 (require 'xcscope)
 (require 'linum)
 (require 'cc-mode)
-(require 'mic-paren)
 (require 'bm)
 
 ;; (require 'pysmell)
@@ -22,9 +21,6 @@
 (global-set-key (kbd "<f5>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
 
-(paren-activate)
-
-;; (show-paren-mode t)
 
 (load "my-python.el")
 
