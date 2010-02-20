@@ -10,3 +10,6 @@ passwd =
 editor = vim
 username = Wang Yuanxuan <zellux@gmail.com>
 
+[extensions]
+color = 
+

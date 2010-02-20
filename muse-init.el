@@ -1,7 +1,3 @@
-(add-to-list 'load-path "~/emacs/utils/muse")
-
-;; (load "muse-bbs.el")
-
 (require 'muse)
 (require 'muse-mode)
 (require 'muse-html)

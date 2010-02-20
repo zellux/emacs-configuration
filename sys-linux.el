@@ -35,25 +35,12 @@
 (load "my-vcs.el")
 
 (load "my-cc-mode.el")
+(setq my-muse-base-dir "~/notes")
+(load "muse-init.el")
+(load "gui-font.el")
+(load "gui-settings.el")
 
-;; (custom-set-variables
-;;   ;; custom-set-variables was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  '(column-number-mode t)
-;;  '(muse-html-charset-default "utf-8")
-;;  '(muse-html-encoding-default (quote utf-8))
-;;  '(muse-html-meta-content-encoding (quote utf-8))
-;;  '(safe-local-variable-values (quote ((c-set-style . "BSD"))))
-;;  '(weblogger-config-alist (quote (("default" ("user" . "zellux") ("server-url" . "http://techblog.zellux.czm.cn/xmlrpc.php") ("weblog" . "1"))))))
-
-;; (load "muse-init.el")
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+;; Toggle off tool-bar
+(tool-bar-mode 0)
 
 

@@ -12,6 +12,7 @@
 (tool-bar-mode 0)
 
 ;; Muse settings
+(add-to-list 'load-path "~/emacs/utils/muse")
 (setq my-muse-base-dir "d:/project/notes")
 (load "muse-init.el")
 
