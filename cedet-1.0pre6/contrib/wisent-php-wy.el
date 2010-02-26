@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2008 Free Software Foundation
 
-;; Author:  <wyx@myhost>
-;; Created: 2010-01-13 20:37:45+0000
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-02-27 03:49:13+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

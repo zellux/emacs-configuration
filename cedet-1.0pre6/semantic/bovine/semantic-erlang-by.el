@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003 Vladimir G. Sekissov
 
-;; Author:  <wyx@myhost>
-;; Created: 2010-01-13 20:37:38+0000
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-02-27 03:48:43+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

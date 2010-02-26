@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003, 2004, 2007 Richard Kim
 
-;; Author:  <wyx@myhost>
-;; Created: 2010-01-13 20:37:34+0000
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-02-27 03:48:34+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

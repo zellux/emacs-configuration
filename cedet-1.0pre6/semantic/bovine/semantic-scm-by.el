@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2001, 2003 Eric M. Ludlam
 
-;; Author:  <wyx@myhost>
-;; Created: 2010-01-13 20:37:37+0000
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-02-27 03:48:42+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
