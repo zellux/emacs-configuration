@@ -2,18 +2,19 @@ export TERM=xterm-256color
 
 alias ls='ls --color=auto'
 alias mv='mv -i'
-alias cp='cp -i' alias pacman='pacman --needed'
-alias svndiff='svn diff --diff-cmd=colordiff'
+alias cp='cp -i'
+alias df='df -h'
+alias grep='grep --color=auto'
 
 PS1='[\u@\h \W]\$ '
 export manpath=
 
 bind '"\e[Z":menu-complete'
 
-alias df='df -h'
-
 export SVN_EDITOR=vim
-export JAVA_HOME=/opt/java/
+export EDITOR=vim
+export VISUAL=vim
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 #export ftp_proxy=http://10.131.1.124:808
 #export http_proxy=http://10.131.1.124:808
@@ -53,8 +54,5 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 

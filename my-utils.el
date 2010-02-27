@@ -1,9 +1,3 @@
-;; color-theme
-;; (global-font-lock-mode t)
-(require 'color-theme)
-;; (color-theme-initialize)
-(color-theme-ld-dark)
-
 ;; Dired mode
 (add-hook 'dired-load-hook
           (lambda ()

@@ -160,17 +160,18 @@
 ;; 					  :spp-table '(("__XEN__" . "")
 ;; 								   ))
 
-(ede-cpp-root-project "Nexus"
-					  :name "Nexus"
-					  ;; Any file at root directory of the project
-					  :file "~/nexus/GNUmakefile"
-					  ;; Relative to the project's root directory
-					  :include-path '("/"
-									  "/inc"
-									  )
-					  ;; Pre-definds macro for preprocessing
-					  ;; :spp-table '(("__XEN__" . "")
-								   )
+;; Configuration for project Nexus 
+;; (ede-cpp-root-project "Nexus"
+;; 					  :name "Nexus"
+;; 					  ;; Any file at root directory of the project
+;; 					  :file "~/nexus/GNUmakefile"
+;; 					  ;; Relative to the project's root directory
+;; 					  :include-path '("/"
+;; 									  "/inc"
+;; 									  )
+;; 					  ;; Pre-definds macro for preprocessing
+;; 					  ;; :spp-table '(("__XEN__" . "")
+								   ;; )
 
 ;; ECB configurations
 (add-to-list 'load-path "~/emacs/ecb-2.40")

@@ -12,6 +12,7 @@ Ubuntu
  * emacs-goodies-el
  * auctex
  * emacs-jabber
+ * python-mode
 
 = Installation =
 == Install cedet ==

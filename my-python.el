@@ -4,8 +4,8 @@
 ;; Python mode
 ;; (require 'ido)
 ;; (ido-mode t)
-(setq load-path (cons "~/emacs/python" load-path))
-(load-file "~/emacs/python/django-html-mode.el")
+(setq load-path (cons "~/emacs/langmode/python" load-path))
+(load "django-html-mode.el")
 (autoload 'python-mode "python-mode.el" "Python mode." t)
 (setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
