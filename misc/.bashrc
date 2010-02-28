@@ -1,5 +1,8 @@
 export TERM=xterm-256color
 
+shopt -s histappend 
+export PROMPT_COMMAND="history -a; history -n"
+
 alias ls='ls --color=auto'
 alias mv='mv -i'
 alias cp='cp -i'
@@ -21,7 +24,8 @@ export JAVA_HOME=/usr/lib/jvm/java-6-sun
 export ftp_proxy=
 export http_proxy=
 
-export PATH=${PATH}:/home/wyx/source/nativeclient/src/nacl/depot_tools:/usr/local/bin
+export PATH=${PATH}:/usr/local/bin:~/tools/depot_tools
+export GYP_GENERATORS=make
 
 # stty -ixoff -ixon
 
