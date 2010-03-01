@@ -129,36 +129,36 @@
 
 (global-ede-mode t)
 
-;; Danimoth-specified configurations
-;; (add-to-list 'semanticdb-project-roots "~/danimoth/xen")
-;; 
-;; (setq semanticdb-project-roots 
-;;       (list
-;; 	   (expand-file-name "/")))
-;; 
-;; (setq danimoth-base-dir "/home/wyx/danimoth")
-;; 
-;; (add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c++-mode))
-;; (add-to-list 'auto-mode-alist (cons danimoth-base-dir 'c-mode))
-;; 
-;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/config.h"))
-;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimoth-base-dir "/xen/include/asm-x86/config.h"))
-;; 
-;; (ede-cpp-root-project "Danimoth"
-;; 					  :name "Danimoth"
-;; 					  ;; Any file at root directory of the project
-;; 					  :file "~/danimoth/xen/Makefile"
-;; 					  ;; Relative to the project's root directory
-;; 					  :include-path '("/"
-;; 									  "/include/asm-x86"
-;; 									  "/include/xen"
-;; 									  "/include/public"
-;; 									  "/include/acpi"
-;; 									  "/arch/x86/cpu/"
-;; 									  )
-;; 					  ;; Pre-definds macro for preprocessing
-;; 					  :spp-table '(("__XEN__" . "")
-;; 								   ))
+;; Danimos-specified configurations
+(add-to-list 'semanticdb-project-roots "~/danimos/xen")
+
+(setq semanticdb-project-roots 
+      (list
+       (expand-file-name "/")))
+
+(setq danimos-base-dir "/home/wyx/danimos")
+
+(add-to-list 'auto-mode-alist (cons danimos-base-dir 'c++-mode))
+(add-to-list 'auto-mode-alist (cons danimos-base-dir 'c-mode))
+
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimos-base-dir "/xen/include/config.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
+
+(ede-cpp-root-project "Danimos"
+		      :name "Danimos"
+		      ;; Any file at root directory of the project
+		      :file "~/danimos/xen/Makefile"
+		      ;; Relative to the project's root directory
+		      :include-path '("/"
+				      "/include/asm-x86"
+				      "/include/xen"
+				      "/include/public"
+				      "/include/acpi"
+				      "/arch/x86/cpu/"
+				      )
+		      ;; Pre-definds macro for preprocessing
+		      :spp-table '(("__XEN__" . "")
+				   ))
 
 ;; Configuration for project Nexus 
 ;; (ede-cpp-root-project "Nexus"

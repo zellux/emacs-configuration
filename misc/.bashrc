@@ -8,6 +8,9 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias df='df -h'
 alias grep='grep --color=auto'
+if [ -f /usr/bin/ack-grep ]; then
+    alias ack='ack-grep'
+fi
 
 PS1='[\u@\h \W]\$ '
 export manpath=

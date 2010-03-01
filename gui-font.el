@@ -1,2 +1,3 @@
-(set-default-font "Monaco-10")
+;; (set-default-font "Monaco-11")
+(set-default-font "Consolas-11")
 
