@@ -8,7 +8,7 @@
 ;; Muse settings
 (add-to-list 'load-path "~/emacs/utils/muse")
 (setq my-muse-base-dir "d:/project/notes")
-(load "muse-init.el")
+(load "my-muse.el")
 
 ;; Maximize windows
 (defun w32-maximize-frame ()

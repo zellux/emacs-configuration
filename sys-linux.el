@@ -36,7 +36,7 @@
 
 (load "my-cc-mode.el")
 (setq my-muse-base-dir "~/notes")
-(load "muse-init.el")
+(load "my-muse.el")
 (load "gui-font.el")
 (load "gui-settings.el")
 
