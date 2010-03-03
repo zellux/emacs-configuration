@@ -42,6 +42,10 @@
 	 (,(concat my-muse-base-dir "/muse/projects")
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/projects")))
+	("Danimos"
+	 (,(concat my-muse-base-dir "/muse/projects/danimos")
+	  :default "index")
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/projects/danimos")))
 	("CodeReading"
 	 (,(concat my-muse-base-dir "/muse/code")
 	  :default "index")
