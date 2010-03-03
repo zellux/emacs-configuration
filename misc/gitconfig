@@ -1,6 +1,8 @@
 [user]
-name = Wang Yuanxuan
-emacs = zellux@gmail.com
+    name = Wang Yuanxuan
+    emacs = zellux@gmail.com
 
 [color]
-diff = auto
+    diff = auto
+    status = auto
+    branch = auto

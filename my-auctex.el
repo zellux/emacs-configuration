@@ -7,6 +7,7 @@
 
 (add-hook 'LaTeX-mode-hook
           (function (lambda ()
+		      (flyspell-mode 1)
                       (paren-toggle-matching-quoted-paren 1)
                       (paren-toggle-matching-paired-delimiter 1))))
 

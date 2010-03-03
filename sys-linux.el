@@ -29,7 +29,7 @@
 (load "psvn.el")
 (load "my-doxygen.el")
 (load "my-org-mode.el")
-;; (load "my-auctex.el")
+(load "my-auctex.el")
 ;; (load "my-fp.el")
 (load "my-utils.el")
 (load "my-vcs.el")
