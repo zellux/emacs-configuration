@@ -74,8 +74,8 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 ;; Company-mode
-(add-to-list 'load-path (expand-file-name "~/emacs/elpa/company-0.4.3"))
-(load-file "~/emacs/elpa/company-0.4.3/company.el")
+(add-to-list 'load-path (expand-file-name "~/emacs/company"))
+(load-file "~/emacs/company/company.el")
 
 ;; (require 'company-mode)
 ;; (require 'company-bundled-completions)
