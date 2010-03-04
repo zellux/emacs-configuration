@@ -2,6 +2,9 @@ export TERM=xterm-256color
 
 shopt -s histappend 
 export PROMPT_COMMAND="history -a; history -n"
+export HISTFILESIZE=10000
+export HISTCONTROL=ignoredups
+
 
 alias ls='ls --color=auto'
 alias mv='mv -i'
