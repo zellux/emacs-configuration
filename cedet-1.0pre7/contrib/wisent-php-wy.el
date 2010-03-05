@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2008 Free Software Foundation
 
-;; Author: Eric M. Ludlam <zappo@projectile.siege-engine.com>
-;; Created: 2009-08-30 09:51:01-0400
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-03-05 11:09:13+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

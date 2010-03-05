@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2005 Joakim Verona, Eric Ludlam
 
-;; Author: Eric M. Ludlam <zappo@projectile.siege-engine.com>
-;; Created: 2009-08-30 09:50:50-0400
+;; Author: Wang Yuanxuan <wyx@wyx-desktop>
+;; Created: 2010-03-05 11:08:50+0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

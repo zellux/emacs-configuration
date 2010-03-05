@@ -22,6 +22,12 @@
 (require 'mic-paren)
 (paren-activate)
 
+;; Popup terminal
+(defun popup-terminal ()
+  (interactive)
+  (apply 'start-process "terminal" nil popup-terminal-command)
+  )
+
 ;; TODO: Clean up this mess
 (custom-set-variables
   ;; custom-set-variables was added by Custom.

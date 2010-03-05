@@ -21,6 +21,7 @@
 (global-set-key (kbd "<f5>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
 
+(setq popup-terminal-command '("gnome-terminal"))
 
 (load "my-python.el")
 
@@ -37,8 +38,11 @@
 (load "my-cc-mode.el")
 (setq my-muse-base-dir "~/notes")
 (load "my-muse.el")
-(load "gui-font.el")
-(load "gui-settings.el")
+
+(cond
+ ((not (boundp 'initial-window-system))
+  (message "Console"))
+ (t (load "gui-settings.el")))
 
 ;; Toggle off tool-bar
 (tool-bar-mode 0)

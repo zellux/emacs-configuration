@@ -54,6 +54,14 @@
 	 (,(concat my-muse-base-dir "/muse/complang")
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/complang")))
+	("Tools"
+	 (,(concat my-muse-base-dir "/muse/tools")
+	  :default "index")
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/tools")))
+	("Git"
+	 (,(concat my-muse-base-dir "/muse/tools/git")
+	  :default "index")
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/tools/git")))
 	))
 
 
@@ -72,7 +80,7 @@
 ;; Command-line argument --all for publishing all projects, copied from
 ;; http://jianlee.ylinux.org/Computer/downloads/muse-init.txt
 ;; 
-;; Usage: emacs -q -batch -l muse-init.el -f muse-project-batch-publish "$@"
+;; Usage: emacs -nw -q -batch -l ~/.emacs muse-init.el -f muse-project-batch-publish --force --all
 (defun muse-project-batch-publish ()
   "Publish Muse files in batch mode."
   (let ((muse-batch-publishing-p t)

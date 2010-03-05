@@ -2,7 +2,7 @@
 (setq compilation-scroll-output t)
 
 ;; cedet
-(load-file "~/emacs/cedet-1.0pre6/common/cedet.el")
+(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
 (require 'semantic-ia)
 (require 'semantic-gcc)
 
@@ -141,8 +141,10 @@
 (add-to-list 'auto-mode-alist (cons danimos-base-dir 'c++-mode))
 (add-to-list 'auto-mode-alist (cons danimos-base-dir 'c-mode))
 
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimos-base-dir "/xen/include/config.h"))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file
+			 (concat danimos-base-dir "/xen/include/config.h"))
+(add-to-list 'semantic-lex-c-preprocessor-symbol-file
+			 (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
 
 (ede-cpp-root-project "Danimos"
 		      :name "Danimos"
