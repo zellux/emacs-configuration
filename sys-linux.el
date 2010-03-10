@@ -2,6 +2,7 @@
 (require 'linum)
 (require 'cc-mode)
 (require 'bm)
+(require 'folding)
 
 ;; (require 'pysmell)
 ;; (require 'pymacs)
@@ -38,6 +39,7 @@
 (load "my-cc-mode.el")
 (setq my-muse-base-dir "~/notes")
 (load "my-muse.el")
+(load "my-emms.el")
 
 (cond
  ((not (boundp 'initial-window-system))

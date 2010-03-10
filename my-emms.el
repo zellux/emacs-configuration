@@ -17,6 +17,7 @@
 
 (global-set-key (kbd "<kp-subtract>") 'emms-previous)
 (global-set-key (kbd "<kp-add>") 'emms-next)
+(global-set-key (kbd "<kp-multiply>") 'emms-random)
 
 (setq emms-mode-line-icon-before-format "["
       emms-mode-line-format " %s]"
@@ -46,7 +47,8 @@
             (tit  (emms-track-get track 'info-title)))
         (cond ((and pmin psec) (format "%s - %s [%02d:%02d]" art tit pmin psec))
               (ptot (format  "%s - %s [%02d:%02d]" art tit (/ ptot 60) (% ptot 60)))
-              (t (emms-track-simple-description track))))))
+              (t (emms-track-simple-description track))))
+	(emms-track-simple-description track)))
 
 (setq emms-track-description-function 'my-emms-info-track-description)
 
