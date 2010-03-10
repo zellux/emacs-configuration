@@ -34,10 +34,10 @@
 	 (,(concat my-muse-base-dir "/muse/home")
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/home")))
-	("Security"
-	 (,(concat my-muse-base-dir "/muse/security")
+	("Courses"
+	 (,(concat my-muse-base-dir "/muse/courses")
 	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/security")))
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/courses")))
 	("Projects"
 	 (,(concat my-muse-base-dir "/muse/projects")
 	  :default "index")
@@ -54,14 +54,18 @@
 	 (,(concat my-muse-base-dir "/muse/complang")
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/complang")))
-	("Tools"
-	 (,(concat my-muse-base-dir "/muse/tools")
+	("Software"
+	 (,(concat my-muse-base-dir "/muse/software")
 	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/tools")))
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/software")))
 	("Git"
-	 (,(concat my-muse-base-dir "/muse/tools/git")
+	 (,(concat my-muse-base-dir "/muse/software/git")
 	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/tools/git")))
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/software/git")))
+	("Linux"
+	 (,(concat my-muse-base-dir "/muse/software/linux")
+	  :default "index")
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/software/linux")))
 	))
 
 
