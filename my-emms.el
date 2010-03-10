@@ -52,14 +52,22 @@
 
 (setq emms-track-description-function 'my-emms-info-track-description)
 
-(defun wyx-emms-track-description (track)
-  "Return customized description of the track."
-  (emms-track-get track 'info-title)
-
 (defun de-add-dir ()
   (interactive)
   (call-interactively 'emms-add-directory-tree)
   (emms-playlist-mode-go))
+
+(defun system-notify (message)
+  "invoke notify-send"
+  (interactive "")
+  (start-process-shell-command "*Output*" nil
+							  (concat "notify-send \"" message "\"")))
+
+(add-hook 
+ 'emms-player-started-hook 
+ '(lambda ()(system-notify 
+			 (concat "emms is now playing " 
+					 (emms-track-description (emms-playlist-current-selected-track))))))
 
 ;; global key-map
 ;; all global keys prefix is C-c e
