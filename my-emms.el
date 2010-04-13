@@ -57,17 +57,17 @@
   (call-interactively 'emms-add-directory-tree)
   (emms-playlist-mode-go))
 
-(defun system-notify (message)
+(defun system-notify (title message)
   "invoke notify-send"
   (interactive "")
   (start-process-shell-command "*Output*" nil
-							  (concat "notify-send \"" message "\"")))
+							  (concat "notify-send \"" title "\" \"" message "\"")))
 
 (add-hook 
- 'emms-player-started-hook 
- '(lambda ()(system-notify 
-			 (concat "emms is now playing " 
-					 (emms-track-description (emms-playlist-current-selected-track))))))
+ 'Emms-Player-Started-Hook 
+ '(lambda ()(system-notify
+			 "EMMS is now playing..."
+			 (emms-track-description (emms-playlist-current-selected-track)))))
 
 ;; global key-map
 ;; all global keys prefix is C-c e
