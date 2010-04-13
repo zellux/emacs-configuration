@@ -907,33 +907,34 @@ static char *gnus-pointer[] = {
 
      '(wl-highlight-folder-path ((t (:inherit zenburn-orange))))
 
-	 ;; My own customizations
-	 '(font-lock-builtin-face ((((class color) (background dark)) (:foreground "Turquoise"))))
-	 '(font-lock-comment-face ((t (:foreground "MediumAquamarine"))))
-	 '(font-lock-constant-face ((((class color) (background dark)) (:bold t :foreground "PeachPuff"))))
-	 '(font-lock-doc-string-face ((t (:foreground "green2"))))
-	 '(font-lock-function-name-face ((t (:foreground "SkyBlue"))))
-	 '(font-lock-keyword-face ((t (:bold t :foreground "CornflowerBlue"))))
-	 '(font-lock-preprocessor-face ((t (:italic nil :foreground "CornFlowerBlue"))))
-	 '(font-lock-reference-face ((t (:foreground "DodgerBlue"))))
-	 '(font-lock-string-face ((t (:foreground "LimeGreen"))))
-	 '(font-lock-type-face ((t (:foreground "#9290ff"))))
-	 '(font-lock-variable-name-face ((t (:foreground "PaleGreen"))))
-	 '(font-lock-warning-face ((((class color) (background dark)) (:foreground "yellow" :background "red"))))
+     ;; My own customizations
+     '(font-lock-builtin-face ((((class color) (background dark)) (:foreground "Turquoise"))))
+     '(font-lock-comment-face ((t (:foreground "MediumAquamarine"))))
+     '(font-lock-constant-face ((((class color) (background dark)) (:bold t :foreground "PeachPuff"))))
+     '(font-lock-doc-string-face ((t (:foreground "green2"))))
+     '(font-lock-function-name-face ((t (:foreground "SkyBlue"))))
+     '(font-lock-keyword-face ((t (:bold t :foreground "CornflowerBlue"))))
+     '(font-lock-preprocessor-face ((t (:italic nil :foreground "CornFlowerBlue"))))
+     '(font-lock-reference-face ((t (:foreground "DodgerBlue"))))
+     '(font-lock-string-face ((t (:foreground "LimeGreen"))))
+     '(font-lock-type-face ((t (:foreground "#9290ff"))))
+     '(font-lock-variable-name-face ((t (:foreground "PaleGreen"))))
+     '(font-lock-warning-face ((((class color) (background dark)) (:foreground "red" :underline t))))
+     '(font-lock-warning ((t (:inherit font-lock-warning-face))))
 
-	 '(mode-line ((t (:background "DarkOliveGreen3" :foreground "black" :box (:line-width 2 :color "black")))))
-	 '(mode-line-inactive ((t (:background "grey37" :box (:line-width 1 :color "grey37")))))
-	 '(mode-line-buffer-id ((t (:foreground "OrangeRed" :weight bold))))
-	 '(diff-header ((((class color) (min-colors 88) (background light)) (:background "#009999"))))
-	 '(ecb-default-highlight-face ((((class color) (background dark)) (:background "dimgrey"))))
-	 '(header-line ((default (:inherit mode-line :background "#151617")) (nil nil)))
+     '(mode-line ((t (:background "DarkOliveGreen3" :foreground "black" :box (:line-width 2 :color "black")))))
+     '(mode-line-inactive ((t (:background "grey37" :box (:line-width 1 :color "grey37")))))
+     '(mode-line-buffer-id ((t (:foreground "OrangeRed" :weight bold))))
+     '(diff-header ((((class color) (min-colors 88) (background light)) (:background "#009999"))))
+     '(ecb-default-highlight-face ((((class color) (background dark)) (:background "dimgrey"))))
+     '(header-line ((default (:inherit mode-line :background "#151617")) (nil nil)))
 
-	 '(cscope-file-face ((((class color) (background light)) (:foreground "yellow"))))
-	 '(cscope-function-face ((nil (:foreground "yellow"))))
-	 '(cscope-line-face ((((class color) (background light)) (:foreground "#30b853"))))
-	 )
+     '(cscope-file-face ((((class color) (background light)) (:foreground "yellow"))))
+     '(cscope-function-face ((nil (:foreground "yellow"))))
+     '(cscope-line-face ((((class color) (background light)) (:foreground "#30b853"))))
+     )
 
-	 
+    
     (zenburn-make-face-alias-clauses
      '(Buffer-menu-buffer-face
        apt-utils-broken-face
