@@ -18,8 +18,6 @@ fi
 PS1='[\u@\h \W]\$ '
 export manpath=
 
-bind '"\e[Z":menu-complete'
-
 export SVN_EDITOR=vim
 export EDITOR=vim
 export VISUAL=vim

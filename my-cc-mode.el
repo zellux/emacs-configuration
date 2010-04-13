@@ -28,13 +28,12 @@
 ;; helpers above.
 ;; (semantic-load-enable-semantic-debugging-helpers)
 
-
 (c-set-offset 'inline-open 0)
 (c-set-offset 'friend '-)
 (c-set-offset 'substatement-open 0)
-(add-hook 'c-mode-common-hook
-          (function (lambda ()
-                      (paren-toggle-open-paren-context 1))))
+;; (add-hook 'c-mode-common-hook
+;;           (function (lambda ()
+;;                       (paren-toggle-open-paren-context 1))))
 
 (setq c-basic-offset 4)
 
@@ -185,9 +184,6 @@
 (ecb-layout-define "my-cscope-layout" left nil
                    (ecb-set-methods-buffer)
                    (ecb-split-ver 0.5 t)
-                   (other-window 1)
-                   (ecb-set-history-buffer)
-                   (ecb-split-ver 0.25 t)
                    (other-window 1)
                    (ecb-set-cscope-buffer))
 

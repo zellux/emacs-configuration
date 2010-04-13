@@ -2,3 +2,4 @@ syntax: glob
 
 .git
 cedet-1.0pre7/*
+utils/*/build/

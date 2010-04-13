@@ -6,3 +6,4 @@
     diff = auto
     status = auto
     branch = auto
+    blame = auto
