@@ -39,17 +39,16 @@
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/courses")))
 	("Projects"
-	 (,(concat my-muse-base-dir "/muse/projects")
+	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/projects"))
+	  :default "index"
+	  :force-publish ("index"))
+	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/projects")
+				      (concat my-muse-base-dir "/html/projects")
+				      "html"))
+	("Lectures"
+	 (,(concat my-muse-base-dir "/muse/lectures")
 	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/projects")))
-	("Danimos"
-	 (,(concat my-muse-base-dir "/muse/projects/danimos")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/projects/danimos")))
-	("CodeReading"
-	 (,(concat my-muse-base-dir "/muse/code")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/code")))
+	 (:base "html" :path ,(concat my-muse-base-dir "/html/lectures")))
 	("CompLang"
 	 (,(concat my-muse-base-dir "/muse/complang")
 	  :default "index")
