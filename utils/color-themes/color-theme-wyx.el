@@ -919,7 +919,7 @@ static char *gnus-pointer[] = {
      '(font-lock-string-face ((t (:foreground "LimeGreen"))))
      '(font-lock-type-face ((t (:foreground "#9290ff"))))
      '(font-lock-variable-name-face ((t (:foreground "PaleGreen"))))
-     '(font-lock-warning-face ((((class color) (background dark)) (:foreground "red" :underline t))))
+     '(font-lock-warning-face ((((class color) (background dark)) (:foreground "red" :underline t :background "yellow"))))
      '(font-lock-warning ((t (:inherit font-lock-warning-face))))
 
      '(mode-line ((t (:background "DarkOliveGreen3" :foreground "black" :box (:line-width 2 :color "black")))))
