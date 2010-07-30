@@ -31,15 +31,15 @@
 (load "psvn.el")
 (load "my-doxygen.el")
 (load "my-org-mode.el")
-(load "my-auctex.el")
+;; (load "my-auctex.el")
 ;; (load "my-fp.el")
 (load "my-utils.el")
-(load "my-vcs.el")
+;; (load "my-vcs.el")
 
-(load "my-cc-mode.el")
+;; (load "my-cc-mode.el")
 (setq my-muse-base-dir "~/notes")
 (load "my-muse.el")
-(load "my-emms.el")
+;; (load "my-emms.el")
 
 (cond
  ((not (boundp 'initial-window-system))

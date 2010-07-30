@@ -6,7 +6,7 @@
 ;; (ido-mode t)
 (setq load-path (cons "~/emacs/langmode/python" load-path))
 (load "django-html-mode.el")
-(load "/usr/share/emacs/site-lisp/python-mode/python-mode.el")
+(load "python-mode.el")
 
 (autoload 'python-mode "python-mode.el" "Python mode." t)
 (setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
