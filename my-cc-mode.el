@@ -129,37 +129,93 @@
 (global-ede-mode t)
 
 ;; Danimos-specified configurations
-(add-to-list 'semanticdb-project-roots "~/danimos/xen")
+;; (add-to-list 'semanticdb-project-roots "~/danimos/xen")
 
 (setq semanticdb-project-roots 
       (list
        (expand-file-name "/")))
 
-(setq danimos-base-dir "/home/wyx/danimos")
+;; (setq danimos-base-dir "/home/wyx/danimos")
 
-(add-to-list 'auto-mode-alist (cons danimos-base-dir 'c++-mode))
-(add-to-list 'auto-mode-alist (cons danimos-base-dir 'c-mode))
+;; (add-to-list 'auto-mode-alist (cons danimos-base-dir 'c++-mode))
+;; (add-to-list 'auto-mode-alist (cons danimos-base-dir 'c-mode))
 
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file
-			 (concat danimos-base-dir "/xen/include/config.h"))
-(add-to-list 'semantic-lex-c-preprocessor-symbol-file
-			 (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;; 			 (concat danimos-base-dir "/xen/include/config.h"))
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;; 			 (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
 
-(ede-cpp-root-project "Danimos"
-		      :name "Danimos"
+;; (ede-cpp-root-project "Danimos"
+;; 		      :name "Danimos"
+;; 		      ;; Any file at root directory of the project
+;; 		      :file "~/danimos/xen/Makefile"
+;; 		      ;; Relative to the project's root directory
+;; 		      :include-path '("/"
+;; 				      "/include/asm-x86"
+;; 				      "/include/xen"
+;; 				      "/include/public"
+;; 				      "/include/acpi"
+;; 				      "/arch/x86/cpu/"
+;; 				      )
+;; 		      ;; Pre-definds macro for preprocessing
+;; 		      :spp-table '(("__XEN__" . "")
+;; 				   ))
+
+(setq extmem-base-dir "~/Code/ext/Users/wyx/Code/extmem10/toposort")
+
+(add-to-list 'auto-mode-alist (cons extmem-base-dir 'c++-mode))
+;; (add-to-list 'auto-mode-alist (cons danimos-base-dir 'c-mode))
+
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;; 			 (concat danimos-base-dir "/xen/include/config.h"))
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;; 			 (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
+
+(ede-cpp-root-project "ExToposort"
+					  :name "ExToposort"
+					  ;; Any file at root directory of the project
+					  :file "~/Code/extmem10/toposort/stxxl-1.3.0/Makefile"
+					  ;; Relative to the project's root directory
+					  :include-path '(
+									  "/stxxl-1.3.0/include"
+									  )
+					  ;; Pre-definds macro for preprocessing
+					  :spp-table '(("")
+								   ))
+
+;; Configuration for project Nexus 
+;; (ede-cpp-root-project "Nexus"
+;; 					  :name "Nexus"
+;; 					  ;; Any file at root directory of the project
+;; 					  :file "~/nexus/GNUmakefile"
+;; 					  ;; Relative to the project's root directory
+;; 					  :include-path '("/"
+;; 									  "/inc"
+;; 									  )
+;; 					  ;; Pre-definds macro for preprocessing
+;; 					  ;; :spp-table '(("__XEN__" . "")
+								   ;; )
+
+(setq griffin-base-dir "~/Code/Griffin")
+
+(add-to-list 'auto-mode-alist (cons griffin-base-dir 'c++-mode))
+(add-to-list 'auto-mode-alist (cons griffin-base-dir 'c-mode))
+
+;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
+;; 			 (concat griffin-base-dir "/linux-2.6.22.19-vs2.2.0.7/include/config.h"))
+
+(ede-cpp-root-project "Griffin"
+		      :name "Griffin"
 		      ;; Any file at root directory of the project
-		      :file "~/danimos/xen/Makefile"
+		      :file "~/Code/Griffin/linux-2.6.22.19-vs2.2.0.7/Makefile"
 		      ;; Relative to the project's root directory
 		      :include-path '("/"
-				      "/include/asm-x86"
-				      "/include/xen"
-				      "/include/public"
-				      "/include/acpi"
-				      "/arch/x86/cpu/"
+				      "/include/config"
+				      "/include/asm-x86_64"
+				      "/include/linux"
 				      )
 		      ;; Pre-definds macro for preprocessing
-		      :spp-table '(("__XEN__" . "")
-				   ))
+				   )
 
 ;; Configuration for project Nexus 
 ;; (ede-cpp-root-project "Nexus"
@@ -191,6 +247,8 @@
                          (switch-to-buffer "*cscope*"))
 
 (setq ecb-layout-name "my-cscope-layout")
+
+(setq ecb-tip-of-the-day nil)
 
 ;; Disable buckets so that history buffer can display more entries
 (setq ecb-history-make-buckets 'never)
