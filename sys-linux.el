@@ -31,13 +31,13 @@
 (load "psvn.el")
 (load "my-doxygen.el")
 (load "my-org-mode.el")
-;; (load "my-auctex.el")
-;; (load "my-fp.el")
+(load "my-auctex.el")
+(load "my-fp.el")
 (load "my-utils.el")
 ;; (load "my-vcs.el")
 
-;; (load "my-cc-mode.el")
-(setq my-muse-base-dir "~/notes")
+(load "my-cc-mode.el")
+(setq my-muse-base-dir "~/Documents/notes")
 (load "my-muse.el")
 ;; (load "my-emms.el")
 
@@ -45,3 +45,8 @@
  ((not (boundp 'initial-window-system))
   (message "Console"))
  (t (load "gui-settings.el")))
+
+;; Hotfix for S-TAB remapping issue in Mac OS X, see
+;; http://groups.google.com/group/gnu.emacs.help/browse_thread/thread/094d5a87076987ec?pli=1
+;; for more information.
+(define-key (keymap-parent local-function-key-map) [S-tab] nil) 
