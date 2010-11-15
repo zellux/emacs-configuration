@@ -36,3 +36,9 @@
 ;; Column display ON
 (column-number-mode t)
 
+;; Load GUI settings 
+(cond
+ ((eq initial-window-system nil)
+  (message "Console"))
+ (t (load "gui-settings.el")))
+
