@@ -1,6 +1,6 @@
 ;; Common settings
-
 (setq backup-directory-alist '(("" . "~/.emacs.d/.backups")))
+
 ;; Marking regions by C-2
 (global-set-key (kbd "C-2") 'set-mark-command)
 
@@ -23,12 +23,14 @@
 ;; Getting rid of the 'yes or no' prompt and replace it with 'y or n'
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; org-mode
+(load "my-org-mode.el")
+
 ;; Color theme
 (setq load-path (cons "~/emacs/utils/color-themes" load-path))
 (require 'color-theme)
 (load "color-theme-tango.el")
 (load "color-theme-wyx.el")
-
 (color-theme-wyx)
 
 ;; Column display ON

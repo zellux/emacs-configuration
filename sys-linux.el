@@ -30,7 +30,6 @@
 (load "my-gnus.el")
 (load "psvn.el")
 (load "my-doxygen.el")
-(load "my-org-mode.el")
 (load "my-auctex.el")
 (load "my-fp.el")
 (load "my-utils.el")
@@ -42,11 +41,7 @@
 ;; (load "my-emms.el")
 
 (cond
- ((not (boundp 'initial-window-system))
+ ((eq initial-window-system nil)
   (message "Console"))
  (t (load "gui-settings.el")))
 
-;; Hotfix for S-TAB remapping issue in Mac OS X, see
-;; http://groups.google.com/group/gnu.emacs.help/browse_thread/thread/094d5a87076987ec?pli=1
-;; for more information.
-(define-key (keymap-parent local-function-key-map) [S-tab] nil) 

@@ -2,12 +2,15 @@
 (setq load-path (cons "~/emacs" load-path))
 (setq load-path (cons "~/emacs/utils" load-path))
 
-(load "sys-common.el")
+;; Load configuration for different systems
+(if (string-equal system-type "darwin")
+    (load "sys-macosx.el"))
 
-;; Select configuration depending on system, since I need few extension under Windows
 (cond ((string-equal system-type "windows-nt")
        (load "sys-windows.el"))
       (t (load "sys-linux.el")))
+
+(load "sys-common.el")
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
