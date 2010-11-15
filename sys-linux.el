@@ -40,8 +40,3 @@
 (load "my-muse.el")
 ;; (load "my-emms.el")
 
-(cond
- ((eq initial-window-system nil)
-  (message "Console"))
- (t (load "gui-settings.el")))
-

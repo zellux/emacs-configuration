@@ -1,5 +1,5 @@
-= Required packages =
-ArchLinux
+= Linux =
+== Required packages in ArchLinux ==
  * pymacs
  * auctex
  * emacs-haskell-mode
@@ -8,7 +8,7 @@ ArchLinux
  * emacs-jabber
  * mercurial
 
-Ubuntu
+=== Required packages in Ubuntu ===
  * emacs-goodies-el
  * auctex
  * emacs-jabber
@@ -16,13 +16,18 @@ Ubuntu
  * emms
  * libtagc0-dev
 
-= Installation =
 == Install cedet ==
 $ emacs -Q -l cedet-build.el -f cedet-build
 
 == Install jabber ==
- autoreconf -i
- ./configure && make
+$ autoreconf -i
+$ ./configure && make
 
 == Emacs Muse ==
-For LaTeX mathematical equations, install tetex-extra and dvipng packages.
+For LaTeX mathematical equations, install tetex-extra and dvipng packages
+
+= Windows =
+== HOME environment ==
+System Properties -> Environment Variables -> New, add a new
+environment variable named HOME, and set it to the directory
+containing .emacs
