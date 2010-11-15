@@ -11,3 +11,13 @@
 
 ;; Speedbar hotkey
 (global-set-key [(f8)] 'speedbar)
+
+(set-default-font "Monaco-14")
+(set-fontset-font (frame-parameter nil 'font)
+          'han (font-spec :family "STHeiTi" :size 16))
+(set-fontset-font (frame-parameter nil 'font)
+          'symbol (font-spec :family "STHeiTi" :size 16))
+(set-fontset-font (frame-parameter nil 'font)
+          'cjk-misc (font-spec :family "STHeiTi" :size 16))
+(set-fontset-font (frame-parameter nil 'font)
+          'bopomofo (font-spec :family "STHeiTi" :size 16))

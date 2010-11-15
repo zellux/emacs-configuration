@@ -34,37 +34,54 @@
 	 (,(concat my-muse-base-dir "/muse/home")
 	  :default "index")
 	 (:base "html" :path ,(concat my-muse-base-dir "/html/home")))
-	("Courses"
-	 (,(concat my-muse-base-dir "/muse/courses")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/courses")))
-	("Projects"
-	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/projects"))
+	("Economics"
+	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/economics"))
 	  :default "index"
 	  :force-publish ("index"))
-	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/projects")
-				      (concat my-muse-base-dir "/html/projects")
+	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/economics")
+				      (concat my-muse-base-dir "/html/economics")
 				      "html"))
-	("Lectures"
-	 (,(concat my-muse-base-dir "/muse/lectures")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/lectures")))
-	("CompLang"
-	 (,(concat my-muse-base-dir "/muse/complang")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/complang")))
-	("Software"
-	 (,(concat my-muse-base-dir "/muse/software")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/software")))
-	("Git"
-	 (,(concat my-muse-base-dir "/muse/software/git")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/software/git")))
-	("Linux"
-	 (,(concat my-muse-base-dir "/muse/software/linux")
-	  :default "index")
-	 (:base "html" :path ,(concat my-muse-base-dir "/html/software/linux")))
+	("Design"
+	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/design"))
+	  :default "index"
+	  :force-publish ("index"))
+	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/design")
+				      (concat my-muse-base-dir "/html/design")
+				      "html"))
+	("Philosophy"
+	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/philosophy"))
+	  :default "index"
+	  :force-publish ("index"))
+	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/philosophy")
+				      (concat my-muse-base-dir "/html/philosophy")
+				      "html"))
+	("Novels"
+	 (,@(muse-project-alist-dirs (concat my-muse-base-dir "/muse/novel"))
+	  :default "index"
+	  :force-publish ("index"))
+	 ,@(muse-project-alist-styles (concat my-muse-base-dir "/muse/novel")
+				      (concat my-muse-base-dir "/html/novel")
+				      "html"))
+	;; ("Lectures"
+	;;  (,(concat my-muse-base-dir "/muse/lectures")
+	;;   :default "index")
+	;;  (:base "html" :path ,(concat my-muse-base-dir "/html/lectures")))
+	;; ("CompLang"
+	;;  (,(concat my-muse-base-dir "/muse/complang")
+	;;   :default "index")
+	;;  (:base "html" :path ,(concat my-muse-base-dir "/html/complang")))
+	;; ("Software"
+	;;  (,(concat my-muse-base-dir "/muse/software")
+	;;   :default "index")
+	;;  (:base "html" :path ,(concat my-muse-base-dir "/html/software")))
+	;; ("Git"
+	;;  (,(concat my-muse-base-dir "/muse/software/git")
+	;;   :default "index")
+	;;  (:base "html" :path ,(concat my-muse-base-dir "/html/software/git")))
+	;; ("Linux"
+	;;  (,(concat my-muse-base-dir "/muse/software/linux")
+	;;   :default "index")
+	;;  (:base "html" :path ,(concat my-muse-base-dir "/html/software/linux")))
 	))
 
 
