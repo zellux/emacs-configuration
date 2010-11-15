@@ -20,6 +20,9 @@
  bookmark-default-file "~/.emacs.d/bookmarks" ;; keep my ~/ clean
  bookmark-save-flag 1)                        ;; autosave each change)
 
+;; Getting rid of the 'yes or no' prompt and replace it with 'y or n'
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Color theme
 (setq load-path (cons "~/emacs/utils/color-themes" load-path))
 (require 'color-theme)
