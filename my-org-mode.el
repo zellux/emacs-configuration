@@ -18,3 +18,4 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+(setq org-tags-column -90)
