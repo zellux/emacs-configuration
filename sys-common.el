@@ -4,6 +4,9 @@
 ;; Marking regions by C-2
 (global-set-key (kbd "C-2") 'set-mark-command)
 
+;; Use SPACE to indent instead of TAB, I hate TAB!
+(setq-default indent-tabs-mode nil)
+
 ;; Highlight FIXME, TODO and BUG
 (font-lock-add-keywords nil
 			'(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))
