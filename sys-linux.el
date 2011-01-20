@@ -40,3 +40,7 @@
 (load "my-muse.el")
 ;; (load "my-emms.el")
 
+(add-to-list 'load-path "~/emacs/langmode/javascript")
+(autoload #'espresso-mode "espresso" "Start espresso-mode" t)
+(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
