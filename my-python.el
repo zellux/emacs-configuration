@@ -1,6 +1,15 @@
 ;;pysmell
 ;; (add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))
 
+(add-to-list 'load-path "~/emacs/langmode/python/pinard-Pymacs-016b0bc")
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(eval-after-load "pymacs"
+  '(add-to-list 'pymacs-load-path "~/emacs/langmode/python/pinard-Pymacs-016b0bc"))
+
 ;; Python mode
 ;; (require 'ido)
 ;; (ido-mode t)

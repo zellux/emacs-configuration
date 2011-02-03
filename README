@@ -31,3 +31,9 @@ For LaTeX mathematical equations, install tetex-extra and dvipng packages
 System Properties -> Environment Variables -> New, add a new
 environment variable named HOME, and set it to the directory
 containing .emacs
+
+== Installing Pymacs ==
+1. make install
+(check: execute _from Pymacs import lisp_ in an interactive Python shell)
+
+2. M-x byte-compile-file RET pymacs.el RET
