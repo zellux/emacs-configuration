@@ -1,6 +1,7 @@
 COPYING
 MANIFEST.in
 README.txt
+setup.cfg
 setup.py
 docs/contributing.txt
 docs/done.txt

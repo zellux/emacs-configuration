@@ -10,28 +10,27 @@
 (eval-after-load "pymacs"
   '(add-to-list 'pymacs-load-path "~/emacs/langmode/python/pinard-Pymacs-016b0bc"))
 
+(require 'pymacs)
+(pymacs-load "ropemacs" "rope-")
+
+
 ;; Python mode
 ;; (require 'ido)
 ;; (ido-mode t)
-(setq load-path (cons "~/emacs/langmode/python" load-path))
-(load "django-html-mode.el")
-(load "python-mode.el")
+;; (setq load-path (cons "~/emacs/langmode/python" load-path))
+;; (load "django-html-mode.el")
+;; (load "python-mode.el")
 
-(autoload 'python-mode "python-mode.el" "Python mode." t)
-(setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+;; (autoload 'python-mode "python-mode.el" "Python mode." t)
+;; (setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
+;; (add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 (defun load-ropemacs ()
   "Load pymacs and ropemacs"
   (interactive)
   (setenv "PYMACS_PYTHON" "python")
+  (setenv "PYTHONPATH" "~/emacs/langmode/python/ropemacs")
   (require 'pymacs)
-  (autoload 'pymacs-load "pymacs" nil t)
-  (autoload 'pymacs-eval "pymacs" nil t)
-  (autoload 'pymacs-apply "pymacs")
-  (autoload 'pymacs-call "pymacs")
-  (autoload 'pymacs-exec "pymacs" nil t)
-  (pymacs-load "ropemacs" "rope-")
   (global-set-key [(meta ?/)] 'rope-code-assist)
   (setq rope-confirm-saving 'nil)
   )
