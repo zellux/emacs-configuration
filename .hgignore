@@ -3,3 +3,8 @@ syntax: glob
 .git
 cedet-1.0pre7/*
 utils/*/build/
+*.elc
+.DS_Store
+langmode/python/rope-0.9.3/build/
+langmode/python/ropemode/build/
+.svn

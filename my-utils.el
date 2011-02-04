@@ -49,6 +49,7 @@
 			   ("Programming" ;; prog stuff not already in MyProjectX
 				(or
 				 (mode . c-mode)
+				 (mode . c++-mode)
 				 (mode . perl-mode)
 				 (mode . python-mode)
 				 (mode . emacs-lisp-mode)
@@ -77,3 +78,6 @@
 (global-set-key (kbd "C-c <left>") 'winner-undo)
 (global-set-key (kbd "C-c <right>") 'winner-redo)
 (winner-mode t) ;; turn on the global minor mode
+
+(require 'auto-complete)
+(global-auto-complete-mode t)
