@@ -18,13 +18,19 @@
      (expand-file-name "~/emacs/elpa/package.el"))
   (package-initialize))
 
+;; yasnippet
+(add-to-list 'load-path "~/emacs/utils/yasnippet-0.6.1c")
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/emacs/utils/yasnippet-0.6.1c/snippets")
+
 (global-set-key (kbd "<f5>") 'bm-toggle)
 (global-set-key (kbd "<f6>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
 
 (setq popup-terminal-command '("gnome-terminal"))
 
-(load "my-python.el")
+(load "lang-python.el")
 
 ;; (load "my-picture.el")
 (load "my-gnus.el")
@@ -32,6 +38,7 @@
 (load "my-doxygen.el")
 (load "my-auctex.el")
 (load "my-fp.el")
+(load "lang-scala.el")
 (load "my-utils.el")
 ;; (load "my-vcs.el")
 
