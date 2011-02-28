@@ -1,3 +1,6 @@
+;; Desktop save mode
+(desktop-save-mode 1)
+
 ;; Common settings
 (setq backup-directory-alist '(("" . "~/.emacs.d/.backups")))
 
