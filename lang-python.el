@@ -30,7 +30,7 @@
   (setenv "PYMACS_PYTHON" "python")
   (setenv "PYTHONPATH" "~/emacs/langmode/python/ropemacs")
   (require 'pymacs)
-  (global-set-key [(meta ?/)] 'rope-code-assist)
+  ;; (global-set-key [(meta ?/)] 'rope-code-assist)
   (setq rope-confirm-saving 'nil)
   )
 
