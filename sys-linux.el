@@ -36,12 +36,12 @@
 (load "my-gnus.el")
 (load "psvn.el")
 (load "my-doxygen.el")
-(load "my-auctex.el")
+;; (load "my-auctex.el")
 (load "my-fp.el")
-(load "lang-scala.el")
+(load "lang-scala.el")			;
 (load "my-utils.el")
 ;; (load "my-vcs.el")
-
+(load "lang-ruby.el")
 (load "my-cc-mode.el")
 (setq my-muse-base-dir "~/Documents/notes")
 (load "my-muse.el")

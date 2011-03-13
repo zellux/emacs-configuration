@@ -2,7 +2,7 @@
 (setq compilation-scroll-output t)
 
 ;; cedet
-(load-file "~/emacs/cedet-1.0pre7/common/cedet.el")
+(load-file "~/emacs/cedet-1.0/common/cedet.el")
 (require 'semantic-ia)
 (require 'semantic-gcc)
 
