@@ -9,9 +9,11 @@
          (inf-ruby-keys)
 ))
 
+
 ;; Emacs-rails
 (add-to-list 'load-path (expand-file-name "~/emacs/langmode/ruby/emacs-rails"))
 (require 'rails)
+(setq rails-enable-ruby-electric nil)
 
 ;; RHTML-mode
 (add-to-list 'load-path (expand-file-name "~/emacs/langmode/ruby/rhtml"))
