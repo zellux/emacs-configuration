@@ -182,7 +182,7 @@
     (when name
       (let* ((default-type (or rails-controller-layout:recent-template-type (car rails-templates-list)))
              (type (completing-read (format "Create %s.[%s]? " name default-type)
-                                    rails-templates-list nil t default-type)))
+                                    rails-templates-list nil nil default-type)))
         (rails-core:find-file (rails-core:file (format "app/views/layouts/%s.%s" name type)))
         (if (y-or-n-p "Insert initial template? ")
           (insert rails-layout-template))))))

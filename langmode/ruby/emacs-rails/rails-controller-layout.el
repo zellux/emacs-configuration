@@ -75,7 +75,7 @@
           (completing-read (format "View for %s#%s not found, create %s.[%s]? "
                                    controller-name action-name action-name type)
                            rails-templates-list
-                           nil t type))
+                           nil nil type))
     (setq rails-controller-layout:recent-template-type type)
     (let ((file (rails-core:file (concat "app/views/"
                                          (replace-regexp-in-string "_controller" ""

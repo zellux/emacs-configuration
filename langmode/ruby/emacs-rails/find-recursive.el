@@ -65,7 +65,7 @@
 	   (function (lambda (x)
 		       (concat relative-directory x)))
 	   (find-recursive-filter-out '(nil)
-				(directory-files full-dir nil
+				(directory-files1 full-dir nil
 						 file-regexp nil t))))
 	 (inner
 	  (mapcar
@@ -76,7 +76,7 @@
 							 dir "/")
 						 file-regexp)))
 	   (find-recursive-filter-out '(nil "\\." "\\.\\.")
-				(directory-files full-dir nil ".*"
+				(directory-files1 full-dir nil ".*"
 						 nil 'directories)))))
     (mapcar (function (lambda (dir) (setq matches (append matches dir))))
 	    inner)
@@ -99,9 +99,12 @@
 
 (defvar find-recursive-running-xemacs (string-match "XEmacs\\|Lucid" emacs-version))
 
+(defun directory-files1 (dirname &optional full match nosort files-only)
+  (directory-files dirname full match nosort))
+
 (if find-recursive-running-xemacs
     nil
-  (defadvice directory-files (after
+  (defadvice directory-files1 (after
 			      directory-files-xemacs
 			      (dirname &optional full match nosort files-only)
 			      activate)

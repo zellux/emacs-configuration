@@ -46,7 +46,7 @@
 
 ;;; Code:
 
-(defconst ruby-mode-revision "$Revision: 31076 $"
+(defconst ruby-mode-revision "$Revision: 31308 $"
   "Ruby mode revision string.")
 
 (defconst ruby-mode-version
@@ -172,7 +172,7 @@
   (define-key ruby-mode-map "\t" 'ruby-indent-command)
   (define-key ruby-mode-map "\C-c\C-e" 'ruby-insert-end)
   (define-key ruby-mode-map "\C-j" 'ruby-reindent-then-newline-and-indent)
-  (define-key ruby-mode-map "\C-m" 'newline)
+  (define-key ruby-mode-map "\C-c{" 'ruby-toggle-block)
   (define-key ruby-mode-map "\C-c\C-u" 'uncomment-region))
 
 (defvar ruby-mode-syntax-table nil
@@ -247,6 +247,8 @@ Also ignores spaces after parenthesis when 'space."
   "*Use `ruby-encoding-map' to set encoding magic comment if this is non-nil."
   :type 'boolean :group 'ruby)
 
+(defvar ruby-indent-point nil "internal variable")
+
 (eval-when-compile (require 'cl))
 (defun ruby-imenu-create-index-in-block (prefix beg end)
   (let ((index-alist '()) (case-fold-search nil)
@@ -302,13 +304,13 @@ Also ignores spaces after parenthesis when 'space."
   (setq indent-line-function 'ruby-indent-line)
   (make-local-variable 'require-final-newline)
   (setq require-final-newline t)
-  (make-variable-buffer-local 'comment-start)
+  (make-local-variable 'comment-start)
   (setq comment-start "# ")
-  (make-variable-buffer-local 'comment-end)
+  (make-local-variable 'comment-end)
   (setq comment-end "")
-  (make-variable-buffer-local 'comment-column)
+  (make-local-variable 'comment-column)
   (setq comment-column ruby-comment-column)
-  (make-variable-buffer-local 'comment-start-skip)
+  (make-local-variable 'comment-start-skip)
   (setq comment-start-skip "#+ *")
   (setq indent-tabs-mode ruby-indent-tabs-mode)
   (make-local-variable 'parse-sexp-ignore-comments)
@@ -356,45 +358,6 @@ Also ignores spaces after parenthesis when 'space."
               ((looking-at "\\s *#.*coding\\s *[:=]"))
               (t (insert "# -*- coding: " coding-system " -*-\n"))
               )))))
-
-;;;###autoload
-(defun ruby-mode ()
-  "Major mode for editing ruby scripts.
-\\[ruby-indent-command] properly indents subexpressions of multi-line
-class, module, def, if, while, for, do, and case statements, taking
-nesting into account.
-
-The variable ruby-indent-level controls the amount of indentation.
-\\{ruby-mode-map}"
-  (interactive)
-  (kill-all-local-variables)
-  (use-local-map ruby-mode-map)
-  (setq mode-name "Ruby")
-  (setq major-mode 'ruby-mode)
-  (ruby-mode-variables)
-
-  (make-local-variable 'imenu-create-index-function)
-  (setq imenu-create-index-function 'ruby-imenu-create-index)
-
-  (make-local-variable 'add-log-current-defun-function)
-  (setq add-log-current-defun-function 'ruby-add-log-current-method)
-
-  (add-hook
-   (cond ((boundp 'before-save-hook)
-          (make-local-variable 'before-save-hook)
-          'before-save-hook)
-         ((boundp 'write-contents-functions) 'write-contents-functions)
-         ((boundp 'write-contents-hooks) 'write-contents-hooks))
-   'ruby-mode-set-encoding)
-
-  (set (make-local-variable 'font-lock-defaults) '((ruby-font-lock-keywords) nil nil))
-  (set (make-local-variable 'font-lock-keywords) ruby-font-lock-keywords)
-  (set (make-local-variable 'font-lock-syntax-table) ruby-font-lock-syntax-table)
-  (set (make-local-variable 'font-lock-syntactic-keywords) ruby-font-lock-syntactic-keywords)
-
-  (if (fboundp 'run-mode-hooks)
-      (run-mode-hooks 'ruby-mode-hook)
-    (run-hooks 'ruby-mode-hook)))
 
 (defun ruby-current-indentation ()
   (save-excursion
@@ -593,7 +556,7 @@ The variable ruby-indent-level controls the amount of indentation.
               (progn
                 (and (eq deep 'space) (looking-at ".\\s +[^# \t\n]")
                      (setq pnt (1- (match-end 0))))
-                (setq nest (cons (cons (char-after (point)) pnt) nest))
+                (setq nest (cons (cons (char-after (point)) (point)) nest))
                 (setq pcol (cons (cons pnt depth) pcol))
                 (setq depth 0))
             (setq nest (cons (cons (char-after (point)) pnt) nest))
@@ -603,7 +566,7 @@ The variable ruby-indent-level controls the amount of indentation.
        ((looking-at "[])}]")
         (if (ruby-deep-indent-paren-p (matching-paren (char-after))
 				      (if nest
-					  (1- (cdr (nth 0 nest)))
+					  (cdr (nth 0 nest))
 					(save-excursion
 					  (forward-char)
 					  (ruby-backward-sexp)
@@ -711,10 +674,10 @@ The variable ruby-indent-level controls the amount of indentation.
         (goto-char pnt))
        ((looking-at ruby-here-doc-beg-re)
         (if (re-search-forward (ruby-here-doc-end-match)
-                               indent-point t)
+                               ruby-indent-point t)
             (forward-line 1)
           (setq in-string (match-end 0))
-          (goto-char indent-point)))
+          (goto-char ruby-indent-point)))
        (t
         (error (format "bad string %s"
                        (buffer-substring (point) pnt)
@@ -744,7 +707,7 @@ The variable ruby-indent-level controls the amount of indentation.
 (defun ruby-calculate-indent (&optional parse-start)
   (save-excursion
     (beginning-of-line)
-    (let ((indent-point (point))
+    (let ((ruby-indent-point (point))
           (case-fold-search nil)
           state bol eol begin op-end
           (paren (progn (skip-syntax-forward " ")
@@ -756,7 +719,7 @@ The variable ruby-indent-level controls the amount of indentation.
         (setq parse-start (point)))
       (back-to-indentation)
       (setq indent (current-column))
-      (setq state (ruby-parse-region parse-start indent-point))
+      (setq state (ruby-parse-region parse-start ruby-indent-point))
       (cond
        ((nth 0 state)                   ; within string
         (setq indent nil))              ;  do nothing
@@ -768,7 +731,7 @@ The variable ruby-indent-level controls the amount of indentation.
               (cond ((and (eq deep t) (eq (car (nth 1 state)) paren))
                      (skip-syntax-backward " ")
                      (setq indent (1- (current-column))))
-                    ((let ((s (ruby-parse-region (point) indent-point)))
+                    ((let ((s (ruby-parse-region (point) ruby-indent-point)))
                        (and (nth 2 s) (> (nth 2 s) 0)
                             (or (goto-char (cdr (nth 1 s))) t)))
                      (forward-word -1)
@@ -803,7 +766,7 @@ The variable ruby-indent-level controls the amount of indentation.
        ((and (nth 2 state) (< (nth 2 state) 0)) ; in negative nest
         (setq indent (ruby-indent-size (current-column) (nth 2 state)))))
       (when indent
-        (goto-char indent-point)
+        (goto-char ruby-indent-point)
         (end-of-line)
         (setq eol (point))
         (beginning-of-line)
@@ -898,7 +861,7 @@ The variable ruby-indent-level controls the amount of indentation.
                   ((car (nth 1 state)) indent)
                   (t
                    (+ indent ruby-indent-level))))))))
-      (goto-char indent-point)
+      (goto-char ruby-indent-point)
       (beginning-of-line)
       (skip-syntax-forward " ")
       (if (looking-at "\\.[^.]")
@@ -948,7 +911,7 @@ An end of a defun is found by moving forward from the beginning of one."
   (forward-line 1))
 
 (defun ruby-move-to-block (n)
-  (let (start pos done down)
+  (let (start pos done down (orig (point)))
     (setq start (ruby-calculate-indent))
     (setq down (looking-at (if (< n 0) ruby-block-end-re
                              (concat "\\<\\(" ruby-block-beg-re "\\)\\>"))))
@@ -974,8 +937,18 @@ An end of a defun is found by moving forward from the beginning of one."
           (save-excursion
             (back-to-indentation)
             (if (looking-at (concat "\\<\\(" ruby-block-mid-re "\\)\\>"))
-                (setq done nil))))))
-  (back-to-indentation))
+                (setq done nil)))))
+    (back-to-indentation)
+    (when (< n 0)
+      (let ((eol (point-at-eol)) state next)
+	(if (< orig eol) (setq eol orig))
+	(setq orig (point))
+	(while (and (setq next (apply 'ruby-parse-partial eol state))
+		    (< (point) eol))
+	  (setq state next))
+	(when (cdaadr state)
+	  (goto-char (cdaadr state)))
+	(backward-word)))))
 
 (defun-region-command ruby-beginning-of-block (&optional arg)
   "Move backward to next beginning-of-block"
@@ -1189,12 +1162,62 @@ balanced expression is found."
               (if mlist (concat mlist mname) mname)
             mlist)))))
 
-(cond
- ((featurep 'font-lock)
+(defun ruby-brace-to-do-end ()
+  (when (looking-at "{")
+    (let ((orig (point)) (end (progn (ruby-forward-sexp) (point))))
+      (when (eq (char-before) ?\})
+	(delete-char -1)
+	(if (eq (char-syntax (char-before)) ?w)
+	    (insert " "))
+	(insert "end")
+	(if (eq (char-syntax (char-after)) ?w)
+	    (insert " "))
+	(goto-char orig)
+	(delete-char 1)
+	(if (eq (char-syntax (char-before)) ?w)
+	    (insert " "))
+	(insert "do")
+	(when (looking-at "\\sw\\||")
+	  (insert " ")
+	  (backward-char))
+	t))))
+
+(defun ruby-do-end-to-brace ()
+  (when (and (or (bolp)
+		 (not (memq (char-syntax (char-before)) '(?w ?_))))
+	     (looking-at "\\<do\\(\\s \\|$\\)"))
+    (let ((orig (point)) (end (progn (ruby-forward-sexp) (point))))
+      (backward-char 3)
+      (when (looking-at ruby-block-end-re)
+	(delete-char 3)
+	(insert "}")
+	(goto-char orig)
+	(delete-char 2)
+	(insert "{")
+	(if (looking-at "\\s +|")
+	    (delete-char (- (match-end 0) (match-beginning 0) 1)))
+	t))))
+
+(defun ruby-toggle-block ()
+  (interactive)
+  (or (ruby-brace-to-do-end)
+      (ruby-do-end-to-brace)))
+
+(eval-when-compile
+  (if (featurep 'font-lock)
+      (defmacro eval-when-font-lock-available (&rest args) (cons 'progn args))
+    (defmacro eval-when-font-lock-available (&rest args))))
+
+(eval-when-compile
+  (if (featurep 'hilit19)
+      (defmacro eval-when-hilit19-available (&rest args) (cons 'progn args))
+    (defmacro eval-when-hilit19-available (&rest args))))
+
+(eval-when-font-lock-available
   (or (boundp 'font-lock-variable-name-face)
       (setq font-lock-variable-name-face font-lock-type-face))
 
-  (setq ruby-font-lock-syntactic-keywords
+  (defconst ruby-font-lock-syntactic-keywords
         `(
           ;; #{ }, #$hoge, #@foo are not comments
           ("\\(#\\)[{$@]" 1 (1 . nil))
@@ -1304,7 +1327,7 @@ buffer position `limit' or the end of the buffer."
                             (not (re-search-forward ruby-here-doc-beg-re eol t))))
                 (string-to-syntax "|")))))))
 
-  (if (featurep 'xemacs)
+  (eval-when-compile
       (put 'ruby-mode 'font-lock-defaults
            '((ruby-font-lock-keywords)
              nil nil nil
@@ -1426,7 +1449,7 @@ buffer position `limit' or the end of the buffer."
      )
     "*Additional expressions to highlight in ruby mode."))
 
- ((featurep 'hilit19)
+(eval-when-hilit19-available
   (hilit-set-mode-patterns
    'ruby-mode
    '(("[^$\\?]\\(\"[^\\\"]*\\(\\\\\\(.\\|\n\\)[^\\\"]*\\)*\"\\)" 1 string)
@@ -1443,7 +1466,45 @@ buffer position `limit' or the end of the buffer."
      ("\\$\\(.\\|\\sw+\\)" nil type)
      ("[$@].[a-zA-Z_0-9]*" nil struct)
      ("^__END__" nil label))))
- )
 
+
+;;;###autoload
+(defun ruby-mode ()
+  "Major mode for editing ruby scripts.
+\\[ruby-indent-command] properly indents subexpressions of multi-line
+class, module, def, if, while, for, do, and case statements, taking
+nesting into account.
+
+The variable ruby-indent-level controls the amount of indentation.
+\\{ruby-mode-map}"
+  (interactive)
+  (kill-all-local-variables)
+  (use-local-map ruby-mode-map)
+  (setq mode-name "Ruby")
+  (setq major-mode 'ruby-mode)
+  (ruby-mode-variables)
+
+  (make-local-variable 'imenu-create-index-function)
+  (setq imenu-create-index-function 'ruby-imenu-create-index)
+
+  (make-local-variable 'add-log-current-defun-function)
+  (setq add-log-current-defun-function 'ruby-add-log-current-method)
+
+  (add-hook
+   (cond ((boundp 'before-save-hook)
+          (make-local-variable 'before-save-hook)
+          'before-save-hook)
+         ((boundp 'write-contents-functions) 'write-contents-functions)
+         ((boundp 'write-contents-hooks) 'write-contents-hooks))
+   'ruby-mode-set-encoding)
+
+  (set (make-local-variable 'font-lock-defaults) '((ruby-font-lock-keywords) nil nil))
+  (set (make-local-variable 'font-lock-keywords) ruby-font-lock-keywords)
+  (set (make-local-variable 'font-lock-syntax-table) ruby-font-lock-syntax-table)
+  (set (make-local-variable 'font-lock-syntactic-keywords) ruby-font-lock-syntactic-keywords)
+
+  (if (fboundp 'run-mode-hooks)
+      (run-mode-hooks 'ruby-mode-hook)
+    (run-hooks 'ruby-mode-hook)))
 
 (provide 'ruby-mode)

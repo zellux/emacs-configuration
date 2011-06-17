@@ -718,7 +718,9 @@ the Rails minor mode log."
   (let* ((prompt (car (car (cdr menu))))
          (mappings (cdr (car (cdr menu))))
          (choices (delete-if #'not (mapcar (lambda (item) (car item)) mappings)))
-         (result (ido-completing-read prompt choices)))
+         (default (if (find-if (lambda (val) (string= (word-at-point) val)) choices)
+                    (word-at-point)))
+         (result (ido-completing-read prompt choices nil nil default)))
     (or (cdr (assoc result mappings)) result)))
 
 (defun rails-core:menu (menu)

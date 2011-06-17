@@ -116,6 +116,7 @@ See the variable `align-rules-list' for more details.")
 
 (defun flymake-ruby-load ()
   (when (and (buffer-file-name)
+             (not (file-remote-p (buffer-file-name))) ; FIX: cabo
              (string-match
               (format "\\(%s\\)"
                       (string-join
