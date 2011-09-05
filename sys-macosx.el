@@ -1,3 +1,4 @@
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
 (setq dropbox-base-dir "~/Documents/Dropbox")
 
 (message "Mac OS X detected.")

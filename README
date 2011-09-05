@@ -1,4 +1,7 @@
-= Linux =
+## Mac OS X
+== Homebrew ==
+  * auctex
+
 == Required packages in ArchLinux ==
  * pymacs
  * auctex
