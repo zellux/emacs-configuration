@@ -29,15 +29,15 @@
 ;; (load "my-gnus.el")
 (load "psvn.el")
 (load "my-doxygen.el")
-(load "my-org-mode.el")
+;; (load "my-org-mode.el")
 (load "my-auctex.el")
 ;; (load "my-fp.el")
 (load "my-utils.el")
 ;; (load "my-vcs.el")
 
 (load "my-cc-mode.el")
-(setq my-muse-base-dir "~/notes")
-(load "my-muse.el")
+;; (setq my-muse-base-dir "~/notes")
+;; (load "my-muse.el")
 ;; (load "my-emms.el")
 (load "misc-chat.el")
 
