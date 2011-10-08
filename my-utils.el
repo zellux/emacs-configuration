@@ -81,3 +81,10 @@
 
 (require 'auto-complete)
 (global-auto-complete-mode t)
+
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+      (cons '("\\.markdown" . markdown-mode)
+            (cons '("\\.md" . markdown-mode)
+                  (cons '("\\.text" . markdown-mode) auto-mode-alist))))

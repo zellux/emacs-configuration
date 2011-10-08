@@ -36,10 +36,11 @@
 ;; (load "my-vcs.el")
 
 (load "my-cc-mode.el")
+(load "lang-ruby.el")
 ;; (setq my-muse-base-dir "~/notes")
 ;; (load "my-muse.el")
 ;; (load "my-emms.el")
-(load "misc-chat.el")
+;; (load "misc-chat.el")
 
 (cond
  ((not (boundp 'initial-window-system))

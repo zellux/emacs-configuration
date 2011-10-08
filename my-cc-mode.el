@@ -154,16 +154,16 @@
 ;; (add-to-list 'semantic-lex-c-preprocessor-symbol-file
 ;; 			 (concat danimos-base-dir "/xen/include/asm-x86/config.h"))
 
-(ede-cpp-root-project "Griffin"
-		      :name "Griffin"
-		      ;; Any file at root directory of the project
-		      :file "~/griffin/linux-2.6.22.19-vs2.2.0.7/Makefile"
-		      ;; Relative to the project's root directory
-		      :include-path '("/"
-				      "/include/asm-x86_64"
-				      "/include/linux"
-				      )
-		      )
+;; (ede-cpp-root-project "Griffin"
+;; 		      :name "Griffin"
+;; 		      ;; Any file at root directory of the project
+;; 		      :file "~/griffin/linux-2.6.22.19-vs2.2.0.7/Makefile"
+;; 		      ;; Relative to the project's root directory
+;; 		      :include-path '("/"
+;; 				      "/include/asm-x86_64"
+;; 				      "/include/linux"
+;; 				      )
+;; 		      )
 
 ;; (ede-cpp-root-project "Cerberus"
 ;; 		      :name "Cerberus"
