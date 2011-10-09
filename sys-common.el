@@ -30,7 +30,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; org-mode
-(load "my-org-mode.el")
+;; (load "my-org-mode.el")
 
 ;; Color theme
 (setq load-path (cons "~/emacs/utils/color-themes" load-path))
