@@ -39,3 +39,10 @@
   ;; set flag to allow exit without query on any
   ;;active flymake processes
   (set-process-query-on-exit-flag ad-return-value nil))
+
+;; scss-mode
+(add-to-list 'load-path (expand-file-name "~/emacs/langmode/ruby"))
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+(setq scss-compile-at-save nil)
