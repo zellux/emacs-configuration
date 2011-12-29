@@ -1,0 +1,3 @@
+[submodule "langmode/emacs-rails"]
+	path = langmode/emacs-rails
+	url = https://github.com/remvee/emacs-rails.git
