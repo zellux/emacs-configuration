@@ -199,7 +199,10 @@
 
 (ecb-layout-define "my-cscope-layout" left nil
                    (ecb-set-methods-buffer)
-                   (ecb-split-ver 0.5 t)
+                   (ecb-split-ver 0.3 t)
+                   (other-window 1)
+                   (ecb-split-ver 0.4 t)
+                   (ecb-set-history-buffer)
                    (other-window 1)
                    (ecb-set-cscope-buffer))
 
