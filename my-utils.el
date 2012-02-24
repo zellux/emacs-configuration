@@ -65,6 +65,10 @@
 
 (setq ibuffer-show-empty-filter-groups nil)
 
+;; ido-mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
 ;; Make buffer name unique
 (require 'uniquify)
