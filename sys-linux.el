@@ -20,6 +20,7 @@
 (global-set-key (kbd "<f5>") 'bm-toggle)
 (global-set-key (kbd "<f6>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
+(global-set-key "C-z" nil)
 
 (setq popup-terminal-command '("gnome-terminal"))
 
@@ -36,6 +37,7 @@
 
 (load "lang-cc.el")
 (load "lang-ruby.el")
+(load "lang-go.el")
 ;; (setq my-muse-base-dir "~/notes")
 ;; (load "misc-muse.el")
 ;; (load "misc-emms.el")
