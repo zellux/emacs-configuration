@@ -20,7 +20,7 @@
 (global-set-key (kbd "<f5>") 'bm-toggle)
 (global-set-key (kbd "<f6>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
-(global-set-key "C-z" nil)
+(global-set-key (kbd "C-z") nil)
 
 (setq popup-terminal-command '("gnome-terminal"))
 
