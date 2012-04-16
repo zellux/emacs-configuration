@@ -1,3 +1,6 @@
 [submodule "langmode/ruby/emacs-rails"]
 	path = langmode/ruby/emacs-rails
 	url = git@github.com:zellux/emacs-rails.git
+[submodule "packages/tomorrow-theme"]
+	path = packages/tomorrow-theme
+	url = https://github.com/chriskempson/tomorrow-theme.git
