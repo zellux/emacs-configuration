@@ -38,6 +38,7 @@
 (load "lang-cc.el")
 (load "lang-ruby.el")
 (load "lang-go.el")
+(load "lang-scala.el")
 ;; (setq my-muse-base-dir "~/notes")
 ;; (load "misc-muse.el")
 ;; (load "misc-emms.el")

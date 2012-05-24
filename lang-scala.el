@@ -6,4 +6,3 @@
           '(lambda ()
              (yas/minor-mode-on)
              ))
-

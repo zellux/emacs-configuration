@@ -11,7 +11,7 @@
 (global-set-key [(f8)] 'speedbar)
 
 (cond ((eq window-system 'ns)
-       (set-default-font "Monaco-12")
+       (set-default-font "Monaco-13")
        (set-fontset-font (frame-parameter nil 'font)
 			 'han (font-spec :family "STHeiTi" :size 14))
        (set-fontset-font (frame-parameter nil 'font)
@@ -32,5 +32,3 @@
 			 'cjk-misc (font-spec :family "XHei" :size 16))
        (set-fontset-font (frame-parameter nil 'font)
 			 'bopomofo (font-spec :family "XHei" :size 16))))
-
-
