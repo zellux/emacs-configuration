@@ -4,3 +4,6 @@
 [submodule "packages/tomorrow-theme"]
 	path = packages/tomorrow-theme
 	url = https://github.com/chriskempson/tomorrow-theme.git
+[submodule "utils/themes/emacs-color-theme-solarized"]
+	path = utils/themes/emacs-color-theme-solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git

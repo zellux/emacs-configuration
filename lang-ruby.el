@@ -73,3 +73,6 @@
     (when indent
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
+
+;; slim-mode
+(require 'slim-mode)
