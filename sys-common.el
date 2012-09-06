@@ -52,3 +52,5 @@
  ((eq initial-window-system nil)
   (message "Console"))
  (t (load "gui-settings.el")))
+
+(semantic-stickyfunc-mode -1)
