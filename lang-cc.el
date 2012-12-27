@@ -2,9 +2,9 @@
 (setq compilation-scroll-output t)
 
 ;; cedet
-(load-file "~/emacs/cedet-1.0/common/cedet.el")
-(require 'semantic-ia)
-(require 'semantic-gcc)
+(semantic-mode 1)
+;  (require 'semantic-ia)
+;; (require 'semantic-gcc)
 
 ;; * This enables the database and idle reparse engines
 ;;(semantic-load-enable-minimum-features)
@@ -18,9 +18,9 @@
 ;; (semantic-load-enable-guady-code-helpers)
 
 ;; * This turns on which-func support (Plus all other code helpers)
-(semantic-load-enable-excessive-code-helpers)
+;; (semantic-load-enable-excessive-code-helpers)
 (setq semantic-load-turn-everything-on t)
-(require 'semantic-load)
+;; (require 'semantic-load)
 
 
 ;; This turns on modes that aid in grammar writing and semantic tool
@@ -127,6 +127,8 @@
 (global-set-key [(f11)] 'semantic-ia-show-summary)
 
 (global-ede-mode t)
+(ede-enable-generic-projects)
+(global-semantic-idle-summary-mode 1)
 
 ;; Danimos-specified configurations
 (add-to-list 'semanticdb-project-roots "~/griffin/linux-2.6.22.19-vs2.2.0.7")
@@ -193,24 +195,24 @@
 								   ;; )
 
 ;; ECB configurations
-(add-to-list 'load-path "~/emacs/ecb-2.40")
+;; (add-to-list 'load-path "~/emacs/ecb-2.40")
 
-(require 'ecb)
-
-(ecb-layout-define "my-cscope-layout" left nil
-                   (ecb-set-methods-buffer)
-                   (ecb-split-ver 0.3 t)
-                   (other-window 1)
-                   (ecb-split-ver 0.4 t)
-                   (ecb-set-history-buffer)
-                   (other-window 1)
-                   (ecb-set-cscope-buffer))
-
-(defecb-window-dedicator ecb-set-cscope-buffer " *ECB cscope-buf*"
-                         (switch-to-buffer "*cscope*"))
-
-(setq ecb-layout-name "my-cscope-layout")
-
-;; Disable buckets so that history buffer can display more entries
-(setq ecb-history-make-buckets 'never)
-
+;; (require 'ecb)
+;; 
+;; (ecb-layout-define "my-cscope-layout" left nil
+;;                    (ecb-set-methods-buffer)
+;;                    (ecb-split-ver 0.3 t)
+;;                    (other-window 1)
+;;                    (ecb-split-ver 0.4 t)
+;;                    (ecb-set-history-buffer)
+;;                    (other-window 1)
+;;                    (ecb-set-cscope-buffer))
+;; 
+;; (defecb-window-dedicator ecb-set-cscope-buffer " *ECB cscope-buf*"
+;;                          (switch-to-buffer "*cscope*"))
+;; 
+;; (setq ecb-layout-name "my-cscope-layout")
+;; 
+;; ;; Disable buckets so that history buffer can display more entries
+;; (setq ecb-history-make-buckets 'never)
+;; 
