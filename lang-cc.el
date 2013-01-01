@@ -3,8 +3,6 @@
 
 ;; cedet
 (semantic-mode 1)
-;  (require 'semantic-ia)
-;; (require 'semantic-gcc)
 
 ;; * This enables the database and idle reparse engines
 ;;(semantic-load-enable-minimum-features)
