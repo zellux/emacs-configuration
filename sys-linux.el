@@ -40,6 +40,7 @@
 (load "lang-go.el")
 (load "lang-scala.el")
 (load "lang-java.el")
+(load "lang-javascript.el")
 ;; (setq my-muse-base-dir "~/notes")
 ;; (load "misc-muse.el")
 ;; (load "misc-emms.el")
