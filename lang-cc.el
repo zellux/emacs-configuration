@@ -193,9 +193,10 @@
 								   ;; )
 
 ;; ECB configurations
-;; (add-to-list 'load-path "~/emacs/ecb-2.40")
+(add-to-list 'load-path "~/emacs/ecb-2.40")
 
-;; (require 'ecb)
+(setq stack-trace-on-error t)
+(require 'ecb)
 ;; 
 ;; (ecb-layout-define "my-cscope-layout" left nil
 ;;                    (ecb-set-methods-buffer)

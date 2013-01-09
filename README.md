@@ -24,23 +24,28 @@
 - libtagc0-dev
 
 ### Windows
-#### Configurating HOME environment ==
-System Properties -> Environment Variables -> New, add a new environment variable `HOME`, which should contain path to the `.emacs` directory
 
-### Component compilation
-#### cedet
+#### HOME environment ==
+Open System Properties -> Environment Variables -> New, and add a new
+environment variable `HOME`, its value should be the path to the
+`.emacs` directory
+
+## Compilation
+
+### cedet
 
     $ emacs -Q -l cedet-build.el -f cedet-build
 
-#### jabber
+### jabber
 
     $ autoreconf -i
     $ ./configure && make
 
-#### muse
+### muse
+
 For LaTeX mathematical equations, install packages `tetex-extra` and `dvipng`.
 
-#### pymacs
+### pymacs
 - Compile Python libraries
 
     make install
@@ -51,3 +56,13 @@ After successful installation, you should be able to execute `from Pymacs import
 
     M-x byte-compile-file RET pymacs.el RET
 
+## Troubleshooting
+
+### (error "Cannot open doc string file \"/usr/share/emacs/24.1.50/etc/DOC-24.1.50.1\"")
+
+See [this issue](https://github.com/bbatsov/prelude/issues/155) on GitHub. A workaround:
+
+```
+$ cd /usr/share/emacs/24.1.50/etc
+$ sudo ln -s DOC-24.1.50.2 DOC-24.1.50.1
+```
