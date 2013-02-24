@@ -193,28 +193,28 @@
 								   ;; )
 
 ;; ECB configurations
-(add-to-list 'load-path "~/emacs/ecb-2.40")
+;; (add-to-list 'load-path "~/emacs/ecb-2.40")
 
-(setq stack-trace-on-error t)
-(require 'ecb)
+;; (setq stack-trace-on-error t)
+;; (require 'ecb)
 ;; 
-(ecb-layout-define "my-cscope-layout" left nil
-                   (ecb-set-methods-buffer)
-                   (ecb-split-ver 0.3 t)
-                   (other-window 1)
-                   (ecb-split-ver 0.4 t)
-                   (ecb-set-history-buffer)
-                   (other-window 1)
-                   (ecb-set-cscope-buffer))
+;; (ecb-layout-define "my-cscope-layout" left nil
+;;                    (ecb-set-methods-buffer)
+;;                    (ecb-split-ver 0.3 t)
+;;                    (other-window 1)
+;;                    (ecb-split-ver 0.4 t)
+;;                    (ecb-set-history-buffer)
+;;                    (other-window 1)
+;;                    (ecb-set-cscope-buffer))
 
-(defecb-window-dedicator-to-ecb-buffer
-    ecb-set-cscope-buffer
-    " *ECB cscope-buf*"
-    t
-  "Display cscope buffer"
-    (switch-to-buffer "*cscope*"))
+;; (defecb-window-dedicator-to-ecb-buffer
+;;     ecb-set-cscope-buffer
+;;     " *ECB cscope-buf*"
+;;     t
+;;   "Display cscope buffer"
+;;     (switch-to-buffer "*cscope*"))
 
-(setq ecb-layout-name "my-cscope-layout")
+;; (setq ecb-layout-name "my-cscope-layout")
 
-;; Disable buckets so that history buffer can display more entries
-(setq ecb-history-make-buckets 'never)
+;; ;; Disable buckets so that history buffer can display more entries
+;; (setq ecb-history-make-buckets 'never)
