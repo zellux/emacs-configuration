@@ -30,7 +30,11 @@ Open System Properties -> Environment Variables -> New, and add a new
 environment variable `HOME`, its value should be the path to the
 `.emacs` directory
 
-## Compilation
+## Setup
+
+### submodules
+
+    $ git submodule init && git submodule update && git submodule status
 
 ### cedet
 
