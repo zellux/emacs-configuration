@@ -66,3 +66,7 @@
     (message "Canceled exit")))
 
 (global-set-key (kbd "C-x C-c") 'ask-before-closing)
+
+(add-to-list 'load-path "~/emacs/utils/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
