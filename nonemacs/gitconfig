@@ -1,9 +1,0 @@
-[user]
-    name = Wang Yuanxuan
-    email = zellux@gmail.com
-
-[color]
-    diff = auto
-    status = auto
-    branch = auto
-    blame = auto
