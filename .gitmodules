@@ -10,3 +10,6 @@
 [submodule "utils/yasnippet"]
 	path = utils/yasnippet
 	url = git://github.com/capitaomorte/yasnippet.git
+[submodule "langmode/c/ecb-2.40"]
+	path = langmode/c/ecb-2.40
+	url = git://github.com/alexott/ecb.git
