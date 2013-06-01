@@ -3,6 +3,7 @@
 
 ;; cedet
 (semantic-mode 1)
+(global-ede-mode t)
 
 ;; * This enables the database and idle reparse engines
 ;;(semantic-load-enable-minimum-features)
@@ -124,7 +125,6 @@
 ;; (global-set-key [(f11)] 'speedbar)
 (global-set-key [(f11)] 'semantic-ia-show-summary)
 
-(global-ede-mode t)
 (ede-enable-generic-projects)
 (global-semantic-idle-summary-mode 1)
 
@@ -193,28 +193,36 @@
 								   ;; )
 
 ;; ECB configurations
-;; (add-to-list 'load-path "~/emacs/ecb-2.40")
+(add-to-list 'load-path "~/emacs/langmode/c/ecb-2.40")
 
-;; (setq stack-trace-on-error t)
-;; (require 'ecb)
+(setq stack-trace-on-error t)
+(require 'ecb)
 ;; 
-;; (ecb-layout-define "my-cscope-layout" left nil
-;;                    (ecb-set-methods-buffer)
-;;                    (ecb-split-ver 0.3 t)
-;;                    (other-window 1)
-;;                    (ecb-split-ver 0.4 t)
-;;                    (ecb-set-history-buffer)
-;;                    (other-window 1)
-;;                    (ecb-set-cscope-buffer))
+(ecb-layout-define "my-cscope-layout" left nil
+                   (ecb-set-methods-buffer)
+                   (ecb-split-ver 0.3 t)
+                   (other-window 1)
+                   (ecb-split-ver 0.4 t)
+                   (ecb-set-history-buffer)
+                   (other-window 1)
+                   (ecb-set-cscope-buffer))
 
-;; (defecb-window-dedicator-to-ecb-buffer
-;;     ecb-set-cscope-buffer
-;;     " *ECB cscope-buf*"
-;;     t
-;;   "Display cscope buffer"
-;;     (switch-to-buffer "*cscope*"))
+(defecb-window-dedicator-to-ecb-buffer
+    ecb-set-cscope-buffer
+    " *ECB cscope-buf*"
+    t
+  "Display cscope buffer"
+    (switch-to-buffer "*cscope*"))
 
-;; (setq ecb-layout-name "my-cscope-layout")
+(setq ecb-layout-name "my-cscope-layout")
 
 ;; ;; Disable buckets so that history buffer can display more entries
 ;; (setq ecb-history-make-buckets 'never)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-default-highlight-face ((t (:background "brightgreen"))))
+ '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))

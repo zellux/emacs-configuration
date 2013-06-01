@@ -1,13 +1,13 @@
 ## Pre-requisitions
 
-### Mac OS X (Homebrew)
+### Mac OS X & Linux
 
 - auctex
+- cscope
 
 ### ArchLinux
 
 - pymacs
-- auctex
 - emacs-haskell-mode
 - slime
 - emacs-color-theme
@@ -17,11 +17,11 @@
 ### Ubuntu
 
 - emacs-goodies-el
-- auctex
 - emacs-jabber
 - python-mode
 - emms
 - libtagc0-dev
+- cscope-el
 
 ### Windows
 
