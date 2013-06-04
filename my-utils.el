@@ -83,9 +83,6 @@
 (global-set-key (kbd "C-c <right>") 'winner-redo)
 (winner-mode t) ;; turn on the global minor mode
 
-(require 'auto-complete)
-(global-auto-complete-mode t)
-
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 (setq auto-mode-alist
