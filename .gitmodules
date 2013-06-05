@@ -13,3 +13,9 @@
 [submodule "langmode/c/ecb-2.40"]
 	path = langmode/c/ecb-2.40
 	url = git://github.com/alexott/ecb.git
+[submodule "utils/auto-complete"]
+	path = utils/auto-complete
+	url = git://github.com/auto-complete/auto-complete.git
+[submodule "langmode/c/auto-complete-clang"]
+	path = langmode/c/auto-complete-clang
+	url = git://github.com/brianjcj/auto-complete-clang.git
