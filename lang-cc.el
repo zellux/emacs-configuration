@@ -52,14 +52,12 @@
 ;;  (define-key c-mode-base-map [(tab)] 'my-indent-or-complete)
 ;;  (define-key c-mode-base-map [(meta ?/)] 'semantic-ia-complete-symbol-menu)
   
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (define-key company-mode-map "\t" nil)
-  (define-key company-mode-map [(backtab)] 'company-complete-common)
-  ;; (local-set-key "." 'semantic-complete-self-insert)
-  ;; (local-set-key ">" 'semantic-complete-self-insert)
+  ;; (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  ;; (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+  ;; (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  ;; (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  ;; (define-key company-mode-map "\t" nil)
+  ;; (define-key company-mode-map [(backtab)] 'company-complete-common)
 
   (setq c-macro-shrink-window-flag t)
   (setq c-macro-preprocessor "cpp")
@@ -226,3 +224,26 @@
  ;; If there is more than one, they won't work right.
  '(ecb-default-highlight-face ((t (:background "brightgreen"))))
  '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))
+
+;; auto-complete
+(add-to-list 'load-path "~/emacs/utils/auto-complete")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/emacs/utils/auto-complete/ac-dict")
+(ac-config-default)
+
+(add-to-list 'load-path "~/emacs/langmode/c/auto-complete-clang")
+(require 'auto-complete-clang)
+(setq clang-completion-suppress-error 't)
+;; (setq ac-clang-flags
+;;       (mapcar (lambda (item)(concat "-I" item))
+;;               (append
+;;                mycustom-system-include-paths
+;;                )
+;;               )
+;;       )
+ 
+(defun my-ac-clang-mode-common-hook()
+  (define-key c-mode-base-map (kbd "backtab") 'ac-complete-clang)
+)
+ 
+(add-hook 'c-mode-common-hook 'my-ac-clang-mode-common-hook)
