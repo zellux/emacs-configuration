@@ -84,3 +84,5 @@
       (cons '("\\.markdown" . markdown-mode)
             (cons '("\\.md" . markdown-mode)
                   (cons '("\\.text" . markdown-mode) auto-mode-alist))))
+
+(add-to-list 'load-path "~/emacs/utils/popup")

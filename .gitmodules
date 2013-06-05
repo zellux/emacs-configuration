@@ -19,3 +19,6 @@
 [submodule "langmode/c/auto-complete-clang"]
 	path = langmode/c/auto-complete-clang
 	url = git://github.com/brianjcj/auto-complete-clang.git
+[submodule "utils/popup"]
+	path = utils/popup
+	url = https://github.com/auto-complete/popup-el
