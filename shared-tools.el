@@ -6,7 +6,7 @@
                           (list
                            (list dired-re-exe
                                  '(".+" (dired-move-to-filename) nil (0
-								      font-lock-type-face))))))))
+																	  font-lock-type-face))))))))
 
 ;; (require 'git-emacs)
 
@@ -21,11 +21,6 @@
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 (require 'erc) 
-
-(add-to-list 'load-path (expand-file-name "~/emacs/langmode/ocaml"))
-(load "ocaml.emacs")
-
-;; (load "quack")
 
 ;; ibuffer for buffer management
 (require 'ibuffer) 
@@ -58,8 +53,8 @@
 			   ("ERC"   (mode . erc-mode))))))
 
 (add-hook 'ibuffer-mode-hook
-  (lambda ()
-    (ibuffer-switch-to-saved-filter-groups "default")))
+		  (lambda ()
+			(ibuffer-switch-to-saved-filter-groups "default")))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 

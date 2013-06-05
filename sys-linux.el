@@ -27,12 +27,11 @@
 ;; (load "lang-python.el")
 
 ;; (load "misc-gnus.el")
-(load "psvn.el")
 (load "misc-doxygen.el")
 ;; (load "misc-org-mode.el")
 ;; (load "lang-auctex.el")
 ;; (load "lang-fp.el")
-(load "my-utils.el")
+(load "shared-tools.el")
 ;; (load "misc-vcs.el")
 
 (load "lang-cc.el")

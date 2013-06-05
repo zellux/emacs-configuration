@@ -14,8 +14,6 @@
 ;; (require 'slime)
 ;; (slime-setup)
 
-;; (add-to-list 'load-path "~/emacs/tuareg/")
-
 (add-to-list 'load-path "~/emacs/langmode/lisp")
 (require 'quack)
 
@@ -26,3 +24,6 @@
 ;; (setq slime-net-coding-system 'utf-8-unix)
 ;; (slime-setup)
 ;; 
+
+(add-to-list 'load-path (expand-file-name "~/emacs/langmode/ocaml"))
+(load "ocaml.emacs")
