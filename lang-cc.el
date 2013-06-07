@@ -38,26 +38,9 @@
 
 (defun my-c-mode-common-hook()
   (setq tab-width 4 indent-tabs-mode nil)
-  ;; hungry-delete and auto-newline
-  ;; (c-toggle-auto-hungry-state 1)
 
   (setq default-tab-width 4)
   (setq column-number-mode t)
-
-;;  (define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
-;;  (define-key c-mode-base-map [(return)] 'newline-and-indent)
-;;  (define-key c-mode-base-map [(f7)] 'compile)
-;;  (define-key c-mode-base-map [(meta \`)] 'c-indent-command)
-;;  (define-key c-mode-base-map [(tab)] 'hippie-expand)
-;;  (define-key c-mode-base-map [(tab)] 'my-indent-or-complete)
-;;  (define-key c-mode-base-map [(meta ?/)] 'semantic-ia-complete-symbol-menu)
-  
-  ;; (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  ;; (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  ;; (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  ;; (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  ;; (define-key company-mode-map "\t" nil)
-  ;; (define-key company-mode-map [(backtab)] 'company-complete-common)
 
   (setq c-macro-shrink-window-flag t)
   (setq c-macro-preprocessor "cpp")
@@ -65,6 +48,8 @@
   (setq c-macro-prompt-flag t)
   (setq hs-minor-mode t)
   (setq abbrev-mode t)
+
+  (local-set-key  (kbd "C-c o") 'ff-find-other-file)
 )
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
