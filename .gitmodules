@@ -22,3 +22,6 @@
 [submodule "utils/popup"]
 	path = utils/popup
 	url = https://github.com/auto-complete/popup-el
+[submodule "utils/muse"]
+	path = utils/muse
+	url = git://repo.or.cz/muse-el.git
