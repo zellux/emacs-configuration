@@ -228,7 +228,7 @@
 ;;       )
  
 (defun my-ac-clang-mode-common-hook()
-  (define-key c-mode-base-map (kbd "backtab") 'ac-complete-clang)
+  (define-key c-mode-base-map [backtab] 'ac-complete-clang)
 )
  
 (add-hook 'c-mode-common-hook 'my-ac-clang-mode-common-hook)
