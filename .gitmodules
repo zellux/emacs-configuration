@@ -22,3 +22,9 @@
 [submodule "utils/popup"]
 	path = utils/popup
 	url = https://github.com/auto-complete/popup-el
+[submodule "langmode/php-mode"]
+	path = langmode/php-mode
+	url = https://github.com/ejmr/php-mode.git
+[submodule "langmode/php/php-mode"]
+	path = langmode/php/php-mode
+	url = https://github.com/ejmr/php-mode.git
