@@ -25,3 +25,9 @@
 [submodule "utils/muse"]
 	path = utils/muse
 	url = git://repo.or.cz/muse-el.git
+[submodule "langmode/php-mode"]
+	path = langmode/php-mode
+	url = https://github.com/ejmr/php-mode.git
+[submodule "langmode/php/php-mode"]
+	path = langmode/php/php-mode
+	url = https://github.com/ejmr/php-mode.git

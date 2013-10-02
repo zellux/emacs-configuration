@@ -77,5 +77,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "color-236" :foreground "white"))))
+ '(cscope-line-face ((t (:foreground "#5f8700"))))
  '(ecb-default-highlight-face ((t (:background "brightgreen"))))
  '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))
