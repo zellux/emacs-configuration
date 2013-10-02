@@ -12,6 +12,7 @@
 
 (cond ((eq window-system 'ns)
        (set-default-font "Monaco-13")
+       (setq default-frame-alist '((font . "Monaco-13")))
        (set-fontset-font (frame-parameter nil 'font)
 			 'han (font-spec :family "STHeiTi" :size 14))
        (set-fontset-font (frame-parameter nil 'font)
