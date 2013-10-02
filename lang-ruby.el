@@ -14,6 +14,8 @@
 (add-to-list 'load-path (expand-file-name "~/emacs/langmode/ruby/emacs-rails"))
 (require 'rails)
 (setq rails-enable-ruby-electric nil)
+(remove-hook 'ruby-mode-hook 'ruby-electric-mode)
+
 
 ;; RHTML-mode
 (add-to-list 'load-path (expand-file-name "~/emacs/langmode/ruby/rhtml"))
