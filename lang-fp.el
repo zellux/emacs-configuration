@@ -1,11 +1,8 @@
-;; Emacs Haskell-mode
-;; (load "/usr/share/emacs/site-lisp/haskell-mode/haskell-site-file.el")
-;; (autoload 'turn-on-haskell-doc-mode "haskell-doc" nil t)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-ghci)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; structured-haskell-mode
+;; https://github.com/chrisdone/structured-haskell-mode
+(add-to-list 'load-path "~/emacs/langmode/haskell/structured-haskell-mode/elisp")
+(require 'shm)
+(add-hook 'haskell-mode-hook 'structured-haskell-mode)
 
 ;; slime-mode
 ;; (setq inferior-lisp-program "/usr/bin/mit-scheme"

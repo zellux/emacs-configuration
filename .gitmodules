@@ -31,3 +31,6 @@
 [submodule "langmode/php/php-mode"]
 	path = langmode/php/php-mode
 	url = https://github.com/ejmr/php-mode.git
+[submodule "langmode/haskell/structured-haskell-mode"]
+	path = langmode/haskell/structured-haskell-mode
+	url = https://github.com/chrisdone/structured-haskell-mode.git
