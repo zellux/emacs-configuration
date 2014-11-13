@@ -34,3 +34,6 @@
 [submodule "langmode/haskell/structured-haskell-mode"]
 	path = langmode/haskell/structured-haskell-mode
 	url = https://github.com/chrisdone/structured-haskell-mode.git
+[submodule "langmode/javascript/js2-mode"]
+	path = langmode/javascript/js2-mode
+	url = https://github.com/mooz/js2-mode.git
