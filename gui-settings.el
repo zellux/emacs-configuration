@@ -12,8 +12,8 @@
 
 (cond ((eq window-system 'ns)
        (if (>= (x-display-pixel-height) 1440)
-           (progn (set-default-font "Monaco-14")
-                  (setq default-frame-alist '((font . "Monaco-14"))))
+           (progn (set-default-font "Monaco-15")
+                  (setq default-frame-alist '((font . "Monaco-15"))))
          (progn (set-default-font "Monaco-13")
                 (setq default-frame-alist '((font . "Monaco-13")))
                 (set-fontset-font (frame-parameter nil 'font)
