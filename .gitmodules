@@ -37,3 +37,9 @@
 [submodule "langmode/javascript/js2-mode"]
 	path = langmode/javascript/js2-mode
 	url = https://github.com/mooz/js2-mode.git
+[submodule "utils/helm"]
+	path = utils/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "utils/async"]
+	path = utils/async
+	url = git@github.com:jwiegley/emacs-async.git

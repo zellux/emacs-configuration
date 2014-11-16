@@ -60,6 +60,16 @@ After successful installation, you should be able to execute `from Pymacs import
 
     M-x byte-compile-file RET pymacs.el RET
 
+### structured-haskell-mode
+
+$ cd langmode/haskell/structured-haskell-mode
+$ cabal install
+
+### helm
+
+$ cd utils/helm
+$ make
+
 ## Troubleshooting
 
 ### (error "Cannot open doc string file \"/usr/share/emacs/24.1.50/etc/DOC-24.1.50.1\"")

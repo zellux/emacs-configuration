@@ -86,3 +86,8 @@
                   (cons '("\\.text" . markdown-mode) auto-mode-alist))))
 
 (add-to-list 'load-path "~/emacs/utils/popup")
+
+(add-to-list 'load-path "~/emacs/utils/async")
+(add-to-list 'load-path "~/emacs/utils/helm")
+(require 'helm-config)
+(helm-mode 1)
