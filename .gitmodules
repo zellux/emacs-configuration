@@ -43,3 +43,9 @@
 [submodule "utils/async"]
 	path = utils/async
 	url = git@github.com:jwiegley/emacs-async.git
+[submodule "langmode/javascript/js3-mode"]
+	path = langmode/javascript/js3-mode
+	url = https://github.com/thomblake/js3-mode.git
+[submodule "langmode/javascript/jsx-mode"]
+	path = langmode/javascript/jsx-mode
+	url = https://github.com/jsx/jsx-mode.el.git

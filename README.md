@@ -50,6 +50,7 @@ environment variable `HOME`, its value should be the path to the
 For LaTeX mathematical equations, install packages `tetex-extra` and `dvipng`.
 
 ### pymacs
+
 - Compile Python libraries
 
     make install
@@ -62,13 +63,18 @@ After successful installation, you should be able to execute `from Pymacs import
 
 ### structured-haskell-mode
 
-$ cd langmode/haskell/structured-haskell-mode
-$ cabal install
+    $ cd langmode/haskell/structured-haskell-mode
+    $ cabal install
 
 ### helm
 
-$ cd utils/helm
-$ make
+    $ cd utils/helm
+    $ make
+
+### js3-mode
+
+    $ cd langmode/javascript/js3-mode
+    $ bin/build
 
 ## Troubleshooting
 
