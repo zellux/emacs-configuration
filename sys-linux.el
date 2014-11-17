@@ -7,16 +7,6 @@
 ;; (require 'pymacs)
 ;; (pymacs-load "ropemacs" "rope-")
 
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/emacs/elpa/package.el"))
-  (package-initialize))
-
 (global-set-key (kbd "<f5>") 'bm-toggle)
 (global-set-key (kbd "<f6>") 'bm-next)
 (global-set-key (kbd "<f7>") 'bm-show)
