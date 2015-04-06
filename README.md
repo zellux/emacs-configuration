@@ -32,6 +32,15 @@ environment variable `HOME`, its value should be the path to the
 
 ## Setup
 
+### Packages
+
+Add MELPA to package repository (http://melpa.org/#/getting-started).
+
+These packages may need to be installed:
+
+- jsx-mode
+- projectile
+
 ### submodules
 
     $ git submodule init && git submodule update && git submodule status

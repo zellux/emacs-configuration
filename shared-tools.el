@@ -84,9 +84,8 @@
 
 (add-to-list 'load-path "~/emacs/utils/popup")
 
-;; (add-to-list 'load-path "~/emacs/utils/projectile")
-;; (require 'projectile)
-;; (projectile-global-mode)
+(require 'projectile)
+(projectile-global-mode)
 
 ;; (add-to-list 'load-path "~/emacs/utils/async")
 ;; (add-to-list 'load-path "~/emacs/utils/helm")
