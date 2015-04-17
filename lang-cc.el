@@ -54,6 +54,10 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
+(add-to-list 'load-path "~/emacs/langmode/c/google-c-style")
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+
 ;; Company-mode
 (add-to-list 'load-path (expand-file-name "~/emacs/company"))
 (load-file "~/emacs/company/company.el")
