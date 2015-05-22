@@ -49,3 +49,6 @@
 [submodule "langmode/javascript/jsx-mode"]
 	path = langmode/javascript/jsx-mode
 	url = https://github.com/jsx/jsx-mode.el.git
+[submodule "langmode/go/go-mode"]
+	path = langmode/go/go-mode
+	url = git@github.com:dominikh/go-mode.el.git
