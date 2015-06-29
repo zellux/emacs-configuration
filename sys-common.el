@@ -35,14 +35,8 @@
 ;; Color theme
 (setq load-path (cons "~/emacs/utils/color-themes" load-path))
 (setq load-path (cons "~/emacs/packages/tomorrow-theme/GNU Emacs" load-path))
-(setq load-path (cons "~/emacs/utils/themes/emacs-color-theme-solarized" load-path))
-;; (require 'color-theme)
-;; (load "color-theme-wyx.el")
-;; (load "color-theme-tango.el")
-;; (load-theme 'solarized-dark t)
-;; (color-theme-wyx)
-(require 'color-theme-solarized)
-(color-theme-solarized-dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(load-theme 'solarized t)
 
 ;; Column display ON
 (column-number-mode t)

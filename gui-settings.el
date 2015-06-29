@@ -1,5 +1,3 @@
-(scroll-bar-mode -1)
-
 ;; Toggle off tool-bar
 (tool-bar-mode 0)
 
@@ -12,6 +10,7 @@
 
 (cond ((eq window-system 'ns)
        (if (>= (x-display-pixel-height) 1440)
+           (scroll-bar-mode -1)
            (progn (set-default-font "Monaco-15")
                   (setq default-frame-alist '((font . "Monaco-15"))))
          (progn (set-default-font "Monaco-13")

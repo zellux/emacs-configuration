@@ -1,3 +1,5 @@
+(when (< emacs-major-version 24)
+    (add-to-list 'load-path "~/emacs/utils/package-old"))
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
@@ -5,6 +7,14 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+(setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile))
+(when (>= emacs-major-version 24)
+    (setq package-list '(ecb shm bm yasnippet muse helm popup color-theme-solarized async auto-complete-clang go-mode)))
+
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 (require 'xcscope)
 (require 'linum)
@@ -45,13 +55,13 @@
 ;; (load "misc-chat.el")
 
 (cond
- ((not (boundp 'initial-window-system))
-  (message "Console"))
- (t (load "gui-settings.el")))
+  ((not (boundp 'initial-window-system))
+   (message "Console"))
+  (t (load "gui-settings.el")))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))
+  '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))
