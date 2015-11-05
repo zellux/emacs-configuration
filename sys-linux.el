@@ -10,7 +10,7 @@
 
 (setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile))
 (when (>= emacs-major-version 24)
-    (setq package-list '(ecb shm bm yasnippet muse helm popup color-theme-solarized async auto-complete-clang go-mode)))
+    (setq package-list '(ecb shm bm yasnippet muse helm popup color-theme-solarized async auto-complete-clang go-mode js3-mode jsx-mode)))
 
 (dolist (package package-list)
   (unless (package-installed-p package)
@@ -53,6 +53,12 @@
 ;; (load "misc-muse.el")
 ;; (load "misc-emms.el")
 ;; (load "misc-chat.el")
+
+# Projectile
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
 
 (cond
   ((not (boundp 'initial-window-system))
