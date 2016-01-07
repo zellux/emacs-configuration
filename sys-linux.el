@@ -54,7 +54,7 @@
 ;; (load "misc-emms.el")
 ;; (load "misc-chat.el")
 
-# Projectile
+;; Projectile
 (define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
 (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
