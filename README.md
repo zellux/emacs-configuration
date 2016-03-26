@@ -32,6 +32,8 @@ environment variable `HOME`, its value should be the path to the
 
 ## Setup
 
+Link emacs.symlink to ~/.emacs.
+
 ### Packages
 
 Add MELPA to package repository (http://melpa.org/#/getting-started).
