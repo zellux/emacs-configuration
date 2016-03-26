@@ -1,16 +1,6 @@
-(when (< emacs-major-version 24)
-    (add-to-list 'load-path "~/emacs/utils/package-old"))
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
-
-(setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile))
+(setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile go-mode))
 (when (>= emacs-major-version 24)
-    (setq package-list '(ecb shm bm yasnippet muse helm popup color-theme-solarized async auto-complete-clang go-mode js3-mode jsx-mode)))
+  (setq package-list (append package-list '(helm js3-mode jsx-mode exec-path-from-shell))))
 
 (dolist (package package-list)
   (unless (package-installed-p package)

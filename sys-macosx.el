@@ -9,3 +9,6 @@
 (define-key (keymap-parent local-function-key-map) [S-tab] nil) 
 
 (setq ispell-program-name "/usr/local/bin/aspell")
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
