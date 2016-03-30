@@ -2,7 +2,7 @@
 (setq load-path (cons "~/emacs" load-path))
 (setq load-path (cons "~/emacs/utils" load-path))
 
-(load "sys-init.el"))
+(load "sys-init.el")
 
 ;; Load configuration for different systems
 (if (string-equal system-type "darwin")
