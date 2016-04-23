@@ -32,7 +32,7 @@ environment variable `HOME`, its value should be the path to the
 
 ## Setup
 
-Link emacs.symlink to ~/.emacs.
+Link emacs.symlink to ~/.emacs. In emacs, run `M-x package-list-packages` to initialize package system, and then restart emacs.
 
 ### Packages
 

@@ -1,4 +1,4 @@
-(setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile go-mode))
+(setq package-list '(ecb shm bm yasnippet muse popup color-theme-solarized async auto-complete-clang go-mode projectile go-mode xcscope))
 (when (>= emacs-major-version 24)
   (setq package-list (append package-list '(helm js3-mode jsx-mode exec-path-from-shell))))
 
