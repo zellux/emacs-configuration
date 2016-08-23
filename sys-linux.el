@@ -13,13 +13,16 @@
         go-eldoc
         go-autocomplete
         go-rename
-        go-dlv))
+        go-dlv
+        thrift
+        ))
 
 (setq extra-packages-for-24
       '(helm
         js3-mode
         jsx-mode
-        exec-path-from-shell))
+        exec-path-from-shell
+        ))
 
 (when (>= emacs-major-version 24)
   (setq package-list (append package-list extra-packages-for-24)))
