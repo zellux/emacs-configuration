@@ -16,6 +16,7 @@
         go-dlv
         thrift
         yasnippet
+        git
         ))
 
 (setq extra-packages-for-24
