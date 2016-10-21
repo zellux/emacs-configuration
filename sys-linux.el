@@ -15,6 +15,7 @@
         go-rename
         go-dlv
         thrift
+        yasnippet
         ))
 
 (setq extra-packages-for-24
@@ -22,6 +23,7 @@
         js3-mode
         jsx-mode
         exec-path-from-shell
+        org
         ))
 
 (when (>= emacs-major-version 24)

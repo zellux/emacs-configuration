@@ -28,9 +28,15 @@
  ;; If there is more than one, they won't work right.
  '(emms-lyrics-display-on-minibuffer nil)
  '(emms-lyrics-display-on-modeline t)
+ '(js3-auto-indent-p t)
+ '(js3-enter-indents-newline t)
+ '(js3-indent-on-enter-key t)
  '(muse-html-charset-default "utf-8")
  '(muse-html-encoding-default (quote utf-8))
  '(muse-html-meta-content-encoding (quote utf-8))
+ '(package-selected-packages
+   (quote
+    (yasnippet xcscope thrift solarized-theme shm muse jsx-mode js3-mode hive helm-projectile go-rename go-eldoc go-dlv go-autocomplete exec-path-from-shell etags-select ecb ctags-update ctags color-theme-solarized bm auto-complete-clang ag ac-etags)))
  '(quack-default-program "mzscheme")
  '(quack-fontify-style (quote emacs))
  '(quack-programs
