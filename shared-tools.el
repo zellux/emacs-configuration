@@ -17,8 +17,6 @@
 (require 'textile-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
-(require 'erc) 
-
 ;; ibuffer for buffer management
 (require 'ibuffer) 
 (setq ibuffer-saved-filter-groups
@@ -46,8 +44,7 @@
 				 (mode . python-mode)
 				 (mode . emacs-lisp-mode)
 				 ;; etc
-				 ))
-			   ("ERC"   (mode . erc-mode))))))
+				 ))))))
 
 (add-hook 'ibuffer-mode-hook
 		  (lambda ()
