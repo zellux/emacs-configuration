@@ -34,9 +34,6 @@
  '(muse-html-charset-default "utf-8")
  '(muse-html-encoding-default (quote utf-8))
  '(muse-html-meta-content-encoding (quote utf-8))
- '(package-selected-packages
-   (quote
-    (yasnippet xcscope thrift solarized-theme shm muse jsx-mode js3-mode hive helm-projectile go-rename go-eldoc go-dlv go-autocomplete exec-path-from-shell etags-select ecb ctags-update ctags color-theme-solarized bm auto-complete-clang ag ac-etags)))
  '(quack-default-program "mzscheme")
  '(quack-fontify-style (quote emacs))
  '(quack-programs

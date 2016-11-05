@@ -32,12 +32,6 @@
 ;; org-mode
 ;; (load "my-org-mode.el")
 
-;; Color theme
-(setq load-path (cons "~/emacs/utils/color-themes" load-path))
-(setq load-path (cons "~/emacs/packages/tomorrow-theme/GNU Emacs" load-path))
-(set-terminal-parameter nil 'background-mode 'dark)
-(load-theme 'solarized t)
-
 ;; Column display ON
 (column-number-mode t)
 
@@ -69,7 +63,9 @@
 
 (require 'package)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(color-theme-solarized)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
