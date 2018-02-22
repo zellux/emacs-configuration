@@ -52,3 +52,6 @@
 [submodule "langmode/go/go-mode"]
 	path = langmode/go/go-mode
 	url = git@github.com:dominikh/go-mode.el.git
+[submodule "themes/color-theme-solarized"]
+	path = themes/color-theme-solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git

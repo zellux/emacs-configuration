@@ -60,13 +60,17 @@
 (require 'yasnippet)
 (yas-global-mode 1)
 
+(add-to-list 'custom-theme-load-path "~/emacs/themes")
+(add-to-list 'custom-theme-load-path "~/emacs/themes/color-theme-solarized")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (set-frame-parameter nil 'background-mode 'dark)
+            (load-theme 'solarized)
+            ))
 
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-(color-theme-initialize)
-(color-theme-solarized)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

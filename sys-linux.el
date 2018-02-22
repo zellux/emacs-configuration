@@ -5,8 +5,6 @@
         yasnippet
         muse
         popup
-        color-theme
-        color-theme-solarized
         async auto-complete-clang
         projectile
         xcscope
