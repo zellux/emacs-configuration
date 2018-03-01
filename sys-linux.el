@@ -16,18 +16,12 @@
         thrift
         yasnippet
         git
-        ))
-
-(setq extra-packages-for-24
-      '(helm
+        helm
         js3-mode
         jsx-mode
         exec-path-from-shell
         org
         ))
-
-(when (>= emacs-major-version 24)
-  (setq package-list (append package-list extra-packages-for-24)))
 
 (dolist (package package-list)
   (unless (package-installed-p package)
