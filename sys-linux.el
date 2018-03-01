@@ -38,9 +38,7 @@
 (require 'cc-mode)
 (require 'bm)
 
-;; (require 'pysmell)
-;; (require 'pymacs)
-;; (pymacs-load "ropemacs" "rope-")
+(cscope-setup)
 
 (global-set-key (kbd "<f5>") 'bm-toggle)
 (global-set-key (kbd "<f6>") 'bm-next)
@@ -76,6 +74,7 @@
 (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
 (define-key projectile-mode-map [?\s-g] 'projectile-grep)
+(setq projectile-enable-caching t)
 
 (cond
   ((not (boundp 'initial-window-system))
