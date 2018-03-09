@@ -16,3 +16,5 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (setq org-tags-column -90)
+
+(add-hook 'org-mode-hook (lambda () (auto-revert-mode 1)))
