@@ -1,3 +1,5 @@
+(setq dropbox-base-dir "~/Dropbox")
+
 (setq package-list
       '(ecb
         shm
@@ -21,6 +23,11 @@
         jsx-mode
         exec-path-from-shell
         org
+        org-plus-contrib
+        rtags
+        ycmd
+        company-ycmd
+        flycheck-ycmd
         ))
 
 (dolist (package package-list)
@@ -45,7 +52,7 @@
 
 ;; (load "misc-gnus.el")
 (load "misc-doxygen.el")
-;; (load "misc-org-mode.el")
+(load "util-org-mode.el")
 ;; (load "lang-auctex.el")
 (load "lang-fp.el")
 (load "shared-tools.el")
