@@ -41,8 +41,6 @@
   (message "Console"))
  (t (load "gui-settings.el")))
 
-(semantic-stickyfunc-mode -1)
-
 ;; Ask before quitting
 (defun ask-before-closing ()
   "Ask whether or not to close, and then close if y was pressed"

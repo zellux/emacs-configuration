@@ -25,9 +25,7 @@
         org
         org-plus-contrib
         rtags
-        ycmd
-        company-ycmd
-        flycheck-ycmd
+        elpy
         ))
 
 (dolist (package package-list)
@@ -48,7 +46,7 @@
 
 (setq popup-terminal-command '("gnome-terminal"))
 
-;; (load "lang-python.el")
+(load "lang-python.el")
 
 ;; (load "misc-gnus.el")
 (load "misc-doxygen.el")
@@ -81,10 +79,3 @@
   ((not (boundp 'initial-window-system))
    (message "Console"))
   (t (load "gui-settings.el")))
-
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  '(semantic-decoration-on-private-members-face ((((class color) (background dark)) (:background "#2e3330")))))
