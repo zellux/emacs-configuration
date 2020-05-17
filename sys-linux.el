@@ -20,7 +20,6 @@
         git
         helm
         js3-mode
-        jsx-mode
         exec-path-from-shell
         org
         org-plus-contrib
